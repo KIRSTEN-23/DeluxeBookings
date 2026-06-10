@@ -19,10 +19,10 @@ app.get('/', (req, res) => {
 // app.use('/api/admin', adminRoutes);
 
 //routes
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/authRoutes");
 app.use("/auth", authRoutes);
 
-const bookingRoutes = require('./routes/bookings');
+const bookingRoutes = require('./routes/checkoutRoutes');
 app.use("/api", bookingRoutes);
 
 module.exports = app;
