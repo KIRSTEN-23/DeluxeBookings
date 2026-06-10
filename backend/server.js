@@ -1,8 +1,9 @@
-const dotenv = require('dotenv');
+require("dotenv").config();
 const app = require('./app');
 const connectDB = require('./config/db');
-
-dotenv.config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5001;
 
@@ -20,3 +21,12 @@ const startServer = async () => {
 };
 
 startServer();
+
+// Shows whether mongoDB is connected
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
+
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
+});

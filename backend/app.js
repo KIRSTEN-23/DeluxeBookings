@@ -18,4 +18,11 @@ app.get('/', (req, res) => {
 // app.use('/api/seller', sellerRoutes);
 // app.use('/api/admin', adminRoutes);
 
+//routes
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
+
+const bookingRoutes = require('./routes/bookings');
+app.use("/api", bookingRoutes);
+
 module.exports = app;
