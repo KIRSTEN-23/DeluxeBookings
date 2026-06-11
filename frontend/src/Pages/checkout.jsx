@@ -3,6 +3,10 @@ import { useState } from "react";
 import axios from "axios";
 import DatesPicker from '../Components/datePicker';
 import Footer from '../Components/footer';
+import Button from 'react-bootstrap/Button';
+import { Undo2 } from 'lucide-react';
+import { Send } from 'lucide-react';
+import { House } from 'lucide-react';
 
 function Checkout() {
   const [checkoutPage, setCheckoutPage] = useState(1);
@@ -73,66 +77,70 @@ function Checkout() {
           <div className="CheckoutBack col-6">
             <div className="CheckoutBox">
               
-              <ProgressBar now={33} className='progressBar'/>
+              <ProgressBar now={33} variant="dark"  className='progressBar'/>
 
               <h3 className='m-plus-rounded-1c-bold checkoutHeading LogInText'>Enter your personal details:</h3>
 
               <form onSubmit={handleDetailsSubmit}>
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">First Name</label>
+                    <br></br>
                     <input
                       placeholder="First Name"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)} 
-                      className='Checkoutinput'
                       required
                     />
                   </div>
 
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">Last Name</label>
+                    <br></br>
                     <input
                       placeholder="Last Name"
                       value={lastName}
-                      onChange={(e) => setLastName(e.target.value)} 
-                      className='Checkoutinput'
+                      onChange={(e) => setLastName(e.target.value)}
                       required
                     />
                   </div>
                 </div>
-
+<br></br>
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">Email address</label>
+                    <br></br>
                     <input
                       type="email"
                       placeholder="Email address"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)} 
-                      className='Checkoutinput'
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
 
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">Phone number</label>
+                    <br></br>
                     <input
                       type="tel"
                       placeholder="Phone number"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)} 
-                      className='Checkoutinput'
+                      onChange={(e) => setPhone(e.target.value)}
                       required
                     />
                   </div>
                 </div>
 
                 <div className="row">
-                  <h6 className='inter-bold checkoutHeading'>Select arrival day:</h6>
+                  <h6 className='checkoutHeading'>Select arrival day:</h6>
                   <DatesPicker />
 
-                  <h6 className='inter-bold checkoutHeading'>Select departure day:</h6>
+                  <h6 className='checkoutHeading'>Select departure day:</h6>
                   <DatesPicker />
 
                   <div className="col-lg">
-                    <p className='inter-bold checkoutSubHeading'>Select from our addons:</p>
+                    <p className='checkoutSubHeading'>Select from our addons:</p>
 
                     <div className="row checkBoxAlign">
                       <label className="checkContainer">
@@ -144,7 +152,7 @@ function Checkout() {
                           onChange={handleAddonChange}
                         />
                         <span className="checkmark"></span>
-                        <span className='inter-regular'>
+                        <span>
                           <h6 className='checkBoxTextA'>Breakfast</h6>
                         </span>
                       </label>
@@ -160,7 +168,7 @@ function Checkout() {
                           onChange={handleAddonChange}
                         />
                         <span className="checkmark"></span>
-                        <span className='inter-regular'>
+                        <span>
                           <h6 className='checkBoxTextB'>Housekeeping</h6>
                         </span>
                       </label>
@@ -168,8 +176,8 @@ function Checkout() {
 
                   </div>
                 </div>
-
-                <button className="logInSubmit inter-regular" type="submit">Finalise details</button>
+<br></br>
+                <Button className="primaryButton" type="submit">Finalise details</Button>
               </form>
               
               {message && <p className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
@@ -184,62 +192,68 @@ function Checkout() {
               
               <ProgressBar variant="dark" now={66} className='progressBar'/>
 
-              <h3 className='m-plus-rounded-1c-bold checkoutHeading'>Enter your payment details:</h3>
+              <h3 className='checkoutHeading'>Enter your payment details:</h3>
 
               <form onSubmit={handlePaymentSubmit}>
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">Cardholder's name</label>
+                    <br></br>
                     <input
                       placeholder="Cardholder's name"
                       value={cardName}
-                      onChange={(e) => setCardName(e.target.value)} 
-                      className='Checkoutinput'
+                      onChange={(e) => setCardName(e.target.value)}
                       required
                     />
                   </div>
 
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">Card number</label>
+                    <br></br>
                     <input
                       placeholder="Card number"
                       value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)} 
-                      className='Checkoutinput'
+                      onChange={(e) => setCardNumber(e.target.value)}
                       required
                     />
                   </div>
                 </div>
-
+<br></br>
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">Card expiration date</label>
+                    <br></br>
                     <input
                       placeholder="Expiration date"
                       value={expiry}
-                      onChange={(e) => setExpiry(e.target.value)} 
-                      className='Checkoutinput'
+                      onChange={(e) => setExpiry(e.target.value)}
                       required
                     />
                   </div>
 
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 formGroup">
+                    <label className="formFieldLabel">CVC</label>
+                    <br></br>
                     <input
                       placeholder="CVC"
                       value={cvc}
                       onChange={(e) => setCvc(e.target.value)} 
-                      className='Checkoutinput'
                       required
                     />
                   </div>
                 </div>
-
+<br></br>
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <button 
-                    className="logInButton inter-regular" 
-                    type="button"  
+                  <Button 
                     onClick={() => setCheckoutPage(1)}
+                    variant='light'
+                    className="heroButton"
                   >
                     Go Back
-                  </button>
-                  <button className="logInSubmit inter-regular" type="submit">Finalise payment</button>
+                    <Undo2 className="iconStyle" style={{ marginLeft: "5%"}}/>
+                  </Button>
+                  
+                  <Button className="primaryButton" type="submit">Finalise payment <Send className="iconStyle"/></Button>
                 </div>
               </form>
             </div>
@@ -255,20 +269,21 @@ function Checkout() {
 
               <div style={{ fontSize: '50px', color: '#198754', marginBottom: '15px' }}>✓</div>
               
-              <h3 className='m-plus-rounded-1c-bold checkoutHeading'>
+              <h3 className='checkoutHeading'>
                 Payment Successful!
               </h3>
               
-              <p className='inter-regular LogInText'>
+              <p className='LogInText'>
                 Thank you, {firstName}! Your reservation has been confirmed. A receipt and summary details have been sent to <strong>{email}</strong>.
               </p>
 
-              <button 
-                className="logInSubmit inter-regular" 
+              <Button 
+                className="primaryButton" 
+                style={{ width: "15%"}}
                 onClick={() => window.location.href = '/'}
               >
-                Return Home
-              </button>
+                Return Home <House className="iconStyle" style={{ marginLeft: "5%"}}/>
+              </Button>
             </div>
           </div>
         )}

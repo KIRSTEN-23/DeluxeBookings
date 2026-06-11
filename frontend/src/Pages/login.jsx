@@ -40,7 +40,7 @@ function LogIn() {
   return (
     <div>
     <div className="logInBack">
-        <div className="logInBox" style={{backgroundColor: "#b3a6a3c3"}}>
+        <div className="logInBox" style={{backgroundColor: "#EFEBEA"}}>
           <div type="col">
 
           <Authentication/>

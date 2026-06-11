@@ -12,18 +12,27 @@ import Tabs from 'react-bootstrap/Tabs';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
+import { ArrowRight } from 'lucide-react';
 
+//first password imports
 import ruby from "../Assets/images/login/ruby1.png"
 import copper from "../Assets/images/login/copper1.png"
 import emerald from "../Assets/images/login/emerald1.png"
+import gold from "../Assets/images/login/Gold.png"
+import violet from "../Assets/images/login/Indigo.png"
+import pink from "../Assets/images/login/pink.png"
 
+//second password imports
 import golf from "../Assets/images/login/golf2.png"
 import bar from "../Assets/images/login/bar2.png"
 import marina from "../Assets/images/login/marina2.png"
+import theatre from "../Assets/images/login/Theatre.png"
 
+//third password imports
 import wine from "../Assets/images/login/wine3.png"
 import whiskey from "../Assets/images/login/whiskey3.png"
 import drinks from "../Assets/images/login/drink3.png"
+import IcedCoffe from "../Assets/images/login/Iced coffee.png"
 
 function Authentication() {
   const navigate = useNavigate();
@@ -145,7 +154,7 @@ const login = async () => {
 
   return (
     <Tabs
-      defaultActiveKey="profile"
+      defaultActiveKey="home"
       id="justify-tab-example"
       className="mb-3"
       justify
@@ -153,28 +162,40 @@ const login = async () => {
       {/* Sign up tab left */}
       <Tab eventKey="home" title="Sign up">
         <div>
-          <h1 className="m-plus-rounded-1c-bold LogInText">Welcome to Deluxe Bookings</h1>
-          <h3 className="LogInSubHeading inter-regular LogInText">Make an account to gain access to our exclusive platform</h3>
+          <h1 className="LogInText">Welcome to Deluxe Bookings</h1>
+          <h3 className="LogInSubHeading LogInText">Make an account to gain access to our exclusive platform</h3>
 
-          <input
-            placeholder="Username"
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="formGroup">
+            <label htmlFor="signup-username" className="formFieldLabel">Create your username</label>
+            <br></br>
+            <input
+              id="signup-username"
+              className="customFormInput"
+              placeholder="Username"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
           <br /><br />
 
-          <input
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="formGroup">
+            <label htmlFor="signup-email" className="formFieldLabel">Enter your email address</label>
+            <br></br>
+            <input
+              id="signup-email"
+              className="customFormInput"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
           <br /><br />
 
           <ToggleButtonGroup type="radio" name="options" defaultValue={1} className="custom-toggle-group">
-            <ToggleButton id="tbg-radio-1" value={1} onClick={useSelectB}>
+            <ToggleButton id="tbg-radio-1" className="ToggleButton" value={1} onClick={useSelectB}>
               I am a customer
             </ToggleButton>
-            <ToggleButton id="tbg-radio-2" value={2} onClick={useSelectS}>
+            <ToggleButton id="tbg-radio-2" className="ToggleButton" value={2} onClick={useSelectS}>
               I am a seller
             </ToggleButton>
           </ToggleButtonGroup>
@@ -182,8 +203,8 @@ const login = async () => {
           <br /><br />
 
           <div>
-            <h2 className="inter-bold passwordText LogInText">Create a custom password:</h2>          
-            <h4 className="inter-regular LogInText">Choose your favourite colour</h4>
+            <h2 className="passwordText LogInText">Create a custom password:</h2>          
+            <h4 className="LogInText">Choose your favourite colour</h4>
 
             <div type="row">
               <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(1); passSelect11(); }}>
@@ -198,14 +219,26 @@ const login = async () => {
                 <img src={emerald} alt="emerald green" className="logInButtonImg"/>
                 <p>Emerald Green</p>
               </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(4); passSelect11(); }}>
+                <img src={gold} alt="gold coins" className="logInButtonImg"/>
+                <p>Gold</p>
+              </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(5); passSelect11(); }}>
+                <img src={violet} alt="purple gems" className="logInButtonImg"/>
+                <p>Violet</p>
+              </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(6); passSelect11(); }}>
+                <img src={pink} alt="pink crystals" className="logInButtonImg"/>
+                <p>Pink</p>
+              </button>
             </div>
-            <h5 className="inter-bold LogInText">{messagePass11}</h5>
+            <h5 className="LogInText">{messagePass11}</h5>
           </div>
 
           <br />
 
           <div>
-            <h4 className="inter-regular LogInText">Choose the best place to relax</h4>
+            <h4 className="LogInText">Choose the best place to relax</h4>
 
             <div type="row">
               <button variant="outline-dark" className="logInButton" onClick={() => { setPassword12(1); passSelect12(); }}>
@@ -220,14 +253,18 @@ const login = async () => {
                 <img src={marina} alt="a marina" className="logInButtonImg"/>
                 <p>The marina</p>
               </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword12(4); passSelect12(); }}>
+                <img src={theatre} alt="a theatre" className="logInButtonImg"/>
+                <p>The theatre</p>
+              </button>
             </div>
-            <h5 className="inter-bold LogInText">{messagePass12}</h5>
+            <h5 className="LogInText">{messagePass12}</h5>
           </div>
 
           <br />
           
           <div>
-            <h4 className="inter-regular LogInText">Choose your favourite drink</h4>
+            <h4 className="LogInText">Choose your favourite drink</h4>
 
             <div type="row">
               <button variant="outline-dark" className="logInButton" onClick={() => { setPassword13(1); passSelect13(); }}>
@@ -242,15 +279,19 @@ const login = async () => {
                 <img src={drinks} alt="cocktails" className="logInButtonImg"/>
                 <p>Cocktails</p>
               </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword13(4); passSelect13(); }}>
+                <img src={IcedCoffe} alt="iced coffee" className="logInButtonImg"/>
+                <p>Iced coffee</p>
+              </button>
             </div>
 
-            <h5 className="inter-bold LogInText">{messagePass13}</h5>
+            <h5 className="LogInText">{messagePass13}</h5>
 
-            <button onClick={register} className="logInSubmit inter-regular">Register</button>
+            <Button variant="light" className="primaryButton" onClick={register}>Sign Up <ArrowRight className="iconStyle"/></Button>
 
             <br /><br />
 
-            <h4 className="m-plus-rounded-1c-black LogInText">{messageR}</h4>
+            <h4 className="LogInText">{messageR}</h4>
           </div>
         </div>
       </Tab>
@@ -258,26 +299,38 @@ const login = async () => {
       {/* Log In tab right */}
       <Tab eventKey="profile" title="Log in">
         <div>
-          <h1 className="m-plus-rounded-1c-bold LogInText">Welcome back</h1>
-          <h2 className="LogInSubHeading inter-regular LogInText">Fill in your details to access your account</h2>
+          <h1 className="LogInText">Welcome back</h1>
+          <h2 className="LogInSubHeading LogInText">Fill in your details to access your account</h2>
 
-          <input
-            placeholder="Username"
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="formGroup">
+            <label htmlFor="signup-username" className="formFieldLabel">Enter your username</label>
+            <br></br>
+            <input
+              id="signup-username"
+              className="customFormInput"
+              placeholder="Username"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
           <br /><br />
 
-          <input
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="formGroup">
+            <label htmlFor="signup-email" className="formFieldLabel">Enter your email address</label>
+            <br></br>
+            <input
+              id="signup-email"
+              className="customFormInput"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
           <br /><br />
 
           <div>
-            <h2 className="inter-bold passwordText LogInText">Create a custom password:</h2>            
-            <h3 className="inter-regular LogInText">Choose your favourite colour</h3>
+            <h2 className="passwordText LogInText">Create a custom password:</h2>            
+            <h3 className="LogInText">Choose your favourite colour</h3>
 
             <div type="row">
               <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(1); passSelect(); }}>
@@ -292,14 +345,26 @@ const login = async () => {
                 <img src={emerald} alt="emerald green" className="logInButtonImg"/>
                 <p>Emerald Green</p>
               </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(4); passSelect(); }}>
+                <img src={gold} alt="emerald green" className="logInButtonImg"/>
+                <p>Gold</p>
+              </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(5); passSelect(); }}>
+                <img src={violet} alt="emerald green" className="logInButtonImg"/>
+                <p>Violet</p>
+              </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(6); passSelect(); }}>
+                <img src={pink} alt="emerald green" className="logInButtonImg"/>
+                <p>Pink</p>
+              </button>
             </div>
-            <h5 className="inter-bold LogInText">{messagePass1}</h5>
+            <h5 className="LogInText">{messagePass1}</h5>
           </div>
 
           <br />
 
           <div>
-            <h4 className="inter-regular LogInText">Choose the best place to relax</h4>
+            <h4 className="LogInText">Choose the best place to relax</h4>
 
             <div type="row">
               <button variant="outline-dark" className="logInButton" onClick={() => { setPassword2(1); passSelect2(); }}>
@@ -314,14 +379,18 @@ const login = async () => {
                 <img src={marina} alt="a marina" className="logInButtonImg"/>
                 <p>The marina</p>
               </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword2(4); passSelect2(); }}>
+                <img src={theatre} alt="a marina" className="logInButtonImg"/>
+                <p>The theatre</p>
+              </button>
             </div>
-            <h5 className="inter-bold LogInText">{messagePass2}</h5>
+            <h5 className="LogInText">{messagePass2}</h5>
           </div>
 
           <br />
           
           <div>
-            <h4 className="inter-regular LogInText">Choose your favourite drink</h4>
+            <h4 className="LogInText">Choose your favourite drink</h4>
 
             <div type="row">
               <button variant="outline-dark" className="logInButton" onClick={() => { setPassword3(1); passSelect3(); }}>
@@ -336,15 +405,20 @@ const login = async () => {
                 <img src={drinks} alt="cocktails" className="logInButtonImg"/>
                 <p>Cocktails</p>
               </button>
+              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword3(4); passSelect3(); }}>
+                <img src={IcedCoffe} alt="cocktails" className="logInButtonImg"/>
+                <p>Iced coffee</p>
+              </button>
             </div>
 
-            <h5 className="inter-bold LogInText">{messagePass3}</h5>
+            <h5 className="LogInText">{messagePass3}</h5>
 
-            <button onClick={login} className="logInSubmit inter-regular">Login</button>
+            <Button variant="light" className="primaryButton" onClick={login}>Log In <ArrowRight className="iconStyle"/></Button>
 
             <br /><br />
 
-            <h4 className="m-plus-rounded-1c-black">{message}</h4>
+            <h4 className="LogInText">{message}</h4>
+
           </div>
         </div>
       </Tab>

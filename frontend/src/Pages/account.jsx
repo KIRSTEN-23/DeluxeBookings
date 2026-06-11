@@ -5,6 +5,12 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Footer from '../Components/footer';
 import { useAuth } from '../context/authContext';
+import { ArrowRight } from 'lucide-react';
+import Button from 'react-bootstrap/Button';
+import { Trash2 } from 'lucide-react';
+import { LogOut } from 'lucide-react';
+import { Pencil } from 'lucide-react';
+import { Save } from 'lucide-react';
 
 function Account() {
   const { user, token, isAdmin, isSeller, login, logout } = useAuth();
@@ -92,30 +98,36 @@ function Account() {
 
   if (!user) {
     return (
+      <section>
       <div className='Accountpage'>
         <div className='Accountbox'>
           <div>
-            <h3 className="m-plus-rounded-1c-bold LogInText">You are not logged in</h3>
-            <p className="inter-regular LogInText">Please log in to view your account details.</p>
-            <button className="logInSubmit inter-regular" onClick={() => navigate("/login")}>Go to Login</button>
+            <h3 className="LogInText">You are not logged in</h3>
+            <p className="LogInText">Please log in to view your account details.</p>
+
+            <Button variant="light" className="primaryButton" onClick={() => navigate("/login")}>Go to Login <ArrowRight className="iconStyle"/></Button>
+
           </div>
         </div>
-        <Footer></Footer>
       </div>
+      <Footer></Footer>
+      </section>
     );
   }
 
   return (
+    <section>
     <div className='Accountpage'>
       <div className='Accountbox'>
         <div>
-          <h1 className="m-plus-rounded-1c-bold LogInText">Account Details:</h1>
+          <h1 className="LogInText">Account Details:</h1>
           
           {/* Show edit form or standard user info */}
           {isEditing ? (
-            <form onSubmit={handleUpdateProfile} className="inter-regular LogInText">
+            <form onSubmit={handleUpdateProfile} className="LogInText">
               <div>
                 <label><strong>Username:</strong></label>
+                <br></br>
                 <input 
                   type="text" 
                   value={name} 
@@ -126,6 +138,7 @@ function Account() {
               <br />
               <div>
                 <label><strong>Email:</strong></label>
+                <br></br>
                 <input 
                   type="email" 
                   value={email} 
@@ -146,10 +159,10 @@ function Account() {
                     value={userRole === 'S' ? 2 : 1} 
                     className="custom-toggle-group"
                   >
-                    <ToggleButton id="edit-tbg-radio-1" value={1} onClick={() => setUserRole("B")}>
+                    <ToggleButton id="edit-tbg-radio-1" value={1} onClick={() => setUserRole("B")} className="ToggleButton">
                       I am a customer
                     </ToggleButton>
-                    <ToggleButton id="edit-tbg-radio-2" value={2} onClick={() => setUserRole("S")}>
+                    <ToggleButton id="edit-tbg-radio-2" value={2} onClick={() => setUserRole("S")} className="ToggleButton">
                       I am a seller
                     </ToggleButton>
                   </ToggleButtonGroup>
@@ -157,55 +170,61 @@ function Account() {
                 </div>
               )}
 
-              <button type="submit" className="logInSubmit inter-regular">Save Changes</button>
-              <button type="button" className="primaryButton buttontext inter-regular" onClick={() => setIsEditing(false)}>Cancel</button>
+              <Button type="submit" variant="light" className="heroButton" style={{ marginRight: "2%"}}>Save Changes<Save style={{ marginLeft: "2%"}}/></Button>
+              <Button type="button" className="primaryButton buttontext" onClick={() => setIsEditing(false)}>Cancel</Button>
             </form>
           ) : (
-            <div className="inter-regular LogInText">
+            <div className="LogInText">
               <p><strong>Username:</strong> {user.name}</p>
               <p><strong>Email:</strong> {user.email || "No email stored"}</p>
               <p>
                 <strong>Account Type:</strong> {isAdmin ? "Admin" : isSeller ? "Seller" : "Customer"}
               </p>
-              <button className="logInSubmit inter-regular" onClick={() => setIsEditing(true)}>Edit Profile</button>
+
+              <Button variant="light" className="heroButton" onClick={() => setIsEditing(true)}>Edit profile <Pencil/></Button>
             </div>
           )}
 
-          {updateMessage && <p className="inter-bold LogInText">{updateMessage}</p>}
+          {updateMessage && <p className="LogInText">{updateMessage}</p>}
 
           <br />
 
           <div>
             {(isSeller || isAdmin) && (
-              <h3 className="m-plus-rounded-1c-bold LogInText" >Go to:</h3>
+              <h3 className="LogInText" >Go to:</h3>
             )}
             
             {isAdmin && (
-              <button 
-                className="primaryButton buttontext inter-regular" 
+              <Button 
+                className="primaryButton buttontext" 
                 onClick={() => navigate("/adminDashboard")}
               >
                 Admin Dashboard
-              </button>
+              </Button>
             )}
             
             {(isSeller || isAdmin) && (
-              <button 
-                className="primaryButton buttontext inter-regular" 
+              <Button 
+                className="primaryButton buttontext" 
                 onClick={() => navigate("/sellerLoggedIn")}
               >
                 Seller Dashboard
-              </button>
+              </Button>
             )}
           </div>
 
           <br />
-          <button className="logInSubmit inter-regular" onClick={handleLogout} style={{ marginRight: "2%"}}>Log out</button>
-          <button className="logInSubmit inter-regular" onClick={handleDeleteAccount} style={{ backgroundColor: "#9d2a3b"}}>Delete Account</button>
+
+          <Button variant="light" className="primaryButton" onClick={handleLogout} style={{ marginRight: "2%"}}>Log Out <LogOut/></Button>
+
+          <Button variant="light" className="primaryButton deleteButton" onClick={handleDeleteAccount}>Delete Account <Trash2/></Button>
+
         </div>
       </div>
-      <Footer></Footer>
+      
     </div>
+    <Footer></Footer>
+    </section>
   );
 }
 

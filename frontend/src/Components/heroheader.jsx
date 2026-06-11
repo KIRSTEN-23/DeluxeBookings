@@ -1,5 +1,8 @@
 import Joinbutton from '../Assets/images/buttoniconjoin.png'
 import circularText from '../Assets/images/circularText.png'
+import Button from 'react-bootstrap/Button';
+import { ArrowUpRight } from 'lucide-react';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 function HeroHeader() {
   return (
@@ -8,13 +11,15 @@ function HeroHeader() {
     <div className='row container-fluid'>
 
       <div className='col-lg-6'>
-      <p className='m-plus-rounded-1c-black herotext marginBody'>Luxury Without Compromise</p>
+      <h1 className='herotext marginBody'>Luxury Without <h1 className='headingAlt'>Compromise</h1></h1>
 
-        <div className='herocard m-plus-rounded-1c-bold marginBody'>
+      <br></br>
+
+        <div className='herocard marginBody'>
             <p> Showcase your property to the world's most discerning travellers. We don't just list hotels; we curate experiences for a global audience that values quality over quantity.</p>
-            <button className='primaryButton inter-regular buttontext col-4'>Apply to join 
-              <img src={Joinbutton} alt="plus icon" className='joinButton'/>
-              </button>
+            <Link to="/seller">
+            <Button variant="light" className="heroButton">List your property <ArrowUpRight className="iconStyle"/></Button>
+            </Link>
             </div>
           </div>
       
