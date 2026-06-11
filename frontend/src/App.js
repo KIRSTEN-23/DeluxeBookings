@@ -1,9 +1,15 @@
+import AppRoutes from "./routes/AppRoutes";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+
 function App() {
   return (
-    <div>
-      Deluxe Bookings
-    </div>
-  )
+    <>
+      <Navbar />
+      <AppRoutes />
+      <Footer />
+    </>
+  );
 }
 
-export default App
+export default App;
