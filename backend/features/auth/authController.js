@@ -24,7 +24,16 @@ POST   /api/auth/login
 POST   /api/auth/logout
 GET    /api/auth/me
 
+*/
+
+/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
+as it only serves as guidelines for development and is not needed in the final codebase. */
+
+
+
+/*
 ─────────────────────────────────────────────────────────────
+USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
 
 registerUser()
 POST /api/auth/register
