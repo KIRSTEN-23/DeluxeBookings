@@ -24,4 +24,11 @@ app.use("/api/public", publicRoutes);
 app.use("/api/seller", sellerRoutes);
 // app.use("/api/admin", adminRoutes);
 
+//routes
+const authRoutes = require("./routes/authRoutes");
+app.use("/auth", authRoutes);
+
+const bookingRoutes = require('./routes/checkoutRoutes');
+app.use("/api", bookingRoutes);
+
 module.exports = app;
