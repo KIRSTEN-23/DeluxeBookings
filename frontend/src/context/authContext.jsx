@@ -1,11 +1,18 @@
 import { createContext, useContext, useState } from 'react'; 
-//authorisation
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  // Checks local storage for token containing user data
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem('token') || null;
+  });
+
+  // Checks local storage for  user data
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const login = (userData, tokenValue) => {
     setUser(userData);
@@ -17,7 +24,8 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   const isAdmin = user?.userRole === 'A';

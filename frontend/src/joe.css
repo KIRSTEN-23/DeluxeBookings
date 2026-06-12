@@ -110,13 +110,13 @@
 /* hero header */
 
 .heroImage{
-  background-image: url('./Assets/images/Hero header.png');
-  max-height: 90%;
-  max-width: 100%;
+  background-image: url('./Assets/images/Hero header.jpg');
+    background-attachment:fixed;
+  background-size:120%;
 }
 
 .herotext{
-  padding-top: 15%;
+  padding-top: 10%;
   font-size: 400%;
   font-weight: 500;
   color: white;
@@ -180,21 +180,17 @@
 }
 
 .circularText{
-  padding-top: 35%;
+  padding-top: 30%;
   width: 80%;
   padding-left: 50%;
-  padding-bottom: 12%;
+  padding-bottom: 10%;
 }
 
 /* Navigation bar */
 
-nav{
-  padding: 1.5%;
-  padding-left: 8%;
-}/* Old bar */
-
 .Navbar{
-  background-color: #332a23 !important;
+  background-color: #332a23d5 !important;
+  padding: 0% !important;
 }
 
 .iconStyle{
@@ -213,6 +209,10 @@ nav{
   width: 180px;
 }
 
+.logoStyling {
+  width: 80%;
+}
+
 .logoStyling:hover{
   filter: drop-shadow(2px 2px #7B593F);
 }
@@ -227,13 +227,15 @@ nav{
   text-decoration: none;
   color: white;
   padding: 2%;
-  padding-right: 9%;
-  margin-right: 20%;
+}
+
+.PageLinkwidth{
+  padding: 0;
+  margin: 0%;
 }
 
 .navItemsSpacing{
   margin-left: 35%;
-  margin-top: 5%;
 }
 
 .pagelinks:hover{
@@ -245,54 +247,25 @@ nav{
   filter: drop-shadow(2px 2px #7B593F);
 }
 
-/* .searchBar{
-  margin-left: 0.5%;
-  padding: 0.5%;
-  border: none;
-  padding-left: 1%;
-}
-.searchButton{
-  width:3%;
-  padding-left: 0.3%;
-}
+/* Search bar styling */
 
-.searchBox{
-  padding: 1%;
-  padding-left: 0.5%;
-  background-color: white;
-  border-color: #7B593F;
-  border-width: 2px;
+.searchBarMain{
+  margin-left: 7.5%;
+  width: 85% !important;
   border-radius: 15px;
-  margin-left: 5%;
+  padding: 0.75% !important;
+}
+
+.searchElements{
   margin-right: 2%;
+  width: 100% !important;
 }
 
-.searchBox:hover{
-  filter: drop-shadow(3px 3px #7B593F);
+.searchHeading{
+  margin-left: 2%
 }
 
-.dropdownlinks{
-  text-decoration: none;
-  color: #7B593F;
-  padding: 2%;
-  padding-right: 9%;
-}
-
-.dropdowntext {
-  font-size: 16px;
-  color: #7B593F;
-  text-decoration: none;
-}
-
-.dropdown{
-  padding-right: 6%;
-}
-
-.dropdownIcons{
-  width:35%;
-  padding-right: 20%;
-  min-width: 20px;
-} */
+/* Footer styling */
 
 footer{
   background-color: #332a23;
@@ -335,6 +308,8 @@ footer{
   margin-left:5%;
   margin-bottom: 1%;
 }
+
+/* checkout styling */
 
 input{
   border-color: #7B593F;
@@ -449,29 +424,25 @@ input{
   filter: drop-shadow(1px 1px 1px);
 }
 
-/* On mouse-over, add a grey background color */
 .checkContainer:hover input ~ .checkmark {
   background-color: #c9ad95;
 }
 
-/* When the checkbox is checked, add a blue background */
 .checkContainer input:checked ~ .checkmark {
   background-color: #332a23;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
 .checkContainer input:checked ~ .checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
+/* checkmark */
 .checkContainer .checkmark:after {
   left: 9px;
   top: 5px;
@@ -483,6 +454,8 @@ input{
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+/* Account page */
 
 .Accountpage {
   display: flex;

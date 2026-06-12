@@ -9,7 +9,7 @@ function Footer() {
         <div className='row container-fluid'>
 
         <div className='col-lg-7'>
-            <h1 className='footerHeading'>Engage with Us in <h1 className='headingAlt'>Conversation</h1></h1>
+            <h1 className='footerHeading'>Engage with Us in <em className='headingAlt'>Conversation</em></h1>
             <p className='footerText'>In a global world based on communication, a premium hospitality brand must look beyond its borders, open up to new experiences, and dare to be different. Meeting the brightest minds of one's time is the most effective way to nurture creativity and trust.</p>
         </div>
 

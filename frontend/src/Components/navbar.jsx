@@ -31,16 +31,16 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link className="navItemsSpacing">
+            <Nav.Link className="navItemsSpacing col-4">
               <Link to="/product" className="pagelinks">
               <h5>Stays</h5>
               </Link>
             </Nav.Link>
             
             {/* Checks if user has seller role */}
-            <Nav.Link className="navItemsSpacing">
+            <Nav.Link className="navItemsSpacing col-12">
               <Link to={hasDashboardAccess ? "/sellerLoggedIn" : "/seller"} className="pagelinks">
-              <h5>{hasDashboardAccess ? "Seller Dashboard" : "List your property"}</h5>
+              <h5 className="PageLinkwidth">{hasDashboardAccess ? "Seller Dashboard" : "List your property"}</h5>
               </Link>
             </Nav.Link>
 
