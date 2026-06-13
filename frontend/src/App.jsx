@@ -1,7 +1,7 @@
 import React from "react";
 // import Carousel from "./utils/Carousel";
 import ReviewForm from "./utils/ReviewForm";
-import FeaturedProperty from "./utils/FeaturedProperty";
+import PropertyGrid from "./utils/PropertyGrid";
 import Hero from "./utils/HeroSection";
 
 
@@ -16,7 +16,7 @@ function App() {
 
 
       <div>
-        <FeaturedProperty />
+        <PropertyGrid />
       </div>
 
       <div>

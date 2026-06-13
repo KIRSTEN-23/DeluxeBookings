@@ -47,3 +47,27 @@ app.use("/api/reviews", require("./routes/reviewRoutes"));
 app.listen(PORT, () => {
   console.log(`Server Running On ${PORT}`);
 });
+
+
+// booking server
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+const bookingRoutes = require("./routes/bookingRoutes");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect(
+  "mongodb://127.0.0.1:27017/luxurybooking"
+);
+
+app.use("/api/bookings", bookingRoutes);
+
+app.listen(5000, () => {
+  console.log("Server running");
+});

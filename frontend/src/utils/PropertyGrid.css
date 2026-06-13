@@ -1,0 +1,125 @@
+:root {
+  --color-brand: #332a23;
+  --color-text-strong: #7b593f;
+  --color-text-weak: #8c8578;
+  --color-stroke-strong: #a48a56;
+  --color-stroke-weak: #e3dfde;
+  --color-fill: #ffffff;
+  --color-background: #efebea;
+  --color-surface: #ffffff;
+  --shadow-raised: 0 4px 8px rgba(51, 42, 35, 0.1);
+  --shadow-overlay: 0 6px 8px 3px rgba(51, 42, 35, 0.1);
+}
+
+:root {
+  --dark: #332A23;
+  --brown: #7B593F;
+  --taupe: #8C8578;
+  --light-gray: #E3DFDE;
+  --off-white: #EFEBEA;
+  --white: #FFFFFF;
+}
+
+.property-section {
+  background: var(--off-white);
+  padding: 80px 5%;
+}
+
+.property-grid {
+  columns: 3 320px;
+  column-gap: 25px;
+}
+
+/* Card */
+
+.property-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  margin-bottom: 25px;
+  break-inside: avoid;
+  cursor: pointer;
+}
+
+.property-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  transition: 0.5s;
+}
+
+/* Different Heights */
+
+.property-card.small img {
+  height: 340px;
+}
+
+.property-card.medium img {
+  height: 380px;
+}
+
+.property-card.large img {
+  height: 500px;
+}
+
+.property-card.tall img {
+  height: 620px;
+}
+
+/* Zoom Effect */
+
+.property-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Dark Gradient */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding: 25px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7),
+    transparent 50%
+  );
+}
+
+.overlay h3 {
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Arrow Button */
+
+.arrow-btn {
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--white);
+  color: var(--dark);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s;
+}
+
+.arrow-btn:hover {
+  background: var(--brown);
+  color: var(--white);
+  transform: rotate(45deg);
+}
