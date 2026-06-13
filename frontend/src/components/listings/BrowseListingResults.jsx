@@ -1,7 +1,5 @@
 import BuyerListingCard from "./BuyerListingCard";
 
-import "../../styles/components/listings/ListingCards.css";
-
 export default function BrowseListingResults({ listings = [] }) {
   if (!listings.length) {
     return (
