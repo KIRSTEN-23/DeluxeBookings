@@ -1,0 +1,507 @@
+/* ─────────────────────────────────────
+   LISTING FORM
+   Create/edit listing form only
+   Salvaged from:
+   - Listing.css
+───────────────────────────────────── */
+
+/* SALVAGED from Listing.css */
+.create-listing-page {
+  min-height: 100vh;
+  padding: var(--space-5) var(--space-3) var(--space-8);
+  background: var(--color-background);
+  color: var(--color-text-strong);
+}
+
+.create-listing-shell {
+  max-width: 1168px;
+}
+
+.create-listing-page .intake-page-heading {
+  margin: 0 0 var(--space-4);
+}
+
+.create-listing-page .intake-page-title {
+  margin: 0;
+  color: var(--color-text-strong);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.create-listing-page .step-text,
+.create-listing-page .helper-text,
+.create-listing-page .field-note,
+.create-listing-page .char-count {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-weak);
+  font-size: var(--fs-sm);
+}
+
+.create-listing-page .step-text {
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-base);
+}
+
+.create-listing-page .form-subtitle {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-weak);
+  font-size: var(--fs-base);
+}
+
+.create-listing-page .progress-bar-outer {
+  height: var(--space-1);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-stroke-weak);
+}
+
+.create-listing-page .progress-bar-outer .progress-bar {
+  background: var(--color-brand);
+}
+
+.create-listing-page .form-card,
+.create-listing-page .pricing-summary,
+.create-listing-page .pricing-help-card,
+.create-listing-page .house-rules-card,
+.create-listing-page .amenities-card,
+.create-listing-page .address-block {
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: var(--shadow-raised);
+}
+
+.create-listing-page .form-card {
+  padding: var(--space-4);
+}
+
+.create-listing-page .form-card .card-body {
+  padding: 0;
+}
+
+.create-listing-page .form-header h2,
+.create-listing-page .form-header h4,
+.create-listing-page .address-block h4,
+.create-listing-page .amenities-section h4,
+.create-listing-page .house-rules-card h3,
+.create-listing-page .amenities-card h3,
+.create-listing-page .pricing-help-card h4 {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-strong);
+  font-size: var(--fs-h5);
+  font-weight: 500;
+}
+
+.create-listing-page .split-grid,
+.create-listing-page .fields-grid,
+.create-listing-page .pricing-panel,
+.create-listing-page .pricing-step-layout,
+.create-listing-page .photo-uploader-layout {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.create-listing-page .section-grid,
+.create-listing-page .split-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.create-listing-page .pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.create-listing-page .option-panel {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--color-background);
+}
+
+.create-listing-page .custom-tag-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1);
+}
+
+.create-listing-page .selected-tag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, max-content));
+  gap: var(--space-1);
+}
+
+.create-listing-page .full-width,
+.create-listing-page .address-block {
+  grid-column: 1 / -1;
+}
+
+.create-listing-page .address-block,
+.create-listing-page .pricing-summary,
+.create-listing-page .pricing-help-card,
+.create-listing-page .house-rules-card,
+.create-listing-page .amenities-card {
+  padding: var(--space-3);
+}
+
+.create-listing-page .address-block {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.create-listing-page .amenities-section {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.create-listing-page label,
+.create-listing-page .form-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  color: var(--color-text-strong);
+  font-size: var(--fs-base);
+  font-weight: 500;
+}
+
+.create-listing-page .label-line {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.create-listing-page .input-with-icon {
+  position: relative;
+}
+
+.create-listing-page .input-with-icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--space-2) + var(--icon-size) + var(--space-2));
+  width: 1px;
+  background: var(--color-stroke-weak);
+  pointer-events: none;
+}
+
+.create-listing-page .input-with-icon > svg {
+  position: absolute;
+  top: 50%;
+  left: var(--space-2);
+  z-index: 1;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  color: var(--color-text-strong);
+  opacity: 0.45;
+  pointer-events: none;
+  stroke-width: 1.6;
+  transform: translateY(-50%);
+}
+
+.create-listing-page input,
+.create-listing-page textarea,
+.create-listing-page .form-control {
+  width: 100%;
+  min-height: var(--button-min-height);
+  padding: 12px var(--space-3);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+  color: var(--color-text-strong);
+  font-size: var(--fs-base);
+  outline: none;
+}
+
+.create-listing-page .input-with-icon .form-control {
+  padding-left: calc(var(--space-3) + var(--icon-size) + var(--space-4));
+}
+
+.create-listing-page textarea,
+.create-listing-page textarea.form-control {
+  min-height: 144px;
+  resize: vertical;
+}
+
+.create-listing-page input:focus,
+.create-listing-page textarea:focus,
+.create-listing-page .form-control:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 4px rgba(51, 42, 35, 0.1);
+}
+
+/* SALVAGED from Listing.css: option buttons/type cards */
+.create-listing-page .type-card,
+.create-listing-page .pill,
+.create-listing-page .currency-row span,
+.create-listing-page .currency-field {
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+  color: var(--color-text-strong);
+}
+
+.create-listing-page .type-card,
+.create-listing-page .pill {
+  min-height: 56px;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  text-align: left;
+}
+
+.create-listing-page .type-card.selected {
+  border: 2px solid var(--color-brand) !important;
+  background: var(--color-fill) !important;
+  color: var(--color-brand) !important;
+}
+
+.create-listing-page .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  width: auto;
+  border-color: transparent !important;
+  border-radius: 999px !important;
+  background: var(--color-fill) !important;
+  color: var(--color-text-strong) !important;
+}
+
+.create-listing-page .option-pill.active {
+  background: var(--color-brand) !important;
+  color: var(--color-fill) !important;
+}
+
+/* SALVAGED from Listing.css: photo uploader */
+.create-listing-page .photo-uploader-layout {
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1fr);
+  align-items: stretch;
+  gap: var(--space-4);
+}
+
+.create-listing-page .photo-upload-column,
+.create-listing-page .photo-upload-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.create-listing-page .photo-dropzone {
+  min-height: 360px;
+  padding: var(--space-4);
+  border: 2px dotted var(--color-brand);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+  color: var(--color-text-strong);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.create-listing-page .photo-dropzone svg {
+  width: 72px;
+  height: 72px;
+  color: var(--color-brand);
+  opacity: 0.7;
+  stroke-width: 1.6;
+}
+
+.create-listing-page .photo-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.create-listing-page .photo-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  align-content: start;
+}
+
+.create-listing-page .photo-preview-card {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 2px solid var(--color-brand);
+  border-radius: var(--radius-control);
+  background: var(--color-background);
+}
+
+.create-listing-page .photo-preview-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* SALVAGED from Listing.css: pricing */
+.create-listing-page .pricing-step-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  align-items: start;
+}
+
+.create-listing-page .pricing-main {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.create-listing-page .currency-field {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  overflow: hidden;
+}
+
+.create-listing-page .currency-field span {
+  min-width: 88px;
+  padding: 0 var(--space-2);
+  color: var(--color-text-strong);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  text-align: left;
+}
+
+.create-listing-page .currency-field .form-control {
+  min-height: 64px;
+  border: 0;
+  border-left: 1px solid var(--color-stroke-weak);
+  border-radius: 0;
+  background: transparent;
+}
+
+.create-listing-page .pricing-total-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-control);
+  background: var(--color-brand);
+  color: var(--color-fill);
+}
+
+.create-listing-page .pricing-total-card span,
+.create-listing-page .pricing-total-card strong {
+  color: var(--color-fill);
+}
+
+/* SALVAGED from Listing.css: actions */
+.create-listing-page .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.create-listing-page .action-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.create-listing-page .save-exit-btn,
+.create-listing-page .secondary-button,
+.create-listing-page .back-button,
+.create-listing-page .continue-button,
+.create-listing-page .publish-button,
+.create-listing-page .primary-button {
+  min-height: var(--button-min-height);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-control) !important;
+  font-size: var(--fs-base);
+  font-weight: var(--button-font-weight);
+}
+
+.create-listing-page .continue-button,
+.create-listing-page .publish-button,
+.create-listing-page .primary-button {
+  border: 1px solid var(--color-brand) !important;
+  background: var(--color-brand) !important;
+  color: var(--color-fill) !important;
+}
+
+.create-listing-page .save-exit-btn,
+.create-listing-page .secondary-button {
+  border: 1px solid var(--color-text-strong) !important;
+  background: var(--color-text-strong) !important;
+  color: var(--color-fill) !important;
+}
+
+.create-listing-page .back-button {
+  border: 2px solid var(--color-brand) !important;
+  background: transparent !important;
+  color: var(--color-brand) !important;
+}
+
+/* SALVAGED from Listing.css: responsive form */
+@media (min-width: 992px) {
+  .create-listing-page {
+    padding-right: 20vw;
+    padding-left: 20vw;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .create-listing-page .pricing-step-layout,
+  .create-listing-page .photo-uploader-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .create-listing-page {
+    padding: var(--space-3) 0 var(--space-5);
+  }
+
+  .create-listing-page .intake-page-heading {
+    padding: 0 var(--space-2);
+  }
+
+  .create-listing-page .form-actions,
+  .create-listing-page .action-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .create-listing-page .section-grid,
+  .create-listing-page .split-grid,
+  .create-listing-page .photo-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .create-listing-page .form-card {
+    padding: var(--space-3);
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  .create-listing-page .photo-dropzone {
+    min-height: 232px;
+  }
+
+  .create-listing-page .save-exit-btn,
+  .create-listing-page .secondary-button,
+  .create-listing-page .back-button,
+  .create-listing-page .continue-button,
+  .create-listing-page .publish-button,
+  .create-listing-page .primary-button {
+    width: 100%;
+  }
+}

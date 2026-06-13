@@ -1,25 +1,8 @@
 import { useState } from "react";
-import {
-  Bath,
-  BedDouble,
-  Building2,
-  Check,
-  Clock,
-  Hash,
-  Home,
-  ImagePlus,
-  Mail,
-  Map,
-  MapPin,
-  Phone,
-  Plus,
-  Ruler,
-  User,
-  Users,
-  X,
-} from "lucide-react";
+import { Bath, BedDouble, Building2, Check, Clock, Hash, Home, ImagePlus, Mail, Map, MapPin, Phone, Plus, Ruler, User, Users, X } from "lucide-react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import "../../css/Listing.css";
+
+import "../../css/components/listings/ListingForm.css";
 
 // ------------------------------------------------------------------------------------------------------------------------------
 // Data Arrays for the form - property types, services, facilities, tags, and total steps in the intake flow

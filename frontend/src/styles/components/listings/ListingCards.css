@@ -1,0 +1,398 @@
+/* ─────────────────────────────────────
+   LISTING CARD SHELL
+   Shared layout wrapper for buyer/seller/admin cards
+───────────────────────────────────── */
+
+.listing-card-shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: 0 8px 22px rgba(51, 42, 35, 0.12);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.listing-card-shell.is-selected {
+  border-color: var(--color-stroke-weak);
+  box-shadow: 0 14px 34px rgba(51, 42, 35, 0.22);
+}
+
+.listing-card-shell.is-selected::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-2) auto var(--space-2) var(--space-2);
+  z-index: 2;
+  width: 5px;
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+
+.listing-card-shell__image-wrap {
+  position: relative;
+  min-width: 0;
+  min-height: 100%;
+}
+
+.listing-card-shell__image {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: block;
+  object-fit: cover;
+}
+
+.listing-card-shell__badge {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 3;
+}
+
+.listing-card-shell__body {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-3);
+}
+
+.listing-card-shell__content {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.listing-card-shell__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  padding-top: var(--space-1);
+}
+
+/* Bootstrap-friendly button support */
+
+.listing-card-shell__actions .btn,
+.listing-card-shell__actions button {
+  min-height: var(--button-min-height);
+  border-radius: var(--radius-control);
+  font-weight: var(--button-font-weight);
+}
+
+/* Compact card version for side-pane/dashboard mode */
+
+.listing-card-shell--compact {
+  grid-template-columns: 180px minmax(0, 1fr);
+}
+
+.listing-card-shell--compact .listing-card-shell__image {
+  min-height: 220px;
+}
+
+.listing-card-shell--compact .listing-card-shell__body {
+  padding: var(--space-2);
+}
+
+/* Role variants */
+
+.listing-card-shell--buyer {
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.listing-card-shell--seller,
+.listing-card-shell--admin {
+  grid-template-columns: 250px minmax(0, 1fr);
+}
+
+/* Responsive */
+
+@media (max-width: 834px) {
+  .listing-card-shell,
+  .listing-card-shell--buyer,
+  .listing-card-shell--seller,
+  .listing-card-shell--admin,
+  .listing-card-shell--compact {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-card-shell__image {
+    height: 220px;
+    min-height: 220px;
+  }
+
+  .listing-card-shell__body {
+    padding: var(--space-2);
+  }
+
+  .listing-card-shell__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-content: stretch;
+  }
+
+  .listing-card-shell__actions .btn,
+  .listing-card-shell__actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .listing-card-shell.is-selected::before {
+    display: none;
+  }
+
+  .listing-card-shell__image {
+    height: 190px;
+    min-height: 190px;
+  }
+
+  .listing-card-shell__body {
+    gap: var(--space-2);
+    padding: var(--space-2);
+  }
+}
+
+
+/* ─────────────────────────────────────
+   LISTING CARDS
+   Buyer/seller/admin card composition
+   Salvaged from:
+   - SellerListingCard.css
+───────────────────────────────────── */
+
+/* NEW composition helper */
+.listing-card-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: var(--space-3);
+}
+
+/* SALVAGED + GENERALIZED from SellerListingCard.css: sidebar */
+.listing-card-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+/* NEW */
+.listing-card-main-content {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-1);
+}
+
+/* SALVAGED from SellerListingCard.css: mobile action menu pattern */
+.listing-card-action-menu {
+  display: none;
+  width: var(--button-min-height);
+}
+
+.listing-card-desktop-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+/* SALVAGED + GENERALIZED from SellerListingCard.css dropdown styles */
+.listing-card-action-menu .listing-card-action-menu-toggle.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--button-min-height);
+  min-width: var(--button-min-height);
+  padding: 0;
+  border: 1px solid var(--color-stroke-weak) !important;
+  border-radius: var(--radius-control);
+  background: var(--color-fill) !important;
+  color: var(--color-text-strong) !important;
+}
+
+.listing-card-action-menu .listing-card-action-menu-toggle::after {
+  display: none;
+}
+
+.listing-card-action-menu .listing-card-action-menu-toggle.btn:hover,
+.listing-card-action-menu .listing-card-action-menu-toggle.btn:focus,
+.listing-card-action-menu .listing-card-action-menu-toggle.btn.show {
+  border-color: var(--color-stroke-strong) !important;
+  color: var(--color-brand) !important;
+}
+
+.listing-card-action-menu .dropdown-menu {
+  min-width: 180px;
+  padding: var(--space-1);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+  box-shadow: var(--shadow-overlay);
+}
+
+.listing-card-action-menu .dropdown-item {
+  min-height: 40px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: calc(var(--radius-control) - 4px);
+  color: var(--color-text-strong);
+  font-size: var(--fs-base);
+}
+
+.listing-card-action-menu .dropdown-item:hover,
+.listing-card-action-menu .dropdown-item:focus {
+  background: var(--color-background);
+  color: var(--color-brand);
+}
+
+.listing-card-action-menu .dropdown-item.danger {
+  color: #b24747;
+}
+
+.listing-card-action-menu .dropdown-item.danger:hover,
+.listing-card-action-menu .dropdown-item.danger:focus {
+  background: #f8d7da;
+  color: #b24747;
+}
+
+/* NEW, Bootstrap-compatible card action button helpers */
+.listing-card-action-primary.btn,
+.listing-card-action-primary {
+  border-color: var(--color-brand) !important;
+  background: var(--color-brand) !important;
+  color: var(--color-fill) !important;
+}
+
+.listing-card-action-secondary.btn,
+.listing-card-action-secondary {
+  border-color: var(--color-stroke-weak) !important;
+  background: var(--color-background) !important;
+  color: var(--color-text-strong) !important;
+}
+
+.listing-card-action-danger.btn,
+.listing-card-action-danger {
+  border-color: #b24747 !important;
+  background: var(--color-fill) !important;
+  color: #b24747 !important;
+}
+
+/* SALVAGED from SellerListingCard.css detail-pane compact behaviour */
+.my-listings-layout.has-detail-pane .listing-card-content-grid {
+  grid-template-columns: minmax(0, 1fr) 140px;
+  gap: var(--space-2);
+}
+
+.my-listings-layout.has-detail-pane .listing-card-shell__body {
+  padding: var(--space-2);
+}
+
+/* SALVAGED responsive range from SellerListingCard.css */
+@media (min-width: 835px) and (max-width: 1163px) {
+  .my-listings-layout.has-detail-pane .listing-status {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    z-index: 2;
+    width: max-content;
+    max-width: calc(100% - var(--space-4));
+    white-space: nowrap;
+  }
+
+  .my-listings-layout.has-detail-pane .listing-card-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .my-listings-layout.has-detail-pane .listing-card-sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-2);
+  }
+
+  .my-listings-layout.has-detail-pane .listing-price {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: var(--space-1);
+    text-align: right;
+  }
+
+  .my-listings-layout.has-detail-pane .listing-card-desktop-actions {
+    display: none;
+  }
+
+  .my-listings-layout.has-detail-pane .listing-card-action-menu {
+    display: block;
+  }
+
+  .my-listings-layout.has-detail-pane
+    .listing-card-action-menu
+    .listing-card-action-menu-toggle.btn {
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* SALVAGED responsive behaviour from SellerListingCard.css */
+@media (max-width: 834px) {
+  .listing-card-content-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .listing-card-sidebar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .listing-card-desktop-actions {
+    display: none;
+  }
+
+  .listing-card-action-menu {
+    display: block;
+  }
+
+  .listing-status {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    z-index: 2;
+  }
+
+  .listing-price {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: var(--space-1);
+    text-align: right;
+  }
+
+  .listing-price span:first-child {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .listing-card-sidebar {
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .listing-card-action-menu,
+  .listing-card-action-menu .listing-card-action-menu-toggle.btn {
+    width: 42px;
+    min-width: 42px;
+  }
+}

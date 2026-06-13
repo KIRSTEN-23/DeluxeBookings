@@ -7,55 +7,49 @@ import {
   ListingDescription,
   ListingLocation,
   ListingPropertyType,
+  ListingRating,
   ListingStatus,
   ListingFacts,
   ListingAmenities,
   ListingPrice,
 } from "./ListingItems";
 
-export default function SellerListingCard({ listing, selected = false, onViewDetails }) {
+import "../../styles/components/listings/ListingCards.css";
+
+export default function BuyerListingCard({ listing }) {
   const coverImage = listing.coverImage || listing.images?.[0];
 
   return (
     <ListingCardShell
-      variant="seller"
-      selected={selected}
+      variant="buyer"
       image={typeof coverImage === "string" ? coverImage : coverImage?.url}
       imageAlt={listing.title}
-      badge={<ListingPropertyType propertyType={listing.propertyType} />}
+      badge={listing.isNew ? <span className="listing-pill">New</span> : null}
       actions={
         <>
-          <button
-            type="button"
+          <Link
+            to={`/listings/${listing._id}`}
             className="btn btn-outline-dark listing-card-action-secondary"
-            onClick={() => onViewDetails?.(listing)}
           >
             View Details
-          </button>
-
-          <Link
-            to={`/seller/listings/${listing._id}/edit`}
-            className="btn btn-primary listing-card-action-primary"
-          >
-            Edit Listing
           </Link>
 
-          <button className="btn listing-card-action-danger">
-            Remove Listing
+          <button className="btn btn-primary listing-card-action-primary">
+            Book Now
           </button>
         </>
       }
     >
       <div className="listing-card-content-grid">
         <div className="listing-card-main-content">
-          <ListingStatus status={listing.status} />
+          <ListingStatus status={listing.status || "Available"} />
+
           <ListingTitle title={listing.title} />
 
           <div className="listing-meta-row">
             <ListingLocation location={listing.location} />
+            <ListingPropertyType propertyType={listing.propertyType} />
           </div>
-
-          <ListingDescription description={listing.description} truncate lines={2} />
 
           <ListingFacts
             guests={listing.guests}
@@ -65,9 +59,12 @@ export default function SellerListingCard({ listing, selected = false, onViewDet
           />
 
           <ListingAmenities amenities={listing.amenities} />
+
+          <ListingDescription description={listing.description} truncate lines={2} />
         </div>
 
         <aside className="listing-card-sidebar">
+          <ListingRating rating={listing.rating} reviewCount={listing.reviewCount} />
           <ListingPrice price={listing.price} oldPrice={listing.oldPrice} />
         </aside>
       </div>
