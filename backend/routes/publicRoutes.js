@@ -1,19 +1,14 @@
 console.log("PUBLIC ROUTES LOADED");
 
 const express = require("express");
-
 const router = express.Router();
 
-router.get("/listings", (req, res) => {
-  res.json({ message: "Public listings route working" });
-});
+const {
+  getAllAvailablePublishedListings,
+  getListingById,
+} = require("../features/listings/publicListingController");
 
-router.get("/listings/:id", (req, res) => {
-  res.json({
-    message: "Public single listing route working",
-
-    listingId: req.params.id,
-  });
-});
+router.get("/listings", getAllAvailablePublishedListings);
+router.get("/listings/:id", getListingById);
 
 module.exports = router;
