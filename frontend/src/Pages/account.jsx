@@ -189,14 +189,14 @@ function Account() {
 
           <br />
 
-          <div>
+          <div className='row'>
             {(isSeller || isAdmin) && (
               <h3 className="LogInText" >Go to:</h3>
             )}
             
             {isAdmin && (
               <Button 
-                className="primaryButton buttontext" 
+                className="primaryButton buttontext MarginBtn" 
                 onClick={() => navigate("/adminDashboard")}
               >
                 Admin Dashboard

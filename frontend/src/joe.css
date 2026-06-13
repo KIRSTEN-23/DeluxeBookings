@@ -234,6 +234,11 @@
   margin: 0%;
 }
 
+.pagelinks.active {
+  text-decoration: underline;
+  text-underline-offset: 6px; 
+}
+
 .navItemsSpacing{
   margin-left: 35%;
 }
@@ -259,10 +264,51 @@
 .searchElements{
   margin-right: 2%;
   width: 100% !important;
+  min-width: 160px;
+}
+
+/* back selected colour */
+.searchElements.form-select:focus {
+  border-color: #332a23;
+  box-shadow: 0 0 0 0.25rem #7b593f89; 
+  outline: 0;
 }
 
 .searchHeading{
   margin-left: 2%
+}
+
+/* filter styling */
+
+.filterBack{
+  margin: 2%;
+  border-radius: 15px;
+  border-color: #E3DFDE;
+  border-style: solid;
+  border-width: 2px;
+  padding: 2%;
+}
+
+.filterTitle{
+  color: #8C8578;
+}
+
+.checkBoxText{
+  padding-left: 1%;
+  padding-top: 3%;
+}
+
+.starStyling{
+  width: 16px;
+  margin-left: 5px;
+  color: #7B593F;
+  fill: #E3DFDE;
+}
+
+.filterStarButton{
+  width: 27px !important;
+  padding-left: 0% !important;
+  margin-left: 1.5%;
 }
 
 /* Footer styling */
@@ -475,4 +521,8 @@ input{
   display: flex;
   background-image: url('./Assets/images/Hero header.png header.png');
   justify-content: center;
+}
+
+.MarginBtn {
+  margin-bottom : 2%;
 }

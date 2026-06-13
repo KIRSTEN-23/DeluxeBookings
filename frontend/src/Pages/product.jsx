@@ -1,5 +1,16 @@
+import SearchBar from "../Components/searchBar";
+import FilterPanel from "../Components/filterPanel";
+import Footer from "../Components/footer"
+
 function Product() {
-  return <h2>Product Page</h2>;
+  return (
+    <section>
+      <SearchBar/>
+      <FilterPanel/>
+      <Footer></Footer>
+    </section>
+  );
+
 }
 
 export default Product;

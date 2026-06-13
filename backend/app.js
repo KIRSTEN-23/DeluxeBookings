@@ -3,12 +3,12 @@ const cors = require("cors");
 
 const app = express();
 
-const authRoutes = require("./routes/authRoutes");
-const userRoutes = require("./routes/userRoutes");
-const publicRoutes = require("./routes/publicRoutes");
-const buyerRoutes = require("./routes/buyerRoutes");
-const sellerRoutes = require("./routes/sellerRoutes");
-const adminRoutes = require("./routes/adminRoutes");
+// const authRoutes = require("./routes/authRoutes");
+// const userRoutes = require("./routes/userRoutes");
+// const publicRoutes = require("./routes/publicRoutes");
+// const buyerRoutes = require("./routes/buyerRoutes");
+// const sellerRoutes = require("./routes/sellerRoutes");
+// const adminRoutes = require("./routes/adminRoutes");
 
 app.use(cors());
 app.use(express.json());
@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
 
 // app.use("/api/auth", authRoutes);
 // app.use("/api/users", userRoutes);
-app.use("/api/public", publicRoutes);
+// app.use("/api/public", publicRoutes);
 // app.use("/api/buyer", buyerRoutes);
-app.use("/api/seller", sellerRoutes);
+// app.use("/api/seller", sellerRoutes);
 // app.use("/api/admin", adminRoutes);
 
 //routes
