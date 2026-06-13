@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Booking = require("../models/Booking");
+const Booking = require("../features/bookings/bookingSchema");
 
 router.get("/", async (req, res) => {
   const bookings = await Booking.find();

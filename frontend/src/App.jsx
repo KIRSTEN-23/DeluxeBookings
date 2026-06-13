@@ -4,13 +4,19 @@ import ReviewForm from "./utils/ReviewForm";
 import PropertyGrid from "./utils/PropertyGrid";
 import Hero from "./utils/HeroSection";
 
+import SellerDashboard from "./utils/SellerDashboard";
+import BookingsCard from "./utils/BookingsCard";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 
 
 function App() {
   return (
     <div>
-      
-      <div>
+      <BookingsCard />
+      <SellerDashboard />
+      {/* <div>
         <Hero />
       </div>
 
@@ -21,8 +27,10 @@ function App() {
 
       <div>
         <ReviewForm />
-      </div>
+      </div> */}
       
+
+
     </div>
     
   )

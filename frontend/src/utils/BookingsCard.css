@@ -1,0 +1,44 @@
+body {
+  background: #332A23;
+  color: #FFFFFF;
+  font-family: sans-serif;
+}
+
+.dashboard {
+  padding: 2rem;
+}
+
+.booking-card {
+  background: #E3DFDE;
+  color: #332A23;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.booking-card h3 {
+  color: #7B593F;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:first-child {
+  background: #7B593F;
+  color: white;
+}
+
+button:last-child {
+  background: #8C8578;
+  color: white;
+}
