@@ -1,20 +1,20 @@
 import { Route } from "react-router-dom";
 
-import ProtectedRoutes from "./ProtectedRoutes";
+import ProtectedRoute from "./ProtectedRoute";
 
-import MyListings from "../pages/seller/MyListings";
-import SellerListingDetails from "../pages/seller/SellerListingDetails";
+import SellerManageMyListings from "../pages/seller/SellerManageMyListingsSection";
+import SellerAdminListingDetails from "../pages/listings/SellerAdminListingDetails";
 import SellerIntakeForm from "../pages/seller/SellerIntakeForm";
 import EditListing from "../pages/seller/EditListing";
 
 export default function SellerRoutes() {
   return (
     <>
-      {/* <Route element={<ProtectedRoutes minLevel={2} />}> */}
-        <Route path="/seller/my-listings" element={<MyListings />} />
-        <Route path="/seller/my-listings/:id" element={<SellerListingDetails />} />
-        <Route path="/seller/create" element={<SellerIntakeForm />} />
-        <Route path="/seller/edit/:id" element={<EditListing />} />
+      {/* <Route element={<ProtectedRoute minLevel={2} />}> */}
+        <Route path="/seller/listings" element={<SellerManageMyListings />} />
+        <Route path="/seller/listings/new" element={<ListingForm mode="create" />} />
+        <Route path="/seller/listings/:id" element={<SellerAdminListingDetails role="seller" />} />
+        <Route path="/seller/listings/:id/edit" element={<ListingForm mode="edit" />} />
       {/* </Route> */}
     </>
   );
