@@ -2,7 +2,7 @@ import { Route } from "react-router-dom";
 
 import BrowsePage from "../pages/public/BrowseListings";
 import BuyerAccountPage from "../pages/userAccounts/BuyerAccountPage";
-import SellerOnboarding from "../pages/seller/SellerOnboarding";
+import SellerOnboarding from "../pages/public/SellerOnboarding";
 import BuyerListingDetails from "../pages/listings/BuyerListingDetails";
 
 export default function BuyerRoutes() {

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import AuthRoutes from "./AuthRoutes";
-import BuyerRoutes from "./BuyerRoutes";
-import SellerRoutes from "./SellerRoutes";
-import AdminRoutes from "./AdminRoutes";
+import AuthRoutes from "./AuthRoutes.jsx";
+import BuyerRoutes from "./BuyerRoutes.jsx";
+import SellerRoutes from "./SellerRoutes.jsx";
+import AdminRoutes from "./AdminRoutes.jsx";
 
 import NotFound from "../pages/errors/NotFound";
 
