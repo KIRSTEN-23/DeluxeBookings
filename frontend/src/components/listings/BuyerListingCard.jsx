@@ -14,8 +14,6 @@ import {
   ListingPrice,
 } from "./ListingItems";
 
-import "../../styles/components/listings/ListingCards.css";
-
 export default function BuyerListingCard({ listing }) {
   const coverImage = listing.coverImage || listing.images?.[0];
 

@@ -23,9 +23,9 @@ app.use('/api/public',
   require('./routes/publicRoutes')
 );
 
-app.use('/api/buyer', 
-  require('./routes/buyerRoutes')
-);
+// app.use('/api/buyer', 
+//   require('./routes/buyerRoutes')
+// );
 
 app.use('/api/seller', 
   require('./routes/sellerRoutes')
