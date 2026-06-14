@@ -1,0 +1,37 @@
+:root {
+  --dark: #332A23;
+  --brown: #7B593F;
+  --taupe: #8C8578;
+  --light: #E3DFDE;
+  --cream: #EFEBEA;
+  --white: #FFFFFF;
+}
+
+.stats-section {
+  padding: 100px 8%;
+  background: var(--white);
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.stat-card {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-card h2 {
+  font-size: 5rem;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 1rem;
+  color: var(--taupe);
+}

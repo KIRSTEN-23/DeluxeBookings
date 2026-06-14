@@ -10,6 +10,7 @@ import CustomerBooking from "./utils/CustomerBooking";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AboutSection from "./utils/AboutSection";
+import LuxurySection from "./utils/LuxurySection";
 
 
 
@@ -24,14 +25,19 @@ function App() {
         <Hero />
       </div>
 
+      <div>
+        <AboutSection />
+      </div>
+
+      <div>
+        <LuxurySection />
+      </div>
 
       <div>
         <PropertyGrid />
       </div>
 
-      <div>
-        <AboutSection />
-      </div>
+      
 
       {/*<div>
         <ReviewForm />
