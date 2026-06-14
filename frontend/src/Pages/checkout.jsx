@@ -43,7 +43,7 @@ function Checkout() {
     setCheckoutPage(2); 
   };
 
-  // finaluses the payment
+  // finalises the payment
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     console.log("Processing payment securely...");
@@ -153,7 +153,7 @@ function Checkout() {
                           type="checkbox" 
                           id="Breakfast" 
                           name="select_addons" 
-                          value="Break"
+                          value="Breakfast"
                           onChange={handleAddonChange}
                         />
                         <span className="checkmark"></span>
@@ -169,7 +169,7 @@ function Checkout() {
                           type="checkbox" 
                           id="Housekeeping" 
                           name="select_addons" 
-                          value="House"
+                          value="Housekeeping"
                           onChange={handleAddonChange}
                         />
                         <span className="checkmark"></span>

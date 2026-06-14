@@ -1,252 +1,112 @@
 import Form from 'react-bootstrap/Form';
-import { Star } from 'lucide-react';
 import Button from 'react-bootstrap/Button';
-import { X } from 'lucide-react';
 import { Search } from 'lucide-react';
+import { useState } from 'react';
+import axios from 'axios';
 
-function FilterPanel() {
-      // checked addons
-  const handleAddonChange = (e) => {
+function FilterPanel({ onFilter }) {
+  // Checkbox selections arrays
+  const [bedrooms, setBedrooms] = useState([]);
+  const [ratings, setRatings] = useState([]);
+  const [amenities, setAmenities] = useState([]);
+
+  const handleCheckboxChange = (e, state, setState) => {
     const { value, checked } = e.target;
+    const stringValue = String(value);
+
     if (checked) {
-      setAddons([...addons, value]);
+      setState([...state, stringValue]);
     } else {
-      setAddons(addons.filter((item) => item !== value));
+      setState(state.filter((item) => item !== stringValue));
+    }
+  };
+
+  // Clears all choices
+  const handleClearAll = () => {
+    setBedrooms([]);
+    setRatings([]);
+    setAmenities([]);
+  };
+
+  // Sends choices to backend
+  const handleFilterSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const params = {};
+      
+      if (bedrooms.length > 0) params.bedrooms = bedrooms.join(',');
+      if (ratings.length > 0) params.ratingAverage = ratings.join(',');
+      if (amenities.length > 0) params.amenities = amenities.join(',');
+
+      const res = await axios.get("http://localhost:5000/api/listings/search", { params });
+      
+      if (onFilter) {
+        onFilter(res.data);
+      }
+    } catch (err) {
+      console.error("Filter panel error:", err);
     }
   };
 
   return (
-    <Form className='filterBack col-2'>
-        <h4 className='filterTitle'>Filter by</h4>
-        <tr></tr>
+    <Form className='filterBack col-2' onSubmit={handleFilterSubmit}>
+      <h4 className='filterTitle'>Filter by</h4>
 
-        <Button variant="light">Clear</Button>
+      <Button variant="light" onClick={handleClearAll} type="button">Clear</Button>
+      <Button variant="light" type="submit" className="primaryButton col-7 searchHeading">
+        Search <Search/>
+      </Button>
 
-        <Button variant="light" className="primaryButton col-7 searchHeading">Search <Search/></Button>
-
-    {/* First checkbox group */}
-        <h5>Bedrooms</h5>
-
-      {['checkbox'].map((type) => (
-        <div key={`default-${type}`} className="mb-3">
-
-        <label className="checkContainer">
+      {/* Bedrooms */}
+      <h5>Bedrooms</h5>
+      <div className="mb-3">
+        {[1, 2, 3, 4].map((num) => (
+          <label className="checkContainer" key={`bed-${num}`}>
             <input 
-            type="checkbox" 
-            id="1Bed" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
+              type="checkbox" 
+              value={num}
+              checked={bedrooms.includes(String(num))}
+              onChange={(e) => handleCheckboxChange(e, bedrooms, setBedrooms)}
             />
             <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>1</h6>
-            </span>
-        </label>
+            <h6>{num === 4 ? "4+" : num}</h6>
+          </label>
+        ))}
+      </div>
 
-        <label className="checkContainer">
+      {/* Ratings */}
+      <h5>Guest Rating</h5>
+      <div className="mb-3">
+        {[1, 2, 3, 4, 5].map((num) => (
+          <label className="checkContainer" key={`rate-${num}`}>
             <input 
-            type="checkbox" 
-            id="2Bed" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
+              type="checkbox" 
+              value={num}
+              checked={ratings.includes(String(num))}
+              onChange={(e) => handleCheckboxChange(e, ratings, setRatings)}
             />
             <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>2</h6>
-            </span>
-        </label>
+            <h6>{num} Star(s)</h6>
+          </label>
+        ))}
+      </div>
 
-        <label className="checkContainer">
+      {/* Amenities */}
+      <h5>Amenities</h5>
+      <div className="mb-3">
+        {["Wifi", "Pool", "Gym", "Sea view", "Parking"].map((amenity) => (
+          <label className="checkContainer" key={amenity}>
             <input 
-            type="checkbox" 
-            id="3Bed" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
+              type="checkbox" 
+              value={amenity}
+              checked={amenities.includes(amenity)}
+              onChange={(e) => handleCheckboxChange(e, amenities, setAmenities)}
             />
             <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>3</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="4Bed" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>4+</h6>
-            </span>
-        </label>
-
-        </div>
-      ))}
-
-      {/* Second checkbox group */}
-        <h5>Guest Rating</h5>
-
-         {['checkbox'].map((type) => (
-        <div key={`default-${type}`} className="mb-3">
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="1Star" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>1</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="2Star" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>2</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="3Star" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>3</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="4Star" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>4</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="5Star" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>5</h6>
-            </span>
-        </label>
-
-        </div>
-      ))}
-    
-     {/* Third checkbox group */}
-        <h5>Amenities</h5>
-
-         {['checkbox'].map((type) => (
-        <div key={`default-${type}`} className="mb-3">
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="wifi" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>Wifi</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="pool" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>Pool</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="Gym" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>Gym</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="Sea" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>Sea view</h6>
-            </span>
-        </label>
-
-        <label className="checkContainer">
-            <input 
-            type="checkbox" 
-            id="park" 
-            name="filter_select" 
-            value="Break"
-            onChange={handleAddonChange}
-            />
-            <span className="checkmark"></span>
-            <span>
-                <h6 className='checkBoxText'>Parking</h6>
-            </span>
-        </label>
-
-        </div>
-      ))}
-    
+            <h6>{amenity}</h6>
+          </label>
+        ))}
+      </div>
     </Form>
   );
 }
