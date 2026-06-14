@@ -19,7 +19,7 @@ function App() {
         <Carousel />
       </div>
       
-      {/* <div>
+       <div>
         <Hero />
       </div>
 
@@ -28,7 +28,7 @@ function App() {
         <PropertyGrid />
       </div>
 
-      <div>
+      {/*<div>
         <ReviewForm />
       </div>
 

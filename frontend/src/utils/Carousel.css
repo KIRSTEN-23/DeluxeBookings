@@ -109,7 +109,7 @@
   width: 100%;
   padding: 80px 5%;
   background: var(--color-brand);
-  background: linear-gradient(#efebea,#332a23,#332a23,#7b593f,#efebea); 
+  background: linear-gradient(#efebea,#332a23,#332a23,#efebea); 
   border-radius: 20px;
   overflow: hidden;
   backdrop-filter: blur(10px);                  /* Blurs the content behind the box */
@@ -151,7 +151,7 @@
 
 .slider-arrow {
   
-  background: var(--color-stroke-strong);
+  background: var(--color-text-strong);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -209,7 +209,7 @@
 }
 
 .swiper-pagination-bullet-active {
-  background: var(--color-stroke-strong) !important;
+  background: var(--color-text-strong) !important;
   width: 20px;
   border-radius: 20px;
 }
