@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Booking = require("../features/bookings/bookingSchema");
+const Booking = require("../features/bookings/booking");
 
 router.get("/", async (req, res) => {
   const bookings = await Booking.find();

@@ -44,11 +44,11 @@ function App() {
 
       
 
-      {/*<div>
+      <div>
         <ReviewForm />
       </div>
 
-      <CustomerBooking /> */}
+      {/*<CustomerBooking /> */}
       {/* <BookingsCard />*/}
       {/* <SellerDashboard />   */}
 

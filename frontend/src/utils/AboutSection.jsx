@@ -46,7 +46,7 @@ const AboutSection = () => {
 
         <h1>
           Designed for Discerning <br />
-          Travellers
+          Travelers
         </h1>
 
         <p>
@@ -59,14 +59,10 @@ const AboutSection = () => {
 
         <div className="gallery">
           <img
-            src={img4}
-            alt=""
-          />
+            src={img4} alt=""/>
 
           <img
-            src={img5}
-            alt=""
-          />
+            src={img5} alt=""/>
         </div>
       </div>
 
