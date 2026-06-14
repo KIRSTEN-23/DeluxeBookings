@@ -1,36 +1,23 @@
-/*
-─────────────────────────────────────────────────────────────
-REVIEW CONTROLLER
-─────────────────────────────────────────────────────────────
+// let reviewCounter = 1
+// const reviews = []
 
-Listing review management.
+// function createReview(data) {
+//   const review = {
+//     id: String(reviewCounter++),
+//     ...data,
+//     createdAt: new Date().toISOString(),
+//   }
+//   reviews.push(review)
+//   return review
+// }
 
-Related Routes:
-GET    /api/reviews/:listingId
-POST   /api/reviews
-PUT    /api/reviews/:id
-DELETE /api/reviews/:id
+// exports.createReview = (req, res) => {
+//   const { name, property, rating, comment } = req.body
 
-*/
+//   if (!name || !property || !rating || !comment) {
+//     return res.status(400).json({ message: 'All review fields are required.' })
+//   }
 
-/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
-as it only serves as guidelines for development and is not needed in the final codebase. */
-
-/*
-─────────────────────────────────────────────────────────────
-USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
-
-
-getListingReviews()
-GET /api/reviews/:listingId
-
-createReview()
-POST /api/reviews
-
-updateReview()
-PUT /api/reviews/:id
-
-deleteReview()
-DELETE /api/reviews/:id
-
-*/
+//   const review = createReview({ name, property, rating, comment })
+//   res.status(201).json(review)
+// }

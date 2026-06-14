@@ -1,0 +1,12 @@
+At line:1 char:21
++ " node -e require("./server.js"); setTimeout(() =, 5000) \
++                     ~
+Missing property name after reference operator.
+At line:1 char:31
++ " node -e require("./server.js"); setTimeout(() =, 5000) \
++                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The string is missing the terminator: ".
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordEx 
+   ception
+    + FullyQualifiedErrorId : MissingPropertyName
+ 
