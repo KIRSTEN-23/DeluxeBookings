@@ -1,5 +1,5 @@
 import React from "react";
-// import Carousel from "./utils/Carousel";
+import Carousel from "./utils/Carousel";
 import ReviewForm from "./utils/ReviewForm";
 import PropertyGrid from "./utils/PropertyGrid";
 import Hero from "./utils/HeroSection";
@@ -15,8 +15,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div>
-      
       <div>
+        <Carousel />
+      </div>
+      
+      {/* <div>
         <Hero />
       </div>
 
@@ -29,9 +32,9 @@ function App() {
         <ReviewForm />
       </div>
 
-      <CustomerBooking />
+      <CustomerBooking /> */}
       {/* <BookingsCard />*/}
-      <SellerDashboard />  
+      {/* <SellerDashboard />   */}
 
 
     </div>

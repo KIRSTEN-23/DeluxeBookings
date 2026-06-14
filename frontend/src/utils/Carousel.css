@@ -28,255 +28,188 @@
     padding: 16px;
 } */
 
+::root {
+  --color-brand: #332a23;
+  --color-text-strong: #7b593f;
+  --color-text-weak: #8c8578;
+  --color-stroke-strong: #a48a56;
+  --color-stroke-weak: #e3dfde;
+  --color-fill: #ffffff;
+  --color-background: #efebea;
+  --color-surface: #ffffff;
+  --shadow-raised: 0 4px 8px rgba(51, 42, 35, 0.1);
+  --shadow-overlay: 0 6px 8px 3px rgba(51, 42, 35, 0.1);
 
-.carousel-container-hero {
-  min-height: 80vh;
-  background: linear-gradient(135deg,#ffffff,#e8e3e1,#ffffff);
+  --font-h1: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Marcellus', Georgia, serif;
+  --font-body: 'Lato', Arial, sans-serif;
+  --font-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
 
+
+.featured-properties {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 80px 5%;
-  position: relative;
-  overflow: hidden;
+  background: var(--color-background);
+  
 }
 
-/* HERO TEXT */
 
-.hero-content {
+
+
+.section-header {
   text-align: center;
-  margin-bottom: 70px;
+  max-width: 700px;
+  margin: 0 auto 60px;
 }
 
-.hero-content span {
-  color: #73554d;
+.section-header span {
+  display: inline-block;
+  color: var(--color-text-weak);
+  font-style: var(--font-heading);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  color: var(--color-brand);
+  font-size: 3rem;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.hero-content h1 {
-  margin-top: 20px;
-  font-size: 54px;
-  line-height: 1.1;
-  color: #3b1f05;
-  font-weight: 700;
+.section-header p {
+  color: var(--color-text-strong);
+  line-height: 1.8;
+  font-size: 1.05rem;
 }
 
-.hero-content p {
-  margin-top: 20px;
-  color: #7b7b7b;
-  font-size: 18px;
+.section-header h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: var(--color-stroke-strong);
+  margin: 20px auto 0;
 }
 
-/* SWIPER */
-
-.swiper {
+.swiper-container {
+  padding-top: 30px;
   padding-bottom: 80px;
 }
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-}
-
-/* HOTEL CARD */
-
-.hotel-card-hero {
-  width: 80%;
-  max-width: 350px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-radius: 30px;
+.carousel-container {
+  width: 100%;
+  padding: 80px 5%;
+  background: var(--color-brand);
+  background: linear-gradient(#efebea,#332a23,#332a23,#7b593f,#efebea); 
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(191, 178, 170, 0.4);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.08),
-    0 5px 15px rgba(59, 31, 5, 0.06);
-
-  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);                  /* Blurs the content behind the box */
+  -webkit-backdrop-filter: blur(10px); 
 }
 
-.hotel-card-hero:hover {
+.swiper-container {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 70px;
+  
+  overflow: hidden;
+}
+
+.swiper-slide {
+  width: 350px;
+  height: 450px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #E3DFDE;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: 0.4s ease;
+}
+
+.swiper-slide:hover {
   transform: translateY(-10px);
 }
 
-/* IMAGE */
-
-.image-wrapper {
-  position: relative;
-  height: 350px;
-}
-
-.image-wrapper img {
+.swiper-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* DARK OVERLAY */
-
-.overlay-hero {
-  position: absolute;
-  inset: 0;
-
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0.1),
-    transparent
-  );
+.swiper-slide-active {
+  transform: scale(1.05);
 }
 
-/* HEART BUTTON */
 
-.heart-btn-hero {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-
-  width: 50px;
-  height: 50px;
-
+.slider-arrow {
+  
+  background: var(--color-stroke-strong);
   border-radius: 50%;
-  border: none;
-
-  background: rgba(255, 255, 255, 0.2);
-
-  backdrop-filter: blur(10px);
-
-  color: white;
-
-  cursor: pointer;
-
-  transition: 0.3s;
-}
-
-.heart-btn-hero:hover {
-  background: #3b1f05;
-}
-
-/* TITLE ON IMAGE */
-
-.title-section {
-  position: absolute;
-  bottom: 25px;
-  left: 25px;
-  right: 25px;
-}
-
-.title-section h2 {
-  color: white;
-  font-size: 28px;
-  line-height: 1.3;
-  font-weight: 600;
-}
-
-/* INFO AREA */
-
-.hotel-info {
-  padding: 25px;
-}
-
-.hotel-info h4 {
-  color: #73554d;
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-
-.bottom-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* RATING BOX */
-
-.rating-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.rating-number {
-  width: 50px;
-  height: 50px;
-
-  border-radius: 12px;
-
-  background: #3b1f05;
-
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 700;
-}
-
-.rating-text span {
-  font-weight: 600;
-  color: #3b1f05;
-}
-
-.rating-text p {
-  color: #888;
-  font-size: 13px;
-}
-
-/* PRICE */
-
-.price-box span {
-  font-size: 12px;
-  color: #999;
-}
-
-.price-box h3 {
-  color: #3b1f05;
-  font-size: 24px;
-  margin-top: 5px;
-}
-
-/* NAVIGATION */
-
-.nav-buttons-hero {
   display: flex;
   justify-content: center;
-  gap: 20px;
-}
-
-.prev-btn-hero,
-.next-btn-hero {
-  width: 65px;
-  height: 65px;
-  margin-top: 10px;
-
-  border-radius: 50%;
-  border: none;
-
-  background: #3b1f05;
-
-  color: white;
-
+  align-items: center;
+  color: var(--color-fill);
   cursor: pointer;
-
-  font-size: 18px;
-
-  transition: all 0.3s ease;
-
-  box-shadow: 0 10px 20px rgba(59, 31, 5, 0.2);
+  transition: 0.3s ease;
 }
 
-.prev-btn-hero:hover,
-.next-btn-hero:hover {
-  background: #73554d;
-  transform: translateY(-5px);
-  margin-top: 9px;
+.slider-arrow:hover {
+  background: var(--color-fill);
+  color: var(--color-brand);
 }
 
-/* ACTIVE CARD EFFECT */
+/* .slider-arrow ion-icon {
+  
+  justify-content: center;
+  align-items: center;
+} */
 
-.swiper-slide-active .hotel-card-hero {
-  box-shadow:
-    0 30px 60px rgba(59, 31, 5, 0.18),
-    0 10px 25px rgba(0, 0, 0, 0.1);
+
+
+
+/* Position arrows */
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: static !important;
+  align-self: center;
+  margin-top: 0 !important;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+
+.swiper-controller {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 250px;
+  margin-top: 40px;
+}
+
+.swiper-pagination {
+  position: relative !important;
+  width: auto !important;
+}
+
+.swiper-pagination-bullet {
+  background: var(--color-text-weak) !important;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--color-stroke-strong) !important;
+  width: 20px;
+  border-radius: 20px;
 }

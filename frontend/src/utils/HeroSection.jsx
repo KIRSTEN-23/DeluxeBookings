@@ -1,5 +1,5 @@
 import "./Hero.css";
-import wideImg1 from "/public/wideImg1.jpg";
+import wideImg1 from "../assets/wide_Img1.jpg";
 
 function Hero() {
   return (
