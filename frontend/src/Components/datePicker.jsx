@@ -1,11 +1,10 @@
 import DatePicker from "react-datepicker";
 import { subDays } from "date-fns"; 
-import { useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function DatesPicker() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+// States from checkout
+function DatesPicker({ selectedDate, setSelectedDate }) {
 
   const excludeDates = [
     new Date(),               

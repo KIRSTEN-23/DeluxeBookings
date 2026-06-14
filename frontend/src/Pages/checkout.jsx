@@ -18,6 +18,8 @@ function Checkout() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [addons, setAddons] = useState([]);
+  const [arrivalDate, setArrivalDate] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
 
   // Payment form
   const [cardName, setCardName] = useState("");
@@ -35,37 +37,40 @@ function Checkout() {
     }
   };
 
-  const handleDetailsSubmit = async (e) => {
+  const handleDetailsSubmit = (e) => {
     e.preventDefault(); 
+    setMessage(""); // resets message
+    setCheckoutPage(2); 
+  };
+
+  // finaluses the payment
+  const handlePaymentSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Processing payment securely...");
+    
     try {
       const res = await axios.post("http://localhost:5000/api/bookings", {
         firstName,
         lastName,
         email,
         phone,
-        addons
+        addons,
+        arrivalDate,    
+        departureDate   
       });
       
       if (res.data.success) {
-        setMessage(""); // Reset messages before going to payment
-        setCheckoutPage(2); 
+        setMessage("");
+        setCheckoutPage(3); // Moves to success payment display
       }
     } catch (err) {
       console.error(err);
       if (err.response && err.response.data) {
         setMessage(`Error: ${err.response.data.error}`);
       } else {
-        setMessage("Error saving your details. Please check your connection.");
+        setMessage("Error finalizing your booking. Please check your connection.");
       }
     }
-  };
-
-  // Finalise payment handler
-  const handlePaymentSubmit = (e) => {
-    e.preventDefault();
-    console.log("Processing payment securely...");
-    setMessage("");
-    setCheckoutPage(3); // Moves to success payment display
   };
 
   return (
@@ -77,7 +82,7 @@ function Checkout() {
           <div className="CheckoutBack col-6">
             <div className="CheckoutBox">
               
-              <ProgressBar now={33} variant="dark"  className='progressBar'/>
+              <ProgressBar now={33} variant="dark" className='progressBar'/>
 
               <h3 className='m-plus-rounded-1c-bold checkoutHeading LogInText'>Enter your personal details:</h3>
 
@@ -105,7 +110,7 @@ function Checkout() {
                     />
                   </div>
                 </div>
-<br></br>
+                <br></br>
                 <div className="row">
                   <div className="col-lg-6 formGroup">
                     <label className="formFieldLabel">Email address</label>
@@ -134,10 +139,10 @@ function Checkout() {
 
                 <div className="row">
                   <h6 className='checkoutHeading'>Select arrival day:</h6>
-                  <DatesPicker />
+                  <DatesPicker selectedDate={arrivalDate} setSelectedDate={setArrivalDate} />
 
                   <h6 className='checkoutHeading'>Select departure day:</h6>
-                  <DatesPicker />
+                  <DatesPicker selectedDate={departureDate} setSelectedDate={setDepartureDate} />
 
                   <div className="col-lg">
                     <p className='checkoutSubHeading'>Select from our addons:</p>
@@ -176,7 +181,7 @@ function Checkout() {
 
                   </div>
                 </div>
-<br></br>
+                <br></br>
                 <Button className="primaryButton" type="submit">Finalise details</Button>
               </form>
               
@@ -218,7 +223,7 @@ function Checkout() {
                     />
                   </div>
                 </div>
-<br></br>
+                <br></br>
                 <div className="row">
                   <div className="col-lg-6 formGroup">
                     <label className="formFieldLabel">Card expiration date</label>
@@ -242,7 +247,7 @@ function Checkout() {
                     />
                   </div>
                 </div>
-<br></br>
+                <br></br>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button 
                     onClick={() => setCheckoutPage(1)}
@@ -256,6 +261,8 @@ function Checkout() {
                   <Button className="primaryButton" type="submit">Finalise payment <Send className="iconStyle"/></Button>
                 </div>
               </form>
+
+              {message && <p className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
             </div>
           </div>
         )}

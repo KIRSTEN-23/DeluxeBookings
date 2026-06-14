@@ -10,7 +10,6 @@ function HeroHeader() {
   <div className='heroImage'>
     <br></br>
     <br></br>
-      <SearchBar/>
     <div className='row container-fluid'>
 
       <div className='col-lg-6'>
