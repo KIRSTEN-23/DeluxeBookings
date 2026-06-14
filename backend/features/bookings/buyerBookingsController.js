@@ -33,3 +33,4 @@ cancelBooking()
 PATCH /api/bookings/:id/cancel
 
 */
+
