@@ -20,6 +20,15 @@
   --white: #FFFFFF;
 }
 
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-strong);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .property-section {
   background: var(--off-white);
   padding: 80px 5%;

@@ -7,6 +7,15 @@
   --white: #FFFFFF;
 }
 
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-strong);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .stats-section {
   padding: 100px 8%;
   background: var(--white);

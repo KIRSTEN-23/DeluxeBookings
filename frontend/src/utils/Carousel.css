@@ -47,6 +47,15 @@
 }
 
 
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-strong);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .featured-properties {
   display: flex;
   flex-direction: column;
@@ -83,6 +92,7 @@
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 20px;
+  font-family: var(--font-h1);
 }
 
 .section-header p {

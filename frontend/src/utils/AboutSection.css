@@ -17,6 +17,15 @@
   --font-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-strong);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .about-section {
   display: grid;
   grid-template-columns: 1fr 1.3fr;

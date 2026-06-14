@@ -11,6 +11,7 @@ import CustomerBooking from "./utils/CustomerBooking";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AboutSection from "./utils/AboutSection";
 import LuxurySection from "./utils/LuxurySection";
+import OffersSection from "./utils/OfferSection";
 
 
 
@@ -35,6 +36,10 @@ function App() {
 
       <div>
         <PropertyGrid />
+      </div>
+
+      <div>
+        <OffersSection />
       </div>
 
       
