@@ -9,6 +9,7 @@ import BookingsCard from "./utils/BookingsCard";
 import CustomerBooking from "./utils/CustomerBooking";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AboutSection from "./utils/AboutSection";
 
 
 
@@ -26,6 +27,10 @@ function App() {
 
       <div>
         <PropertyGrid />
+      </div>
+
+      <div>
+        <AboutSection />
       </div>
 
       {/*<div>
