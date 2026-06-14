@@ -2,47 +2,52 @@ import React from "react";
 import "./PropertyGrid.css";
 import { FaArrowUp } from "react-icons/fa";
 
+import img1 from "../assets/img1.jpg";
+import img2 from "../assets/img2.jpg";
+import img3 from "../assets/img3.jpg";
+import img4 from "../assets/img4.jpg";
+import img5 from "../assets/img5.jpg";
+import img6 from "../assets/img6.jpg";
+
+
 const properties = [
   {
     id: 1,
-    name: "Mondrian",
-    image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+    tag: "Total Privacy",
+    name: "Private Estates",
+    description:
+      "We curate secluded retreats designed for total privacy and refined comfort.",
+    image:img1,
     size: "small",
   },
   {
     id: 2,
-    name: "Nirnia",
-    image:
-      "https://images.unsplash.com/photo-1556911220-bff31c812dba",
-    size: "large",
+    name: "Modern Penthouse Suites",
+    image:img2,
+    size: "tall",
   },
   {
     id: 3,
-    name: "Artex",
-    image:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858",
-    size: "large",
+    name: "Sandton Skye Premium Suites & Penthouses",
+    image:img3,
+    size: "tall",
   },
   {
     id: 4,
-    name: "Brera",
-    image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+    name: "Metropolitan Suites",
+    image:img4,
     size: "small",
   },
   {
     id: 5,
-    name: "Alea Pro",
-    image:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156",
-    size: "medium",
+    name: "Mountain Retreats",
+    image:img5,
+    size: "small",
   },
   {
     id: 6,
-    name: "Nirnia",
-    image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+    name: "Coastal Paradise Resort",
+    image:img6,
     size: "tall",
   },
 ];
