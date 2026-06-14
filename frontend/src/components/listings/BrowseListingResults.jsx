@@ -20,14 +20,18 @@ export default function BrowseListingResults({ listings = [] }) {
 
         <select className="form-select w-auto">
           <option>Sort by highest rating</option>
+
           <option>Sort by price: low to high</option>
+
           <option>Sort by newest</option>
         </select>
       </div>
 
-      <div className="d-flex gap-3">
+      <div className="row g-4">
         {listings.map((listing) => (
-          <BuyerListingCard key={listing._id} listing={listing} />
+          <div className="col-12" key={listing._id}>
+            <BuyerListingCard listing={listing} />
+          </div>
         ))}
       </div>
     </section>

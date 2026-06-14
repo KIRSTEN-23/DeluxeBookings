@@ -15,7 +15,8 @@ import {
   ShieldCheck,
   TrendingUp,
 } from "lucide-react";
-import "../../styles/pages/public/listings/sellerOnboarding.css";
+
+import "../../styles/pages/public/SellerOnboarding.css";
 
 const formatCurrency = (value) =>
   new Intl.NumberFormat("en-ZA", {
@@ -133,27 +134,6 @@ function SellerOnboarding({ onNavigate }) {
 
   return (
     <main className="seller-onboarding-page">
-      {/* <nav className="seller-nav" aria-label="Seller onboarding navigation">
-        <Container className="seller-nav-inner">
-          <button className="seller-logo" type="button" onClick={() => onNavigate("/")}>
-            Deluxe
-          </button>
-          <div className="seller-nav-links">
-            <button type="button" onClick={() => onNavigate("/")}>Home</button>
-            <button type="button">Properties</button>
-            <button type="button" onClick={() => onNavigate("/seller/dashboard")}>Dashboard</button>
-            <button type="button" onClick={() => onNavigate("/seller/onboarding")}>List Property</button>
-          </div>
-          <div className="seller-nav-actions">
-            <Button className="seller-nav-cta" onClick={() => onNavigate("/seller/create-listing")}>
-              Get Started
-            </Button>
-            <button className="seller-profile-btn" type="button" aria-label="Open profile">
-              <CircleUserRound size={22} strokeWidth={2.4} />
-            </button>
-          </div>
-        </Container>
-      </nav> */}
 
       <section className="seller-hero">
         <Container>

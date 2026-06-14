@@ -108,7 +108,7 @@
   background: var(--color-fill) !important;
   color: var(--color-text-strong) !important;
   box-shadow: var(--shadow-raised);
-  /* SOFT REMOVE: font-family now inherits from index.css. Previous: font-family: var(--font-body); */
+/
   font-size: var(--fs-base);
   font-weight: var(--button-font-weight);
   text-align: left;
@@ -146,7 +146,7 @@
   padding: var(--space-1) var(--space-2);
   border-radius: calc(var(--radius-control) - 4px);
   color: var(--color-text-strong);
-  /* SOFT REMOVE: font-family now inherits from index.css. Previous: font-family: var(--font-body); */
+/
   font-size: var(--fs-base);
   text-align: left;
 }
