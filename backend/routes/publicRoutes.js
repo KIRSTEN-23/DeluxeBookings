@@ -6,9 +6,9 @@ const router = express.Router();
 const {
   getAllAvailablePublishedListings,
   getListingById,
-} = require("../features/listings/publicListingController");
+} = require("../features/listings/buyerListingController");
 
-router.get("/listings", getAllAvailablePublishedListings);
-router.get("/listings/:id", getListingById);
+router.get("/browse", getAllAvailablePublishedListings);
+router.get("/browse/:id", getListingById);
 
 module.exports = router;

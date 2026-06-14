@@ -26,7 +26,7 @@ export default function BuyerListingCard({ listing }) {
       actions={
         <>
           <Link
-            to={`/listings/${listing._id}`}
+            to={`/public/browse/${listing._id}`}
             className="btn btn-outline-dark listing-card-action-secondary"
           >
             View Details
@@ -40,20 +40,20 @@ export default function BuyerListingCard({ listing }) {
     >
       <div className="listing-card-content-grid">
         <div className="listing-card-main-content">
-          <ListingStatus status={listing.status || "Available"} />
+          {/* <ListingStatus status={listing.status || "Available"} /> */}
 
           <ListingTitle title={listing.title} />
 
           <div className="listing-meta-row">
-            <ListingLocation location={listing.location} />
+            <ListingLocation location={listing.location?.displayAddress} />
             <ListingPropertyType propertyType={listing.propertyType} />
           </div>
 
           <ListingFacts
-            guests={listing.guests}
+            guests={listing.guestCapacity}
             bedrooms={listing.bedrooms}
             bathrooms={listing.bathrooms}
-            size={listing.size}
+            size={listing.area}
           />
 
           <ListingAmenities amenities={listing.amenities} />
@@ -62,8 +62,8 @@ export default function BuyerListingCard({ listing }) {
         </div>
 
         <aside className="listing-card-sidebar">
-          <ListingRating rating={listing.rating} reviewCount={listing.reviewCount} />
-          <ListingPrice price={listing.price} oldPrice={listing.oldPrice} />
+          {/* <ListingRating rating={listing.rating} reviewCount={listing.reviewCount} /> */}
+          <ListingPrice price={listing.pricePerNight} oldPrice={listing.oldPrice} />
         </aside>
       </div>
     </ListingCardShell>

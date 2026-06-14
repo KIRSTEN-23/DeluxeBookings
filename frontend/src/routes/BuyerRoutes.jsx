@@ -1,21 +1,20 @@
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import BrowsePage from "../pages/public/BrowseListings";
-import BuyerAccountPage from "../pages/userAccounts/BuyerAccountPage";
-import SellerOnboarding from "../pages/public/SellerOnboarding";
 import BuyerListingDetails from "../pages/listings/BuyerListingDetails";
+import SellerOnboarding from "../pages/public/SellerOnboarding";
+// import BuyerAccountPage from "../pages/userAccounts/BuyerAccountPage";
 
 export default function BuyerRoutes() {
   return (
-    <>
-      <Route path="/" element={<BrowsePage />} />
-      
-      <Route element={<ProtectedRoutes minLevel={1} />}> 
-        <Route path="/account" element={<BuyerAccountPage />} />
-      </Route>
-      
-      <Route path="/seller/onboarding" element={<SellerOnboarding />} />
-      <Route path="/listings/:id" element={<BuyerListingDetails />} />
-    </>
+    <Routes>
+      <Route path="browse" element={<BrowsePage />} />
+      <Route path="browse/:id" element={<BuyerListingDetails />} />
+      <Route path="onboarding" element={<SellerOnboarding />} />
+
+      {/* <Route element={<ProtectedRoutes minLevel={1} />}> 
+        <Route path="account" element={<BuyerAccountPage />} />
+      </Route>  */}
+    </Routes>
   );
 }

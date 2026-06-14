@@ -9,15 +9,17 @@ import {
   Coffee,
   Dumbbell,
   Waves,
+  Star,
 } from "lucide-react";
 
 import "../../styles/components/listings/ListingItems.css";
 
-
 export function ListingGallery({ images = [], title }) {
   if (!images.length) return null;
 
-  const [coverImage, ...galleryImages] = images;
+  const coverImage = images.find((image) => image.isCover) || images[0];
+
+  const galleryImages = images.filter((image) => image !== coverImage);
 
   return (
     <div className="listing-gallery">
@@ -40,7 +42,7 @@ export function ListingGallery({ images = [], title }) {
   );
 }
 
-export function ListingTitle({ title, level = "h3" }) {
+export function ListingTitle({ title, level = "h4" }) {
   if (!title) return null;
 
   const Heading = level;
@@ -69,14 +71,13 @@ export function ListingRating({ rating, reviewCount }) {
     <span className="listing-rating">
       <Star size={18} />
       {rating}
-      {reviewCount && (
-        <span>({reviewCount} reviews)</span>
-      )}
+      {reviewCount && <span>({reviewCount} reviews)</span>}
     </span>
   );
 }
 
 export function ListingPrice({ price, oldPrice }) {
+  if (!price) return null;
   return (
     <div className="listing-price">
       <span>Starting From</span>
@@ -91,15 +92,19 @@ export function ListingStatus({ status }) {
   return <span className={`listing-status ${status}`}>{status}</span>;
 }
 
-
 export function ListingLocation({ location }) {
   if (!location) return null;
+
+  const locationText =
+    typeof location === "string"
+      ? location
+      : location.displayAddress || location.city || location.destination || "";
+  if (!locationText) return null;
 
   return (
     <span className="listing-location">
       <MapPin size={18} />
-
-      {location}
+      {locationText}
     </span>
   );
 }
@@ -129,9 +134,7 @@ export function ListingHostInfo({
           <h3 className="listing-host-name">{hostName}</h3>
 
           {isVerified && (
-            <span className="listing-host-verified">
-              Verified host
-            </span>
+            <span className="listing-host-verified">Verified host</span>
           )}
         </div>
       </div>
@@ -224,17 +227,13 @@ export function ListingAmenities({ amenities = [] }) {
   );
 }
 
-export function ListingHouseRules({
-  rules = [],
-}) {
+export function ListingHouseRules({ rules = [] }) {
   if (!rules.length) return null;
 
   return (
     <ul className="listing-house-rules">
       {rules.map((rule) => (
-        <li key={rule}>
-          {rule}
-        </li>
+        <li key={rule}>{rule}</li>
       ))}
     </ul>
   );

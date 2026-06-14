@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-import BrowseListingResults from "../../components/listings/BrowseListingResults";
+import BrowseListingResults from "../../components/listings/BrowseListingResults.jsx";
 import { getPublicListings } from "../../api/publicApi";
 
 export default function BrowseListings() {
+
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");

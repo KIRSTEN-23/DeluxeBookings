@@ -25,7 +25,7 @@ export default function BrowseListingResults({ listings = [] }) {
         </select>
       </div>
 
-      <div className="d-grid gap-3">
+      <div className="d-flex gap-3">
         {listings.map((listing) => (
           <BuyerListingCard key={listing._id} listing={listing} />
         ))}

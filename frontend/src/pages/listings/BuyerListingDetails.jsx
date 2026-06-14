@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+import { getPublicListingById } from "../../api/publicApi";
 
 import {
   ListingTitle,
@@ -17,10 +20,28 @@ import {
 
 import "../../styles/components/listings/ListingDetails.css";
 
-export default function BuyerListingDetails({ listings = [] }) {
+export default function BuyerListingDetails() {
   const { id } = useParams();
 
-  const listing = listings.find((item) => item._id === id) || listings[0];
+  const [listing, setListing] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const loadListing = async () => {
+      const data = await getPublicListingById(id);
+
+      setListing(data);
+
+      setIsLoading(false);
+    };
+
+    loadListing();
+  }, [id]);
+
+  if (isLoading) return <p>Loading listing...</p>;
+
+  if (errorMessage) return <p>{errorMessage}</p>;
 
   if (!listing) {
     return (
@@ -43,7 +64,10 @@ export default function BuyerListingDetails({ listings = [] }) {
           <div className="listing-meta-row">
             <ListingLocation location={listing.location} />
             <ListingPropertyType propertyType={listing.propertyType} />
-            <ListingRating rating={listing.rating} reviewCount={listing.reviewCount} />
+            <ListingRating
+              rating={listing.rating}
+              reviewCount={listing.reviewCount}
+            />
           </div>
         </section>
 
@@ -53,10 +77,10 @@ export default function BuyerListingDetails({ listings = [] }) {
               <h2>About this place</h2>
 
               <ListingFacts
-                guests={listing.guests}
+                guests={listing.guestCapacity}
                 bedrooms={listing.bedrooms}
                 bathrooms={listing.bathrooms}
-                size={listing.size}
+                size={listing.area}
               />
 
               <hr />
@@ -82,7 +106,10 @@ export default function BuyerListingDetails({ listings = [] }) {
 
           <aside className="listing-detail-sidebar">
             <section className="booking-card">
-              <ListingPrice price={listing.price} oldPrice={listing.oldPrice} />
+              <ListingPrice
+                price={listing.pricePerNight}
+                oldPrice={listing.oldPrice}
+              />
 
               <hr />
 
