@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import AccountRoleTabs from "../../components/common/AccountRoleTabs.jsx";
+// import AccountRoleTabs from "../../components/common/AccountRoleTabs.jsx";
 
 import BuyerSavedListingsSection from "../../pages/listings/BuyerSavedListingsSection.jsx";
 import SellerAccountWorkspace from "../../pages/userAccounts/SellerAccountWorkspace.jsx";
@@ -21,10 +21,10 @@ export default function AccountPage() {
             Manage your listings, bookings, saved stays, and review workflows.
           </p>
 
-          <AccountRoleTabs
+          {/* <AccountRoleTabs
             activeRole={activeRole}
             onRoleChange={setActiveRole}
-          />
+          /> */}
         </div>
       </header>
 
