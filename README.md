@@ -27,7 +27,7 @@
   # DeluxeBookings
 
   <p>
-    A full stack MERN e-commerce application for discerning travellers looking for luxury accommodation
+    A full stack MERN e-commerce application for discerning travellers looking for luxury accommodation.
 
  <br>
       <a href="https://github.com/username/projectname"><strong>Explore the docs »</strong></a>
@@ -57,9 +57,6 @@
    * [Implementation Process](#implementation-process)
         * [Highlights](#highlights)
         * [Challenges](#challenges)
-   * [Reviews and Testing](#peer-reviews)
-        * [Feedback from Reviews](#feedback-from-reviews)
-        * [Unit Tests](#unit-tests)
    * [Future Implementation](#peer-reviews)
 * [Final Outcome](#final-outcome)
     * [Mockups](#mockups)
@@ -75,7 +72,7 @@
 
 ### Project Description
 
-Deluxe Bookings is a premium e-commerce ecosystem designed to facilitate the buying and selling of luxury hospitality services.
+Deluxe Bookings is a premium e-commerce ecosystem designed to facilitate the buying and selling of luxury accommodation.
 
 ### Built With
 
