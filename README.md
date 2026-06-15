@@ -234,20 +234,20 @@ See the [open issues](https://github.com/username/projectname/issues) for a list
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[image1]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/hero-header.png
-[image2]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/account.png
-[image3]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/form-check.png
-[image4]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/form-date.png
-[image5]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/form-pay.png
-[image6]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/product.png
-[image7]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/sign-up.png
-[image8]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/spassword.png
-[image9]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/planning%20document.png
-[image10]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/wireframes1.png
-[image11]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/wireframes2.png
-[image12]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/wireframes3.png
-[image13]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/wireframes4.png
-[image14]: ../DeluxeBookings/frontend/src/Assets/ReadMeimages/userflow.png
+[image1]: frontend/src/Assets/ReadMeimages/hero-header.png
+[image2]: frontend/src/Assets/ReadMeimages/account.png
+[image3]: frontend/src/Assets/ReadMeimages/form-check.png
+[image4]: frontend/src/Assets/ReadMeimages/form-date.png
+[image5]: frontend/src/Assets/ReadMeimages/form-pay.png
+[image6]: frontend/src/Assets/ReadMeimages/product.png
+[image7]: frontend/src/Assets/ReadMeimages/sign-up.png
+[image8]: frontend/src/Assets/ReadMeimages/spassword.png
+[image9]: frontend/src/Assets/ReadMeimages/planning%20document.png
+[image10]: frontend/src/Assets/ReadMeimages/wireframes1.png
+[image11]: frontend/src/Assets/ReadMeimages/wireframes2.png
+[image12]: frontend/src/Assets/ReadMeimages/wireframes3.png
+[image13]: frontend/src/Assets/ReadMeimages/wireframes4.png
+[image14]: frontend/src/Assets/ReadMeimages/userflow.png
 
 
 <!-- Refer to https://shields.io/ for more information and options about the shield links at the top of the ReadMe file -->
