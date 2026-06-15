@@ -40,6 +40,10 @@ function Home() {
         <OffersSection />
       </div>
 
+      <div>
+        <ReviewForm/>
+      </div>
+
   <Footer></Footer>
   </div>
   )
