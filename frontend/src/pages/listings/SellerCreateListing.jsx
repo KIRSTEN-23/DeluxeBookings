@@ -16,7 +16,7 @@ import {
   clearListingDraft,
 } from "../../utils/listingStorage.jsx";
 
-import "../../styles/components/listings/listingForm.css";
+import "../../styles/listingForm.css";
 
 const buildListingPayload = (formData, status = "in_review") => {
   const amenities = [

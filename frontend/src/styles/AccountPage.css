@@ -1,0 +1,116 @@
+.account-page {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text-strong);
+}
+
+.account-page__hero {
+  position: relative;
+  display: flex;
+  min-height: 220px;
+  align-items: flex-end;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(51, 42, 35, 0.82) 0%,
+      rgba(51, 42, 35, 0.58) 48%,
+      rgba(51, 42, 35, 0.18) 100%
+    ),
+    url("../../../../Assets/images/pexels-ben-mack-6775268.jpg") center/cover;
+  color: var(--color-fill);
+}
+
+.account-page__hero-content {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-4) var(--space-3);
+}
+
+.account-page__eyebrow {
+  margin: 0 0 var(--space-1);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.account-page__title {
+  margin: 0;
+  color: var(--color-fill);
+  font-size: clamp(var(--fs-h3), 4vw, var(--fs-h2));
+  font-weight: 400;
+}
+
+.account-page__intro {
+  max-width: 620px;
+  margin: var(--space-1) 0 var(--space-2);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: var(--fs-base);
+}
+
+.account-page .account-role-tabs {
+  margin-bottom: 0 !important;
+}
+
+.account-page .account-role-tabs .btn {
+  border-color: rgba(255, 255, 255, 0.76) !important;
+  color: var(--color-fill);
+}
+
+.account-page .account-role-tabs .btn.btn-dark {
+  border-color: var(--color-fill) !important;
+  background: var(--color-fill) !important;
+  color: var(--color-brand) !important;
+}
+
+.account-page .account-role-tabs .btn-outline-dark {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.account-page .account-role-tabs .btn-outline-dark:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.account-workspace {
+  display: grid;
+  gap: 0;
+}
+
+.seller-account-workspace-shell {
+  display: grid;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 var(--space-4) var(--space-5);
+}
+
+.seller-account-workspace-shell .seller-bookings-section {
+  padding: var(--space-3);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: 0 12px 30px rgba(51, 42, 35, 0.12);
+}
+
+@media (max-width: 834px) {
+  .account-page__hero {
+    min-height: 210px;
+  }
+
+  .account-page__hero-content {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .seller-account-workspace-shell {
+    gap: var(--space-3);
+    padding: 0 var(--space-2) var(--space-4);
+  }
+
+  .seller-account-workspace-shell .seller-bookings-section {
+    padding: var(--space-2);
+  }
+}

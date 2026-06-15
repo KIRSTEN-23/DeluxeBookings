@@ -1,4 +1,4 @@
-import "../../styles/components/listings/ListingCards.css";
+import "../../styles/ListingCards.css";
 
 export default function ListingCardShell({
   variant = "default",

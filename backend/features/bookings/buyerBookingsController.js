@@ -1,36 +1,71 @@
-/*
-─────────────────────────────────────────────────────────────
-BUYER BOOKINGS CONTROLLER
-─────────────────────────────────────────────────────────────
+const Booking = require("../../features/bookings/bookingSchema");
 
-Booking actions performed by buyers.
+const createBooking = async (req, res) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      addons,
+      arrivalDate,
+      departureDate,
+    } = req.body;
 
-Related Routes:
-GET    /api/bookings
-POST   /api/bookings
-GET    /api/bookings/:id
-PATCH  /api/bookings/:id/cancel
+    if (!firstName || !lastName || !email || !phone || !arrivalDate || !departureDate) {
+      return res.status(400).json({
+        error: "Missing required personal details or booking dates.",
+      });
+    }
 
-*/
+    const newBooking = await Booking.create({
+      firstName,
+      lastName,
+      email,
+      phone,
+      addons,
+      checkIn: arrivalDate,
+      checkOut: departureDate,
 
-/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
-as it only serves as guidelines for development and is not needed in the final codebase. */
+      // Placeholder data
+      destination: "Default Destination",
+      suite: "Luxury Suite",
+      guests: 1,
+      specialRequest: "",
+    });
 
-/*
-─────────────────────────────────────────────────────────────
-USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
+    console.log("Guest Booking saved perfectly:", newBooking);
 
-getBuyerBookings()
-GET /api/bookings
+    return res.status(201).json({
+      success: true,
+      message: "Guest booking saved successfully!",
+      booking: newBooking,
+    });
+  } catch (error) {
+    console.error("Database Save Error:", error.message);
 
-getBuyerBookingById()
-GET /api/bookings/:id
+    return res.status(500).json({
+      error: "Could not write booking to database.",
+    });
+  }
+};
 
-createBooking()
-POST /api/bookings
+module.exports = {
+  createBooking,
+};
 
-cancelBooking()
-PATCH /api/bookings/:id/cancel
 
-*/
+// router.post("/", async (req, res) => {
+//   try {
+//     const booking = new Booking(req.body);
+
+//     const savedBooking = await booking.save();
+
+//     res.status(201).json(savedBooking);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: error.message,
+//     });
+//   }
+// });
 

@@ -26,7 +26,7 @@ export default function BuyerListingCard({ listing }) {
       actions={
         <>
           <Link
-            to={`/public/browse/${listing._id}`}
+            to={`/browse/${listing._id}`}
             className="btn btn-outline-dark listing-card-action-secondary"
           >
             View Details

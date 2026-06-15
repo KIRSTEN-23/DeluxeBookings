@@ -18,7 +18,7 @@ import {
   ListingHouseRules,
 } from "../../components/listings/ListingItems";
 
-import "../../styles/components/listings/ListingDetails.css";
+import "../../styles/ListingDetails.css";
 
 export default function BuyerListingDetails() {
   const { id } = useParams();

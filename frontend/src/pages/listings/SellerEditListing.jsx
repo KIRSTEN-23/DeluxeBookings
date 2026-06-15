@@ -11,7 +11,7 @@ import {
   updateSellerListing,
 } from "../../api/sellerApi.jsx";
 
-import "../../styles/components/listings/listingForm.css";
+import "../../styles/listingForm.css";
 
 const mapListingToForm = (listing) => ({
   ...initialListingForm,

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Accordion, Badge, Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
 import {
@@ -16,7 +17,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-import "../../styles/pages/public/SellerOnboarding.css";
+import "../../styles/SellerOnboarding.css";
 
 const formatCurrency = (value) =>
   new Intl.NumberFormat("en-ZA", {
@@ -98,7 +99,8 @@ const testimonialTrackItems = [
   testimonials[1],
 ];
 
-function SellerOnboarding({ onNavigate }) {
+function SellerOnboarding() {
+  const navigate = useNavigate();
   const [nightlyRate, setNightlyRate] = useState(5000);
   const [nightsPerMonth, setNightsPerMonth] = useState(20);
   const [testimonialIndex, setTestimonialIndex] = useState(2);
@@ -152,7 +154,7 @@ function SellerOnboarding({ onNavigate }) {
               </p>
 
               <div className="hero-actions">
-                <Button className="deluxe-btn-primary" onClick={() => onNavigate("/seller/create-listing")}>
+                <Button className="deluxe-btn-primary" onClick={() => navigate("/seller/new")}>
                   Start Listing Your Property
                   <ArrowRight size={20} strokeWidth={2.4} />
                 </Button>
