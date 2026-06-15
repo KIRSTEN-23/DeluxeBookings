@@ -66,9 +66,6 @@
     * [Video Demonstration](#video-demonstration)
 * [Conclusion](#conclusion)
 * [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
 
 <!--PROJECT DESCRIPTION-->
@@ -88,7 +85,7 @@ Deluxe Bookings is a premium e-commerce ecosystem designed to facilitate the buy
 * [Node](https://nodejs.org/en)
 
 <!-- GETTING STARTED -->
-<!-- Make sure to add appropriate information about what prerequesite technologies the user would need and also the steps to install your project on their own mashines -->
+<!-- Make sure to add appropriate information about what prerequesite technologies the user would need and also the steps to install your project on their own machines -->
 ## Getting Started
 
 The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -123,22 +120,36 @@ Run the following in the command-line to install all the required dependencies f
 <!-- You can add the links to all of your imagery at the bottom of the file as references -->
 ## Features and Functionality
 
-![image2][image2]
-### Feature 1
+![Account][image2]
+### Account page
 
-Description of Feature
+Users can see their account information, edit their profile, log out, or delete their account.
 
 ![image3][image3]
-### Feature 2
-
-Description of Feature
-
 ![image4][image4]
-### Feature 3
-
-Description of Feature
-
 ![image5][image5]
+### checkout form
+
+Users fill in a checkout form with all of the necessary details.
+
+![image6][image6]
+### product filtering
+
+Users can search and filter listings to better match their needs.
+
+![image7][image7]
+![image8][image8]
+### Sign up/log in
+
+Users can create/register an account by filling in their details and creating a password by choosing a unique picture pattern.
+
+### Seller dashboard
+
+Sellers can create and edit listings
+
+### Review component
+
+Users can review individual listings
 
 
 <!-- CONCEPT PROCESS -->
@@ -149,17 +160,19 @@ The `Conceptual Process` is the set of actions, activities and research that was
 
 ### Ideation
 
-![image5][image5]
+![image9][image9]
 <br>
-![image6][image6]
 
 ### Wireframes
 
-![image7][image7]
+![image10][image10]
+![image11][image11]
+![image12][image12]
+![image13][image13]
 
 ### User-flow
 
-![image8][image8]
+![image14][image14]
 
 <!-- DEVELOPMENT PROCESS -->
 ## Development Process
@@ -167,54 +180,40 @@ The `Conceptual Process` is the set of actions, activities and research that was
 The `Development Process` is the technical implementations and functionality done in the frontend and backend of the application.
 
 ### Implementation Process
-<!-- stipulate all of the functionality you included in the project -->
+<!-- stipulate all of the functionality you included in the project 
 
 * Made use of both `functionality` to implement a specific feature.
 * `MVC/MVVM` design architecture implemented.
 * `Plugin` for this.
-* ETC.
+* ETC.-->
+
+* MERN Architecture: Implemented a Model-View-Controller (MVC) pattern on the backend to decouple database schemes from routing logic.
+* State Management: Integrated React state hooks and context APIs to securely propagate user session state and booking criteria across pages.
+* Component-Driven UI: Styled modular components with an emphasis on responsive design, ensuring a seamless luxury feel on mobile screens and desktop monitors alike.
 
 #### Highlights
 <!-- stipulated the highlight you experienced with the project -->
-* Sunshine.
-* Rainbows.
+* We learned how to create a secure authentication process, with password hashing.
+* We also learned how to make a MERN stack application
 
 #### Challenges
 <!-- stipulated the challenges you faced with the project and why you think you faced it or how you think you'll solve it (if not solved) -->
-* Bugs.
-* Bugs.
-
-### Reviews & Testing
-<!-- stipulate how you've conducted testing in the form of peer reviews, feedback and also functionality testing, like unit tests (if applicable) -->
-
-#### Feedback from Reviews
-
-`Peer Reviews` were conducted by my fellow students and lecturer. The following feedback I found useful:
-
-* Feedback one.
-* Feedback two.
-
-#### Unit Tests
-
-`Unit Tests` were conducted to establish working functionality. Here are all the tests that were ran:
-
-* Test 1 of this functionality
-* Test 2 of this functionality
+* Major technical challenges: Github, MongoDB Database
+* Problems encountered during development: merging Errors we had to solve, files paths during merging, and missing dependencies.
 
 ### Future Implementation
 <!-- stipulate functionality and improvements that can be implemented in the future. -->
 
-* Future 1.
-* Future 2.
+* Save bookings for later
+* Admins can alter &  delete listings, and review flagged reviews.
+* Sellers have access to analytics.
 
 <!-- MOCKUPS -->
 ## Final Outcome
 
 ### Mockups
 
-![image9][image9]
-<br>
-![image10][image10]
+![image9][image1]
 
 <!-- VIDEO DEMONSTRATION -->
 ### Video Demonstration
@@ -235,16 +234,20 @@ See the [open issues](https://github.com/username/projectname/issues) for a list
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[image1]: /path/to/image.png
-[image2]: /path/to/image.png
-[image3]: /path/to/image.png
-[image4]: /path/to/image.png
-[image5]: /path/to/image.png
-[image6]: /path/to/image.png
-[image7]: /path/to/image.png
-[image8]: /path/to/image.png
-[image9]: /path/to/image.png
-[image10]: /path/to/image.png
+[image1]: frontend/src/Assets/ReadMeimages/hero-header.png
+[image2]: frontend/src/Assets/ReadMeimages/account.png
+[image3]: frontend/src/Assets/ReadMeimages/form-check.png
+[image4]: frontend/src/Assets/ReadMeimages/form-date.png
+[image5]: frontend/src/Assets/ReadMeimages/form-pay.png
+[image6]: frontend/src/Assets/ReadMeimages/product.png
+[image7]: frontend/src/Assets/ReadMeimages/sign-up.png
+[image8]: frontend/src/Assets/ReadMeimages/spassword.png
+[image9]: frontend/src/Assets/ReadMeimages/planning%20document.png
+[image10]: frontend/src/Assets/ReadMeimages/wireframes1.png
+[image11]: frontend/src/Assets/ReadMeimages/wireframes2.png
+[image12]: frontend/src/Assets/ReadMeimages/wireframes3.png
+[image13]: frontend/src/Assets/ReadMeimages/wireframes4.png
+[image14]: frontend/src/Assets/ReadMeimages/userflow.png
 
 
 <!-- Refer to https://shields.io/ for more information and options about the shield links at the top of the ReadMe file -->

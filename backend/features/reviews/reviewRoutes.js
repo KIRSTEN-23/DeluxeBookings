@@ -40,8 +40,11 @@ router.get("/", async (req, res) => {
     );
 
     const reviews = await Review.find();
+    
+    res.json({ message: "Reviews route works" });
 
-    res.json(reviews);
+    // res.json(reviews);
+    
 
   } catch (error) {
     console.error(error);
@@ -52,7 +55,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-
+module.exports = router;
 // router.get("/", async (req, res) => {
 
 //   try {
@@ -82,4 +85,3 @@ router.get("/", async (req, res) => {
 
 // });
 
-module.exports = router;
