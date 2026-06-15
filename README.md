@@ -3,23 +3,25 @@
 <!-- Repository Information & Links-->
 <br />
 
-![GitHub repo size](https://img.shields.io/github/repo-size/username/projectname?color=%000000)
-![GitHub watchers](https://img.shields.io/github/watchers/username/projectname?color=%000000)
-![GitHub language count](https://img.shields.io/github/languages/count/username/projectname?color=%000000)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/username/projectname?color=%000000)
-[![LinkedIn][linkedin-shield]][linkedin-url]
+![GitHub repo size](https://img.shields.io/github/repo-size/KIRSTEN-23/DeluxeBookings?color=000000)
+![GitHub watchers](https://img.shields.io/github/watchers/KIRSTEN-23/DeluxeBookings?color=000000)
+![GitHub top language](https://img.shields.io/github/languages/top/KIRSTEN-23/DeluxeBookings?color=000000)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/KIRSTEN-23/DeluxeBookings?color=000000)
+<!--[![LinkedIn][linkedin-shield]][linkedin-url]
 [![Instagram][instagram-shield]][instagram-url]
 [![Behance][behance-shield]][behance-url]
 
 <!-- HEADER SECTION -->
-<h5 align="center" style="padding:0;margin:0;">Your Name & Surname</h5>
-<h5 align="center" style="padding:0;margin:0;">Student Number</h5>
-<h6 align="center">Subject Name & Year</h6>
+<h5 align="center" style="padding:0;margin:0;"> Kirsten Venter
+, Joelene du Toit and Khanyisile Manana
+</h5>
+<!-- <h5 align="center" style="padding:0;margin:0;">Student Number</h5>  -->
+<h6 align="center">DV 200</h6>
 </br>
 <p align="center">
 
   <a href="https://github.com/username/projectname">
-    <img src="path/to/logo" alt="Logo" width="140" height="140">
+    <img src="./frontend/src/Assets/images/DeluxeLogo.svg" alt="Logo" width="140" height="140">
   </a>
   
   # DeluxeBookings
@@ -76,13 +78,14 @@
 
 ### Project Description
 
-A nice introduction to this amazing project of mine.
+Deluxe Bookings is a premium e-commerce ecosystem designed to facilitate the buying and selling of luxury hospitality services.
 
 ### Built With
 
-* [Technology Name](path/to/technology/website)
-* [Technology Name](path/to/technology/website)
-* [Technology Name](path/to/technology/website)
+* [MongoDB](https://www.mongodb.com/products/platform/atlas-database)
+* [Express](https://www.mongodb.com/resources/products/compatibilities/express)
+* [React](https://react.dev/)
+* [Node](https://nodejs.org/en)
 
 <!-- GETTING STARTED -->
 <!-- Make sure to add appropriate information about what prerequesite technologies the user would need and also the steps to install your project on their own mashines -->
@@ -92,33 +95,27 @@ The following instructions will get you a copy of the project up and running on 
 
 ### Prerequisites
 
-Ensure that you have the latest version of [Software](path/to/where/they/can/download/software) installed on your machine. The [Plugin](path/to/where/they/can/download/plugin) plugin will also be required.
+Ensure that you have the latest version of [Node.js](https://nodejs.org/) installed on your machine, and a [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) account or a local MongoDB instance running.
 
 ### How to install
 
 ### Installation
 Here are a couple of ways to clone this repo:
 
-1. Software </br>
-`Android Studio` -> `File` -> `New` -> `From Version Control` -> `Git`</br>
-Enter `https://github.com/username/projectname.git` into the URL field and press the `Clone` button.
-
-2. Clone Repository </br>
-Run the following in the command-line to clone the project:
+1. Clone repositories </br>
+   Run the following command in your terminal to download the project files:
    ```sh
-   git clone https://github.com/username/projectname.git
-   ```
-    Open `Software` and select `File | Open...` from the menu. Select cloned directory and press `Open` button
+   git clone [https://github.com/KIRSTEN-23/DeluxeBookings.git](https://github.com/KIRSTEN-23/DeluxeBookings.git)
 
-3. Install Dependencies </br>
-Run the following in the command-line to install all the required dependencies:
+2. Install Dependencies </br>
+Run the following in the command-line to install all the required dependencies for the backend:
    ```sh
-   npm install
+   cd backend
+   npm install express mongoose cors dotenv jsonwebtoken bcryptjs && npm install --save-dev nodemon @eslint/js eslint globals
    ```
-
-4. Get a free API Key at [https://example.com](https://example.com) and enter it in the `config.js` file:
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+Run the following in the command-line to install all the required dependencies for the frontend:
+   ```sh
+   cd frontend && npm install framer-motion react-datepicker react-icons react-router-dom react-toastify react-transition-group swiper && npm install --save-dev @eslint/js @vitejs/plugin-react axios bootstrap eslint eslint-plugin-react-hooks eslint-plugin-react-refresh globals lucide-react react react-bootstrap react-dom vite
    ```
 
 
@@ -231,41 +228,10 @@ To see a run through of the application, click below:
 
 See the [open issues](https://github.com/username/projectname/issues) for a list of proposed features (and known issues).
 
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what makes the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- AUTHORS -->
-## Authors
-
-* **Your Name & Surname** - [username](https://github.com/username)
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.\
-
-<!-- LICENSE -->
-## Contact
-
-* **Your Name & Surname** - [email@address](mailto:email@address) - [@instagram_handle](https://www.instagram.com/instagram_handle/) 
-* **Project Link** - https://github.com/username/projectname
-
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 <!-- all resources that you used and Acknowledgements here -->
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
-* [Resource Name](path/to/resource)
+* [W3 schools](https://www.w3schools.com/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
