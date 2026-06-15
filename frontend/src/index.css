@@ -165,3 +165,30 @@ textarea::placeholder,
   --bs-btn-disabled-bg: var(--color-stroke-weak);
   --bs-btn-disabled-border-color: var(--color-stroke-weak);
 }
+
+
+.btn:not(:disabled):hover,
+.button:not(:disabled):hover,
+[role="button"]:not(:disabled):hover {
+  opacity: var(--button-hover-opacity);
+}
+
+.btn svg,
+.button svg,
+[role="button"] svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  flex: 0 0 auto;
+  stroke-width: var(--icon-stroke-width);
+}
+
+.card {
+  border-radius: var(--radius-card);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs-sm: 16px;
+    --fs-base: 20px;
+  }
+}

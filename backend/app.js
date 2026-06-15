@@ -22,6 +22,30 @@ app.get("/", (req, res) => {
 // app.use("/api/buyer", buyerRoutes);
 // app.use("/api/seller", sellerRoutes);
 // app.use("/api/admin", adminRoutes);
+// Routes 
+// app.use('/api/auth', 
+// require('./routes/authRoutes')
+// );
+
+// app.use('/api/users', 
+//   require('./routes/userRoutes')
+// );
+
+app.use('/api/public', 
+  require('./routes/publicRoutes')
+);
+
+// app.use('/api/buyer', 
+//   require('./routes/buyerRoutes')
+// );
+
+app.use('/api/seller', 
+  require('./routes/sellerRoutes')
+);
+
+app.use('/api/admin', 
+  require('./routes/adminRoutes')
+);
 
 //routes
 const authRoutes = require("./routes/authRoutes");

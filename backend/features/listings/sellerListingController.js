@@ -1,50 +1,180 @@
-/*
-─────────────────────────────────────────────────────────────
-SELLER LISTING CONTROLLER
-─────────────────────────────────────────────────────────────
+const mongoose = require("mongoose");
+const Listing = require("./listingSchema");
+const { LISTING_STATUS } = require("../../_config/constants");
+const TEMP_SELLER_ID = "6a15854044273245363d26c6";
 
-Seller-owned listing management.
+const getTempSellerId = () => {
+  return new mongoose.Types.ObjectId(TEMP_SELLER_ID);
+};
 
-Related Routes:
-Related Routes:
+const getSellerListings = async (req, res) => {
+  try {
+    const sellerId = getTempSellerId();
 
-// GET    /api/seller/listings
-// POST   /api/seller/listings
-// GET    /api/seller/listings/:id
-// PUT    /api/seller/listings/:id
-// DELETE /api/seller/listings/:id
+    const listings = await Listing.find({ seller: sellerId }).sort({
+      createdAt: -1,
+    });
 
-*/
+    console.log("SELLER LISTINGS FOUND:", listings.length);
 
-/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
-as it only serves as guidelines for development and is not needed in the final codebase. */
+    res.status(200).json(listings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch seller listings." });
+  }
+};
 
-/*
-─────────────────────────────────────────────────────────────
-USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
+const getSellerListingById = async (req, res) => {
+  try {
+    const sellerId = new mongoose.Types.ObjectId(TEMP_SELLER_ID);
 
-getSellerListings()
-GET /api/seller/listings
+    const listing = await Listing.findOne({
+      _id: req.params.id,
+      seller: sellerId,
+    });
 
-getSellerListingById()
-GET /api/seller/listings/:id
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found." });
+    }
 
-createSellerListing()
-POST /api/seller/listings
+    res.status(200).json(listing);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch seller listing." });
+  }
+};
 
-updateSellerListing()
-PUT /api/seller/listings/:id
+const createSellerListing = async (req, res) => {
+  try {
+    const sellerId = getTempSellerId();
 
-submitListingForReview()
-PATCH /api/seller/listings/:id/submit
+    const listing = await Listing.create({
+      ...req.body,
+      seller: sellerId,
+      status: LISTING_STATUS.IN_REVIEW,
+    });
 
-publishListing()
-PATCH /api/seller/listings/:id/publish
+    res.status(201).json(listing);
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to create listing.",
+      error: error.message,
+    });
+  }
+};
 
-unpublishListing()
-PATCH /api/seller/listings/:id/unpublish
+const updateSellerListing = async (req, res) => {
+  try {
+    const sellerId = getTempSellerId();
 
-deleteSellerListing()
-DELETE /api/seller/listings/:id
+    const listing = await Listing.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        seller: sellerId,
+      },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
 
-*/
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found." });
+    }
+
+    res.status(200).json(listing);
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to update listing.",
+      error: error.message,
+    });
+  }
+};
+
+const publishSellerListing = async (req, res) => {
+  try {
+    const sellerId = getTempSellerId();
+
+    const listing = await Listing.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        seller: sellerId,
+        status: LISTING_STATUS.UNPUBLISHED,
+      },
+      {
+        status: LISTING_STATUS.PUBLISHED,
+        isPaused: false,
+      },
+      { new: true },
+    );
+
+    if (!listing) {
+      return res.status(400).json({
+        message: "Only approved unpublished listings can be published.",
+      });
+    }
+
+    res.status(200).json(listing);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to publish listing." });
+  }
+};
+
+const unpublishSellerListing = async (req, res) => {
+  try {
+    const sellerId = getTempSellerId();
+
+    const listing = await Listing.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        seller: sellerId,
+      },
+      {
+        status: LISTING_STATUS.UNPUBLISHED,
+      },
+      { new: true },
+    );
+
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found." });
+    }
+
+    res.status(200).json(listing);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to unpublish listing." });
+  }
+};
+
+const deleteSellerListing = async (req, res) => {
+  try {
+    const sellerId = getTempSellerId();
+
+    const listing = await Listing.findOneAndDelete({
+      _id: req.params.id,
+
+      seller: sellerId,
+    });
+
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found." });
+    }
+
+    res.status(200).json({
+      message: "Listing permanently deleted.",
+
+      listingId: req.params.id,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete listing." });
+  }
+};
+
+module.exports = {
+  getSellerListings,
+  getSellerListingById,
+  createSellerListing,
+  updateSellerListing,
+  publishSellerListing,
+  unpublishSellerListing,
+  deleteSellerListing,
+};

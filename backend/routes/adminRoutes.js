@@ -3,35 +3,22 @@ console.log("ADMIN ROUTES LOADED");
 const express = require("express");
 const router = express.Router();
 
-// Get moderation queue
-router.get("/listings/queue", (req, res) => {
-  res.json({
-    message: "Admin: get listings awaiting moderation",
-  });
-});
+const {
+  getAllListingsAdmin,
+  getListingsInReview,
+  getListingForReview,
+  approveListing,
+  rejectListing,
+} = require("../features/listings/adminListingController");
 
-// Get single queued listing
-router.get("/listings/queue/:id", (req, res) => {
-  res.json({
-    message: "Admin: get queued listing",
-    listingId: req.params.id,
-  });
-});
+// To add:
+// const verifyToken = require("../middleware/verifyToken");
+// const requireRole = require("../middleware/requireRole");
 
-// Approve listing
-router.patch("/listings/:id/approve", (req, res) => {
-  res.json({
-    message: "Admin: approve listing",
-    listingId: req.params.id,
-  });
-});
-
-// Reject listing
-router.patch("/listings/:id/reject", (req, res) => {
-  res.json({
-    message: "Admin: reject listing",
-    listingId: req.params.id,
-  });
-});
+router.get("/listings", getAllListingsAdmin);
+router.get("/listings/review", getListingsInReview);
+router.get("/listings/:id", getListingForReview);
+router.patch("/listings/:id/approve", approveListing);
+router.patch("/listings/:id/reject", rejectListing);
 
 module.exports = router;
