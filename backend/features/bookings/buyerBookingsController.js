@@ -26,15 +26,7 @@ const createBooking = async (req, res) => {
       addons,
       checkIn: arrivalDate,
       checkOut: departureDate,
-
-      // Placeholder data
-      destination: "Default Destination",
-      suite: "Luxury Suite",
-      guests: 1,
-      specialRequest: "",
     });
-
-    console.log("Guest Booking saved perfectly:", newBooking);
 
     return res.status(201).json({
       success: true,
@@ -55,17 +47,4 @@ module.exports = {
 };
 
 
-// router.post("/", async (req, res) => {
-//   try {
-//     const booking = new Booking(req.body);
-
-//     const savedBooking = await booking.save();
-
-//     res.status(201).json(savedBooking);
-//   } catch (error) {
-//     res.status(500).json({
-//       message: error.message,
-//     });
-//   }
-// });
 

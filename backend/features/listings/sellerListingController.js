@@ -15,7 +15,6 @@ const getSellerListings = async (req, res) => {
       createdAt: -1,
     });
 
-    console.log("SELLER LISTINGS FOUND:", listings.length);
 
     res.status(200).json(listings);
   } catch (error) {

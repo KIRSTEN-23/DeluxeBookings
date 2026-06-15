@@ -16,41 +16,6 @@ const bookingSchema = new mongoose.Schema(
       required: false,
     },
 
-    customerName: {
-      type: String,
-      required: true,
-    },
-
-    email: {
-      type: String,
-      required: true,
-    },
-
-    propertyName: {
-      type: String,
-      required: true,
-    },
-
-    checkIn: {
-      type: Date,
-      required: true,
-    },
-
-    checkOut: {
-      type: Date,
-      required: true,
-    },
-
-    guests: {
-      type: Number,
-      required: true,
-    },
-
-    status: {
-      type: String,
-      default: "Pending",
-    },
-
     firstName: {
       type: String,
       required: true,

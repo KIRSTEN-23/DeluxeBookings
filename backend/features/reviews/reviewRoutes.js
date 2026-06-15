@@ -56,32 +56,4 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-// router.get("/", async (req, res) => {
-
-//   try {
-
-//     const reviews =
-//       await Review.find()
-//       .sort({
-//         createdAt: -1
-//       });
-
-//     res.json(reviews);
-
-//     const response =
-//         await axios.get(
-//          "http://localhost:5000/api/reviews"
-//         );
-
-// setReviews(response.data);
-
-//   } catch (error) {
-
-//     res.status(500).json({
-//       message: error.message
-//     });
-
-//   }
-
-// });
 
