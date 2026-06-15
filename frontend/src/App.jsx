@@ -37,18 +37,18 @@ function App() {
         <Route 
           path="/sellerLoggedIn" 
           element={
-            //<ProtectedRoute allowedRoles={['S', 'A']}>
+            <ProtectedRoute allowedRoles={['S', 'A']}>
               <SellerLoggedIn />
-            //</ProtectedRoute>
+            </ProtectedRoute>
           } 
         />
 
       <Route 
         path="/adminDashboard" 
         element={
-          //<ProtectedRoute allowedRoles={['A']}>
+          <ProtectedRoute allowedRoles={['A']}>
             <AdminDashboard />
-          //</ProtectedRoute>
+          </ProtectedRoute>
         } 
       />
             </Routes>
