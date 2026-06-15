@@ -13,8 +13,17 @@ import {
   ListingPrice,
 } from "./ListingItems";
 
-export default function SellerListingCard({ listing, selected = false, onViewDetails }) {
-  const coverImage = listing.coverImage || listing.images?.[0];
+export default function SellerListingCard({
+  listing,
+  selected = false,
+  onViewDetails,
+  onDelete,
+  onPublish,
+  onUnpublish
+}) {
+  const coverImage =
+    listing.images?.find((image) => image.isCover) || listing.images?.[0];
+  const status = listing.status;
 
   return (
     <ListingCardShell
@@ -27,22 +36,79 @@ export default function SellerListingCard({ listing, selected = false, onViewDet
         <>
           <button
             type="button"
-            className="btn btn-outline-dark listing-card-action-secondary"
+            className="btn btn-outline-dark"
             onClick={() => onViewDetails?.(listing)}
           >
             View Details
           </button>
 
-          <Link
-            to={`/seller/listings/${listing._id}/edit`}
-            className="btn btn-primary listing-card-action-primary"
-          >
-            Edit Listing
-          </Link>
+          {status === "published" && (
+            <button
+              type="button"
+              className="btn btn-outline-warning"
+              onClick={() => onUnpublish?.(listing._id)}
+            >
+              Remove
+            </button>
+          )}
 
-          <button className="btn listing-card-action-danger">
-            Remove Listing
-          </button>
+          {status === "unpublished" && (
+            <>
+              <button
+                type="button"
+                className="btn btn-outline-success"
+                onClick={() => onPublish?.(listing._id)}
+              >
+                Publish
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={() => onDelete?.(listing._id)}
+              >
+                Delete
+              </button>
+            </>
+          )}
+
+          {status === "draft" && (
+            <>
+              <Link
+                to={`/seller/listings/${listing._id}/edit`}
+                className="btn btn-outline-dark"
+              >
+                Continue Editing
+              </Link>
+
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={() => onDelete?.(listing._id)}
+              >
+                Delete
+              </button>
+            </>
+          )}
+
+          {status === "rejected" && (
+            <>
+              <Link
+                to={`/seller/listings/${listing._id}/edit`}
+                className="btn btn-outline-dark"
+              >
+                Edit
+              </Link>
+
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={() => onDelete?.(listing._id)}
+              >
+                Delete
+              </button>
+            </>
+          )}
         </>
       }
     >
@@ -55,20 +121,27 @@ export default function SellerListingCard({ listing, selected = false, onViewDet
             <ListingLocation location={listing.location} />
           </div>
 
-          <ListingDescription description={listing.description} truncate lines={2} />
+          <ListingDescription
+            description={listing.description}
+            truncate
+            lines={2}
+          />
 
           <ListingFacts
-            guests={listing.guests}
+            guests={listing.guestCapacity}
             bedrooms={listing.bedrooms}
             bathrooms={listing.bathrooms}
-            size={listing.size}
+            size={listing.area}
           />
 
           <ListingAmenities amenities={listing.amenities} />
         </div>
 
         <aside className="listing-card-sidebar">
-          <ListingPrice price={listing.price} oldPrice={listing.oldPrice} />
+          <ListingPrice
+            price={listing.pricePerNight}
+            oldPrice={listing.oldPrice}
+          />
         </aside>
       </div>
     </ListingCardShell>

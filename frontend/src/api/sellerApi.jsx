@@ -30,7 +30,7 @@ export const unpublishSellerListing = async (id) => {
   return response.data;
 };
 
-export const removeSellerListing = async (id) => {
+export const deleteSellerListing = async (id) => {
   const response = await api.delete(`/seller/listings/${id}`);
   return response.data;
 };

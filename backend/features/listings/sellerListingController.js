@@ -1,74 +1,32 @@
-/*
-─────────────────────────────────────────────────────────────
-SELLER LISTING CONTROLLER
-─────────────────────────────────────────────────────────────
-
-Seller-owned listing management.
-
-Related Routes:
-Related Routes:
-
-// GET    /api/seller/listings
-// POST   /api/seller/listings
-// GET    /api/seller/listings/:id
-// PUT    /api/seller/listings/:id
-// DELETE /api/seller/listings/:id
-
-*/
-
-/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
-as it only serves as guidelines for development and is not needed in the final codebase. */
-
-/*
-─────────────────────────────────────────────────────────────
-USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
-
-getSellerListings()
-GET /api/seller/listings
-
-getSellerListingById()
-GET /api/seller/listings/:id
-
-createSellerListing()
-POST /api/seller/listings
-
-updateSellerListing()
-PUT /api/seller/listings/:id
-
-submitListingForReview()
-PATCH /api/seller/listings/:id/submit
-
-publishListing()
-PATCH /api/seller/listings/:id/publish
-
-unpublishListing()
-PATCH /api/seller/listings/:id/unpublish
-
-deleteSellerListing()
-DELETE /api/seller/listings/:id
-
-*/
-
+const mongoose = require("mongoose");
 const Listing = require("./listingSchema");
 const { LISTING_STATUS } = require("../../_config/constants");
+const TEMP_SELLER_ID = "6a15854044273245363d26c6";
+
+const getTempSellerId = () => {
+  return new mongoose.Types.ObjectId(TEMP_SELLER_ID);
+};
 
 const getSellerListings = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = getTempSellerId();
 
     const listings = await Listing.find({ seller: sellerId }).sort({
       createdAt: -1,
     });
 
+    console.log("SELLER LISTINGS FOUND:", listings.length);
+
     res.status(200).json(listings);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to fetch seller listings." });
   }
 };
 
 const getSellerListingById = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = new mongoose.Types.ObjectId(TEMP_SELLER_ID);
 
     const listing = await Listing.findOne({
       _id: req.params.id,
@@ -87,7 +45,7 @@ const getSellerListingById = async (req, res) => {
 
 const createSellerListing = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = getTempSellerId();
 
     const listing = await Listing.create({
       ...req.body,
@@ -106,7 +64,7 @@ const createSellerListing = async (req, res) => {
 
 const updateSellerListing = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = getTempSellerId();
 
     const listing = await Listing.findOneAndUpdate(
       {
@@ -133,9 +91,9 @@ const updateSellerListing = async (req, res) => {
   }
 };
 
-const publishListing = async (req, res) => {
+const publishSellerListing = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = getTempSellerId();
 
     const listing = await Listing.findOneAndUpdate(
       {
@@ -162,9 +120,9 @@ const publishListing = async (req, res) => {
   }
 };
 
-const unpublishListing = async (req, res) => {
+const unpublishSellerListing = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = getTempSellerId();
 
     const listing = await Listing.findOneAndUpdate(
       {
@@ -189,30 +147,25 @@ const unpublishListing = async (req, res) => {
 
 const deleteSellerListing = async (req, res) => {
   try {
-    const sellerId = req.user?._id || req.user?.id;
+    const sellerId = getTempSellerId();
 
-    const listing = await Listing.findOneAndUpdate(
-      {
-        _id: req.params.id,
-        seller: sellerId,
-      },
-      {
-        status: LISTING_STATUS.UNPUBLISHED,
-        isPaused: true,
-      },
-      { new: true },
-    );
+    const listing = await Listing.findOneAndDelete({
+      _id: req.params.id,
+
+      seller: sellerId,
+    });
 
     if (!listing) {
       return res.status(404).json({ message: "Listing not found." });
     }
 
     res.status(200).json({
-      message: "Listing removed from public view.",
-      listing,
+      message: "Listing permanently deleted.",
+
+      listingId: req.params.id,
     });
   } catch (error) {
-    res.status(500).json({ message: "Failed to remove listing." });
+    res.status(500).json({ message: "Failed to delete listing." });
   }
 };
 
@@ -221,7 +174,7 @@ module.exports = {
   getSellerListingById,
   createSellerListing,
   updateSellerListing,
-  publishListing,
-  unpublishListing,
+  publishSellerListing,
+  unpublishSellerListing,
   deleteSellerListing,
 };

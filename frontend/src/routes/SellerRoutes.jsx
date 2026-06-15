@@ -1,21 +1,21 @@
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import ProtectedRoute from "./ProtectedRoute";
-
-import SellerManageMyListings from "../pages/seller/SellerManageMyListingsSection";
-import SellerAdminListingDetails from "../pages/listings/SellerAdminListingDetails";
-import SellerIntakeForm from "../pages/seller/SellerIntakeForm";
-import EditListing from "../pages/seller/EditListing";
+import AccountPage from "../pages/userAccounts/AccountPage.jsx";
+import SellerAdminListingDetails from "../pages/listings/SellerAdminListingDetails.jsx";
+import SellerCreateListing from "../pages/listings/SellerCreateListing.jsx";
+import SellerEditListing from "../pages/listings/SellerEditListing.jsx";
 
 export default function SellerRoutes() {
   return (
-    <>
-      {/* <Route element={<ProtectedRoute minLevel={2} />}> */}
-        <Route path="/seller/listings" element={<SellerManageMyListings />} />
-        <Route path="/seller/listings/new" element={<ListingForm mode="create" />} />
-        <Route path="/seller/listings/:id" element={<SellerAdminListingDetails role="seller" />} />
-        <Route path="/seller/listings/:id/edit" element={<ListingForm mode="edit" />} />
-      {/* </Route> */}
-    </>
+    <Routes>
+      <Route path="account" element={<AccountPage />} />
+      <Route
+        path="listings/:id"
+        element={<SellerAdminListingDetails role="seller" />}
+      />
+      <Route path="listings/new" element={<SellerCreateListing />} />
+
+      <Route path="listings/:id/edit" element={<SellerEditListing />} />
+    </Routes>
   );
 }

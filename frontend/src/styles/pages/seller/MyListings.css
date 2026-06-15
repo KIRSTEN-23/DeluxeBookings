@@ -5,13 +5,12 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin: var(--space-3) 0 var(--space-5);
-  padding: 0% 10%;
+  margin: var(--space-3) 0 0;
+  padding: 0;
 }
 
 .my-listings-section:has(.my-listings-layout.has-detail-pane) {
-  padding-right: var(--space-1);
-  padding-left: var(--space-1);
+  padding: 0;
 }
 .my-listings-section [role="button"] {
   justify-content: left;
@@ -21,18 +20,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--space-3);
+  gap: 0;
 }
 
 .my-listings-layout.has-detail-pane {
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-  justify-content: stretch;
-  align-items: start;
-}
-
-.my-listings-layout.has-detail-pane .seller-listing-card {
-  grid-template-columns: 180px minmax(0, 1fr);
+  display: flex;
 }
 
 .my-listings-primary {
@@ -43,14 +35,16 @@
 }
 
 .my-listings-layout.has-detail-pane .my-listings-list,
-.my-listings-layout.has-detail-pane .my-listings-primary,
-.my-listings-layout.has-detail-pane .seller-listing-detail-pane {
+.my-listings-layout.has-detail-pane .my-listings-primary {
   min-width: 0;
   width: 100%;
 }
 
 .my-listings-toolbar {
   align-items: center;
+  margin-bottom: var(--space-3) !important;
+  padding: 0;
+  background: transparent;
 }
 
 .my-listings-filter-column,
@@ -108,7 +102,6 @@
   background: var(--color-fill) !important;
   color: var(--color-text-strong) !important;
   box-shadow: var(--shadow-raised);
-/
   font-size: var(--fs-base);
   font-weight: var(--button-font-weight);
   text-align: left;
@@ -146,7 +139,6 @@
   padding: var(--space-1) var(--space-2);
   border-radius: calc(var(--radius-control) - 4px);
   color: var(--color-text-strong);
-/
   font-size: var(--fs-base);
   text-align: left;
 }
@@ -202,30 +194,48 @@
 }
 
 .my-listings-layout.has-detail-pane .my-listings-card-panel {
-  height: calc(
-    100vh - var(--space-6) - var(--button-min-height) - var(--space-2)
-  );
+  height: auto;
+  border-right: 0;
 }
 
 .my-listings-layout.has-detail-pane .my-listings-card-scroll {
+  overflow-y: visible;
+}
+
+.my-listings-offcanvas-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1030;
+  background: rgba(51, 42, 35, 0.1);
+}
+
+.my-listings-layout.has-detail-pane .seller-listing-detail-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1040;
+  width: min(760px, 48vw);
+  min-width: 560px;
+  height: 100vh;
+  max-height: 100vh;
   overflow-y: auto;
-  scrollbar-width: none;
+  padding: var(--space-4);
+  border: 0;
+  border-left: 1px solid var(--color-stroke-weak);
+  border-radius: 0;
+  background: var(--color-fill);
+  box-shadow: -16px 0 36px rgba(51, 42, 35, 0.16);
 }
 
-.my-listings-layout.has-detail-pane
-  .my-listings-card-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-
-@media (max-width: 834px) {
+@media (max-width: 1080px) {
   .my-listings-section,
   .my-listings-section:has(.my-listings-layout.has-detail-pane) {
-    padding-right: var(--space-2);
-    padding-left: var(--space-2);
+    padding: 0;
   }
 
   .my-listings-section {
+    margin-top: var(--space-2);
     padding: 0;
   }
 
@@ -234,17 +244,14 @@
   }
 
   .my-listings-layout.has-detail-pane {
-    grid-template-columns: 1fr;
-    display: grid;
-  }
-
-  .my-listings-layout.has-detail-pane .seller-listing-card {
-    grid-template-columns: 1fr;
+    display: flex;
+    min-height: 0;
   }
 
   .my-listings-layout.has-detail-pane .my-listings-card-panel {
     height: auto;
     overflow: visible;
+    border-right: 0;
   }
 
   .my-listings-layout.has-detail-pane .my-listings-card-scroll {
@@ -265,7 +272,7 @@
 
   .my-listings-card-scroll {
     gap: var(--space-2);
-    padding: 0;
+    padding: var(--space-2);
   }
 
   .my-listings-card-panel {
@@ -273,6 +280,17 @@
     border-radius: calc(var(--radius-card) - 8px);
     background: transparent;
     box-shadow: none;
+  }
+
+  .my-listings-toolbar {
+    padding: 0;
+  }
+
+  .my-listings-layout.has-detail-pane .seller-listing-detail-pane {
+    width: min(640px, 92vw);
+    min-width: 0;
+    height: 100vh;
+    border-top: 0;
   }
 
   .my-listings-filter-column {
@@ -291,8 +309,7 @@
 @media (max-width: 575.98px) {
   .my-listings-section,
   .my-listings-section:has(.my-listings-layout.has-detail-pane) {
-    padding-right: var(--space-1);
-    padding-left: var(--space-1);
+    padding: 0;
   }
 
   .my-listings-toolbar {
@@ -322,12 +339,15 @@
   .my-listings-section,
   .my-listings-section:has(.my-listings-layout.has-detail-pane) {
     margin-top: var(--space-2);
-    padding-right: 6px;
-    padding-left: 6px;
+    padding: 0;
   }
 
   .my-listings-card-scroll {
     padding: 6px;
+  }
+
+  .my-listings-layout.has-detail-pane .seller-listing-detail-pane {
+    width: 100vw;
   }
 
   .my-listings-filter-dropdown-toggle.btn {

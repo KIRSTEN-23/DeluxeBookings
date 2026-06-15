@@ -8,8 +8,8 @@ const {
   getSellerListingById,
   createSellerListing,
   updateSellerListing,
-  publishListing,
-  unpublishListing,
+  publishSellerListing,
+  unpublishSellerListing,
   deleteSellerListing,
 } = require("../features/listings/sellerListingController");
 
@@ -21,8 +21,8 @@ router.get("/listings", getSellerListings);
 router.get("/listings/:id", getSellerListingById);
 router.post("/listings", createSellerListing);
 router.put("/listings/:id", updateSellerListing);
-router.patch("/listings/:id/publish", publishListing);
-router.patch("/listings/:id/unpublish", unpublishListing);
+router.patch("/listings/:id/publish", publishSellerListing);
+router.patch("/listings/:id/unpublish", unpublishSellerListing);
 router.delete("/listings/:id", deleteSellerListing);
 
 module.exports = router;

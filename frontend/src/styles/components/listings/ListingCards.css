@@ -283,64 +283,6 @@
   color: #b24747 !important;
 }
 
-/* SALVAGED from SellerListingCard.css detail-pane compact behaviour */
-.my-listings-layout.has-detail-pane .listing-card-content-grid {
-  grid-template-columns: minmax(0, 1fr) 140px;
-  gap: var(--space-2);
-}
-
-.my-listings-layout.has-detail-pane .listing-card-shell__body {
-  padding: var(--space-2);
-}
-
-/* SALVAGED responsive range from SellerListingCard.css */
-@media (min-width: 835px) and (max-width: 1163px) {
-  .my-listings-layout.has-detail-pane .listing-status {
-    position: absolute;
-    top: var(--space-2);
-    right: var(--space-2);
-    z-index: 2;
-    width: max-content;
-    max-width: calc(100% - var(--space-4));
-    white-space: nowrap;
-  }
-
-  .my-listings-layout.has-detail-pane .listing-card-content-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .my-listings-layout.has-detail-pane .listing-card-sidebar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    gap: var(--space-2);
-  }
-
-  .my-listings-layout.has-detail-pane .listing-price {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: flex-end;
-    gap: var(--space-1);
-    text-align: right;
-  }
-
-  .my-listings-layout.has-detail-pane .listing-card-desktop-actions {
-    display: none;
-  }
-
-  .my-listings-layout.has-detail-pane .listing-card-action-menu {
-    display: block;
-  }
-
-  .my-listings-layout.has-detail-pane
-    .listing-card-action-menu
-    .listing-card-action-menu-toggle.btn {
-    width: 40px;
-    min-width: 40px;
-    min-height: 40px;
-  }
-}
-
 /* SALVAGED responsive behaviour from SellerListingCard.css */
 @media (max-width: 834px) {
   .listing-card-content-grid {

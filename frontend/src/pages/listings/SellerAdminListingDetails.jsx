@@ -1,37 +1,43 @@
 import { Link, useParams } from "react-router-dom";
 
 import {
-  ListingTitle,
-  ListingDescription,
-  ListingLocation,
-  ListingPropertyType,
-  ListingStatus,
-  ListingFacts,
   ListingAmenities,
-  ListingTags,
-  ListingPrice,
+  ListingDescription,
+  ListingFacts,
   ListingGallery,
   ListingHostInfo,
   ListingHouseRules,
-} from "../../components/listings/ListingItems";
+  ListingLocation,
+  ListingPrice,
+  ListingPropertyType,
+  ListingStatus,
+  ListingTags,
+  ListingTitle,
+} from "../../components/listings/ListingItems.jsx";
 
 import "../../styles/components/listings/ListingDetails.css";
 
 export default function SellerAdminListingDetails({
+  listing,
   listings = [],
   role = "seller",
   isPane = false,
   onClose,
+  onUnpublish,
+  onDelete,
 }) {
   const { id } = useParams();
 
-  const listing = listings.find((item) => item._id === id) || listings[0];
+  const selectedListing =
+    listing || listings.find((item) => item._id === id) || listings[0];
 
-  if (!listing) {
+  if (!selectedListing) {
     return (
       <main className="listing-detail-page">
-        <div className="container">
-          <div className="alert alert-light border">Listing not found.</div>
+        <div className="container py-4">
+          <div className="alert alert-light border mb-0">
+            Listing not found.
+          </div>
         </div>
       </main>
     );
@@ -40,94 +46,166 @@ export default function SellerAdminListingDetails({
   const Wrapper = isPane ? "aside" : "main";
 
   return (
-    <Wrapper className={isPane ? "listing-detail-pane" : "listing-detail-page"}>
-      <div className={isPane ? "listing-detail-shell" : "container listing-detail-shell"}>
-        <div className="listing-detail-actions">
-          <ListingStatus status={listing.status} />
+    <Wrapper
+      className={
+        isPane
+          ? "seller-listing-detail-pane listing-detail-pane listing-detail-card"
+          : "listing-detail-page"
+      }
+    >
+      <div className={isPane ? "" : "container py-4"}>
+        {isPane && (
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <span className="badge bg-light text-dark border">{role} view</span>
 
-          {role === "seller" && (
-            <Link
-              to={`/seller/listings/${listing._id}/edit`}
-              className="btn btn-primary listing-detail-action-primary"
-            >
-              Edit Listing
-            </Link>
-          )}
-
-          {role === "admin" && (
-            <>
-              <button className="btn btn-primary listing-detail-action-primary">
-                Approve
-              </button>
-
-              <button className="btn listing-detail-action-danger">
-                Request Changes
-              </button>
-            </>
-          )}
-
-          {isPane && (
             <button
               type="button"
-              className="listing-detail-close"
+              className="btn btn-outline-dark btn-sm"
               onClick={onClose}
-              aria-label="Close listing details"
             >
-              ×
+              Close
             </button>
-          )}
+          </div>
+        )}
+
+        <ListingGallery
+          images={selectedListing.images}
+          title={selectedListing.title}
+        />
+
+        <div className="listing-detail-header mt-3">
+          <ListingTitle title={selectedListing.title} />
+
+          <div className="d-flex gap-2 flex-wrap align-items-center mt-2">
+            <ListingLocation location={selectedListing.location} />
+
+            <ListingPropertyType propertyType={selectedListing.propertyType} />
+
+            <ListingStatus status={selectedListing.status} />
+          </div>
         </div>
 
-        <ListingGallery images={listing.images} title={listing.title} />
+        <hr />
 
-        <section className="listing-detail-hero">
-          <ListingTitle title={listing.title} level="h1" />
+        <ListingFacts
+          guests={selectedListing.guestCapacity}
+          bedrooms={selectedListing.bedrooms}
+          bathrooms={selectedListing.bathrooms}
+          size={selectedListing.area}
+        />
 
-          <div className="listing-meta-row">
-            <ListingLocation location={listing.location} />
-            <ListingPropertyType propertyType={listing.propertyType} />
-          </div>
-
-          <ListingPrice price={listing.price} oldPrice={listing.oldPrice} />
-        </section>
-
-        <div className="listing-detail-content-grid">
-          <div className="listing-detail-main-content">
-            <section className="listing-detail-card">
-              <h2>About this place</h2>
-
-              <ListingFacts
-                guests={listing.guests}
-                bedrooms={listing.bedrooms}
-                bathrooms={listing.bathrooms}
-                size={listing.size}
-              />
-
-              <hr />
-
-              <ListingDescription description={listing.description} />
-            </section>
-
-            <section className="listing-detail-card">
-              <h2>Amenities</h2>
-              <ListingAmenities amenities={listing.amenities} />
-            </section>
-
-            <section className="listing-detail-card">
-              <h2>Tags</h2>
-              <ListingTags tags={listing.tags} />
-            </section>
-
-            <section className="listing-detail-card">
-              <h2>House Rules</h2>
-              <ListingHouseRules rules={listing.houseRules} />
-            </section>
-          </div>
-
-          <aside className="listing-detail-sidebar">
-            <ListingHostInfo host={listing.host} />
-          </aside>
+        <div className="my-3">
+          <ListingPrice
+            price={selectedListing.pricePerNight}
+            oldPrice={selectedListing.oldPrice}
+          />
         </div>
+
+        <ListingDescription description={selectedListing.description} />
+
+        <hr />
+
+        <ListingAmenities amenities={selectedListing.amenities} />
+
+        <hr />
+
+        <ListingTags tags={selectedListing.tags} />
+
+        <hr />
+
+        <ListingHostInfo
+          host={selectedListing.host}
+          seller={selectedListing.seller}
+        />
+
+        <hr />
+
+        <ListingHouseRules rules={selectedListing.houseRules} />
+
+        {role === "seller" && (
+          <>
+            <hr />
+
+            <div className="d-flex gap-2 flex-wrap">
+              {selectedListing.status === "published" && (
+                <>
+                  <Link
+                    to={`/seller/listings/${selectedListing._id}/edit`}
+                    className="btn btn-outline-dark"
+                  >
+                    Edit listing
+                  </Link>
+
+                  <button
+                    type="button"
+                    className="btn btn-outline-warning"
+                    onClick={() => onUnpublish?.(selectedListing._id)}
+                  >
+                    Unpublish
+                  </button>
+                </>
+              )}
+
+              {selectedListing.status === "unpublished" && (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-outline-success"
+                    onClick={() => onPublish?.(selectedListing._id)}
+                  >
+                    Publish
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger"
+                    onClick={() => onDelete?.(selectedListing._id)}
+                  >
+                    Delete permanently
+                  </button>
+                </>
+              )}
+
+              {selectedListing.status === "draft" && (
+                <>
+                  <Link
+                    to={`/seller/listings/${selectedListing._id}/edit`}
+                    className="btn btn-outline-dark"
+                  >
+                    Continue editing
+                  </Link>
+
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger"
+                    onClick={() => onDelete?.(selectedListing._id)}
+                  >
+                    Delete permanently
+                  </button>
+                </>
+              )}
+
+              {selectedListing.status === "rejected" && (
+                <>
+                  <Link
+                    to={`/seller/listings/${selectedListing._id}/edit`}
+                    className="btn btn-outline-dark"
+                  >
+                    Edit listing
+                  </Link>
+
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger"
+                    onClick={() => onDelete?.(selectedListing._id)}
+                  >
+                    Delete permanently
+                  </button>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </Wrapper>
   );
