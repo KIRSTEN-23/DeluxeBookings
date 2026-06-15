@@ -20,11 +20,12 @@ export default function AccountPage() {
           <p className="account-page__intro">
             Manage your listings, bookings, saved stays, and review workflows.
           </p>
-
+            <BuyerSavedListingsSection/>
           {/* <AccountRoleTabs
             activeRole={activeRole}
             onRoleChange={setActiveRole}
           /> */}
+
         </div>
       </header>
 

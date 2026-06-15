@@ -223,7 +223,6 @@ function BuyerSavedListingsSection() {
       </div>
       
     </div>
-    <Footer></Footer>
     </section>
   );
 }
