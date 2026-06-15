@@ -31,7 +31,7 @@ function CustomerBooking() {
     try {
 
       await axios.post(
-        "http://localhost:5000/api/bookings",
+        "http://localhost:5001/api/bookings",
         formData
       );
 

@@ -60,8 +60,6 @@ export default function SellerManageMyListingsSection() {
 
         const data = await getSellerListings();
 
-        console.log("SELLER LISTINGS:", data);
-
         setListings(data);
       } catch (error) {
         console.error(error);

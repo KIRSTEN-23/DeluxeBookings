@@ -534,7 +534,7 @@ export function PricingSection({ formData, onChange }) {
             name="pricePerNight"
             value={formData.pricePerNight || ""}
             onChange={onChange}
-            placeholder="5000"
+            placeholder="5001"
           />
         </div>
         <p className="field-note">Including taxes, commission and charges.</p>

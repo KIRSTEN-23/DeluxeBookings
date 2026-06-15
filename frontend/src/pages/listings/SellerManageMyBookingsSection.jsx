@@ -1,18 +1,37 @@
-import { Alert } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import BookingCard from "../../components/public/BookingsCard";
+function SellerMangeMyBookingsSection() {
 
-export default function SellerManageMyBookingsSection() {
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+
+  const fetchBookings = async () => {
+    const res = await axios.get(
+      "http://localhost:5001/api/bookings"
+    );
+
+    setBookings(res.data);
+  };
+
   return (
-    <section className="seller-bookings-section">
-      <div className="mb-3">
-        <h2 className="h4 mb-1">Booking Management</h2>
-        <p className="text-muted mb-0">
-          View and manage bookings for your properties.
-        </p>
-      </div>
+    <div className="dashboard">
 
-      <Alert variant="light" className="border mb-0">
-        Booking management will be implemented later.
-      </Alert>
-    </section>
+      <h1>Booking Management</h1>
+
+      {bookings.map((booking) => (
+        <BookingCard
+          key={booking._id}
+          booking={booking}
+          refresh={fetchBookings}
+        />
+      ))}
+
+    </div>
   );
 }
+
+export default SellerMangeMyBookingsSection;

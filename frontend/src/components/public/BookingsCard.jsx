@@ -5,7 +5,7 @@ function BookingCard({ booking, refresh }) {
   const updateStatus = async (status) => {
 
     await axios.put(
-      `http://localhost:5000/api/bookings/${booking._id}`,
+      `http://localhost:5001/api/bookings/${booking._id}`,
       { status }
     );
 
