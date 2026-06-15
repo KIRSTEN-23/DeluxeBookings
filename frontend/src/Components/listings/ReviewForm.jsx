@@ -11,7 +11,7 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 
 // import "./ReviewForm.css";
-import "../styles/components/listings/ReviewForm.css"
+import "../../styles/components/listings/ReviewForm.css"
 
 function ReviewForm() {
   const [hover, setHover] =
