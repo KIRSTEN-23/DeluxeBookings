@@ -33,14 +33,14 @@ function NavBar() {
           <Nav className="me-auto">
             <Nav.Link className="navItemsSpacing col-4" as="div">
               <NavLink to="/product" className="pagelinks">
-                <h5>Stays</h5>
+                <h5 style={{color: 'white'}}>Stays</h5>
               </NavLink>
             </Nav.Link>
             
             {/* Checks if user has seller role */}
             <Nav.Link className="navItemsSpacing col-12" as="div">
               <NavLink to={hasDashboardAccess ? "/seller-dashboard/account" : "/seller-onboarding"} className="pagelinks">
-                <h5 className="PageLinkwidth">{hasDashboardAccess ? "Seller Dashboard" : "List your property"}</h5>
+                <h5 className="PageLinkwidth" style={{color: 'white'}}>{hasDashboardAccess ? "Seller Dashboard" : "List your property"}</h5>
               </NavLink>
             </Nav.Link>
 
@@ -55,7 +55,7 @@ function NavBar() {
             ) : (
               <Nav.Link className="navItemsSpacing" as="div">
                 <NavLink to="/account" className="pagelinks">
-                  <h5>Account</h5>
+                  <h5 style={{color: 'white'}}>Account</h5>
                 </NavLink>
               </Nav.Link>
             )}

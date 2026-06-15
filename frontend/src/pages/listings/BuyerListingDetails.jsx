@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ReviewForm from "../../Components/public/ReviewForm";
 
 import { getPublicListingById } from "../../api/publicApi";
 
@@ -113,7 +114,7 @@ export default function BuyerListingDetails() {
 
               <hr />
 
-              <button className="btn btn-primary reserve-button w-100">
+              <button className="btn btn-primary reserve-button w-100" onClick={() => window.location.href = '/checkout'}>
                 Book Now
               </button>
             </section>
@@ -121,6 +122,7 @@ export default function BuyerListingDetails() {
             <ListingHostInfo host={listing.host} />
           </aside>
         </div>
+          <ReviewForm/>
       </div>
     </main>
   );
