@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const app = require('./app');
 const connectDB = require('./_config/db');
-const reviewRoutes = require("./routes/reviewRoutes");
+const reviewRoutes = require('./features/reviews/reviewRoutes');
 
 dotenv.config();
 

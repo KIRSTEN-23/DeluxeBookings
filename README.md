@@ -117,32 +117,40 @@ Run the following in the command-line to install all the required dependencies f
 <!-- You can add the links to all of your imagery at the bottom of the file as references -->
 ## Features and Functionality
 
-![Account][image2]
+
 ### Account page
 
 Users can see their account information, edit their profile, log out, or delete their account.
 
-![image3][image3]
-![image4][image4]
-![image5][image5]
+![Account][image2]
+
 ### checkout form
 
 Users fill in a checkout form with all of the necessary details.
+![image3][image3]
+![image4][image4]
+![image5][image5]
 
-![image6][image6]
+
 ### product filtering
 
 Users can search and filter listings to better match their needs.
+![image6][image6]
+![image15][image15]
 
-![image7][image7]
-![image8][image8]
+
 ### Sign up/log in
 
 Users can create/register an account by filling in their details and creating a password by choosing a unique picture pattern.
 
+![image7][image7]
+![image8][image8]
+
 ### Seller dashboard
 
 Sellers can create and edit listings
+
+![image16][image16]
 
 ### Review component
 
@@ -245,7 +253,8 @@ See the [open issues](https://github.com/username/projectname/issues) for a list
 [image12]: frontend/src/Assets/ReadMeimages/wireframes3.png
 [image13]: frontend/src/Assets/ReadMeimages/wireframes4.png
 [image14]: frontend/src/Assets/ReadMeimages/userflow.png
-
+[image15]: frontend/src/Assets/ReadMeimages/product-listings.png
+[image16]: frontend/src/Assets/ReadMeimages/create-listings.png
 
 <!-- Refer to https://shields.io/ for more information and options about the shield links at the top of the ReadMe file -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
