@@ -26,7 +26,7 @@ function SearchBar({ onSearch }) {
       if (city) params.city = city;
 
       // Using the parameters in the API request
-      const res = await axios.get("http://localhost:5000/api/listings/search", { params });
+      const res = await axios.get("http://localhost:5001/api/listings/search", { params });
       
       // Sends filtered data
       if (onSearch) {

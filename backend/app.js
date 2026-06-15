@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
 
 // const authRoutes = require("./routes/authRoutes");
@@ -21,12 +20,12 @@ app.get("/", (req, res) => {
 // app.use("/api/users", userRoutes);
 // app.use("/api/public", publicRoutes);
 // app.use("/api/buyer", buyerRoutes);
-app.use("/api/seller", sellerRoutes);
+// app.use("/api/seller", sellerRoutes);
 // app.use("/api/admin", adminRoutes);
 
 //routes
 const authRoutes = require("./routes/authRoutes");
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 const bookingRoutes = require('./routes/checkoutRoutes');
 app.use("/api", bookingRoutes);

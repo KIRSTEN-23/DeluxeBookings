@@ -38,7 +38,7 @@ function FilterPanel({ onFilter }) {
       if (ratings.length > 0) params.ratingAverage = ratings.join(',');
       if (amenities.length > 0) params.amenities = amenities.join(',');
 
-      const res = await axios.get("http://localhost:5000/api/listings/search", { params });
+      const res = await axios.get("http://localhost:5001/api/listings/search", { params });
       
       if (onFilter) {
         onFilter(res.data);

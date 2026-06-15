@@ -1,3 +1,6 @@
+const express = require('express');
+const router = express.Router();
+
 router.get('/listings/search', async (req, res) => {
     try {
         const { guestCapacity, propertyType, province, city, bedrooms, ratingAverage, amenities } = req.query;
@@ -37,3 +40,5 @@ router.get('/listings/search', async (req, res) => {
         return res.status(500).json({ error: "Failed to execute filtered query search." });
     }
 });
+
+module.exports = router;

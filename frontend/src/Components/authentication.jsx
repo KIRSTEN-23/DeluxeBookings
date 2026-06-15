@@ -105,7 +105,7 @@ const register = async () => {
     const finalPassword = `${password11}${password12}${password13}`;
     
     try {
-      const res = await axios.post("http://localhost:5000/auth/register", {
+      const res = await axios.post("http://localhost:5001/api/auth/register", {
         name,
         email,
         password: finalPassword,
@@ -124,7 +124,7 @@ const login = async () => {
     const finalPassword = `${password1}${password2}${password3}`;
 
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", {
+      const res = await axios.post("http://localhost:5001/api/auth/login", {
         email,
         password: finalPassword,
         name
