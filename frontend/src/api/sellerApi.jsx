@@ -16,17 +16,24 @@ export const createSellerListing = async (listingData) => {
 };
 
 export const updateSellerListing = async (id, listingData) => {
-  const response = await api.put(`/listings/seller/my-listings/${id}`, listingData);
+  const response = await api.put(
+    `/listings/seller/my-listings/${id}`,
+    listingData,
+  );
   return response.data;
 };
 
 export const publishSellerListing = async (id) => {
-  const response = await api.patch(`/listings/seller/my-listings/${id}/publish`);
+  const response = await api.patch(
+    `/listings/seller/my-listings/${id}/publish`,
+  );
   return response.data;
 };
 
 export const unpublishSellerListing = async (id) => {
-  const response = await api.patch(`/listings/seller/my-listings/${id}/unpublish`);
+  const response = await api.patch(
+    `/listings/seller/my-listings/${id}/unpublish`,
+  );
   return response.data;
 };
 
@@ -35,13 +42,12 @@ export const deleteSellerListing = async (id) => {
   return response.data;
 };
 
-
 // _____________________________________________________________________________
 
 //Booking
 
-export const ManageMyBooking = async (bookingData) => {
-  const response = await api.post("/bookings", bookingData);
-  return response.data;
+export const getSellerBookings = async () => {
+  const response = await api.get("/bookings/seller");
 
+  return response.data;
 };

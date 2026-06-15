@@ -1,11 +1,12 @@
+// features/bookings/sellerBookingController.js
+
 const Booking = require("./sellerBookingSchema");
 
-const ManageMyBookings = async (req, res) => {
+const getSellerBookings = async (req, res) => {
   try {
-    const booking = new Booking(req.body);
-    const savedBooking = await booking.save();
+    const bookings = await Booking.find().sort({ checkIn: 1 });
 
-    res.status(201).json(savedBooking);
+    res.status(200).json(bookings);
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -14,5 +15,5 @@ const ManageMyBookings = async (req, res) => {
 };
 
 module.exports = {
-  ManageMyBookings,
+  getSellerBookings,
 };

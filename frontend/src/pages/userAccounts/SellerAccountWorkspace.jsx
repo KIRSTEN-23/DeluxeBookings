@@ -1,5 +1,5 @@
 import SellerManageMyListingsSection from "../../pages/listings/SellerManageMyListingsSection.jsx";
-import SellerManageMyBookingsSection from "../../pages/listings/SellerManageMyBookingsSection.jsx";
+import SellerManageMyBookingsSection from "../bookings/SellerManageMyBookingsSection.jsx";
 
 export default function SellerAccountWorkspace() {
   return (

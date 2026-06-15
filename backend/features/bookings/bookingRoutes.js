@@ -21,7 +21,8 @@ const verifyToken = require("../../middleware/verifyToken");
 router.post("/", createBooking);
 
 // Seller booking routes
-const { ManageMyBookings } = require("./sellerBookingController");
-router.post("/", ManageMyBookings)
+const { getSellerBookings } = require("./sellerBookingController");
+
+router.get("/seller", getSellerBookings);
 
 module.exports = router;

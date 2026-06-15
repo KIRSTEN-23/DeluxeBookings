@@ -6,9 +6,6 @@ const Review = require("./reviewSchema");
 router.post("/", async (req, res) => {
   try {
 
-    console.log("Incoming Review:");
-    console.log(req.body);
-
     const review = new Review(req.body);
 
     await review.save();
