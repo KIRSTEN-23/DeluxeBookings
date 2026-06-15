@@ -17,7 +17,7 @@
       rgba(51, 42, 35, 0.58) 48%,
       rgba(51, 42, 35, 0.18) 100%
     ),
-    url("../../../../Assets/images/pexels-ben-mack-6775268.jpg") center/cover;
+  url("../Assets/images/pexels-ben-mack-6775268.jpg") center/cover;
   color: var(--color-fill);
 }
 

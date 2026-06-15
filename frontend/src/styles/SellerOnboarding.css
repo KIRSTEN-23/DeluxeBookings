@@ -72,7 +72,7 @@
   align-items: center;
   background:
     linear-gradient(rgba(51, 42, 35, 0.56), rgba(51, 42, 35, 0.62)),
-    url("../../../../Assets/images/pexels-ben-mack-6775268.jpg") center/cover
+    url("../Assets/images/pexels-ben-mack-6775268.jpg") center/cover
       no-repeat;
   color: #fff;
 }
@@ -241,7 +241,7 @@
   margin-top: -74px;
   background:
     linear-gradient(rgba(51, 42, 35, 0.42), rgba(51, 42, 35, 0.42)),
-    url("../../../../Assets/images/pexels-pixabay-210574.jpg") center 52% / cover
+    url("../Assets/images/pexels-pixabay-210574.jpg") center 52% / cover
       no-repeat;
 }
 
@@ -459,7 +459,7 @@
 .steps-section {
   background:
     linear-gradient(rgba(51, 42, 35, 0.56), rgba(51, 42, 35, 0.62)),
-    url("../../../../Assets/images/second-bg-img-onboarding.jpg") center/cover
+    url("../Assets/images/second-bg-img-onboarding.jpg") center/cover
       no-repeat;
   color: #fff;
 }
@@ -733,7 +733,7 @@
 .seller-final-cta {
   background:
     linear-gradient(rgba(51, 42, 35, 0.56), rgba(51, 42, 35, 0.62)),
-    url("../../../../Assets/images/third-bg-img-onboarding.jpg") center/cover
+    url("../Assets/images/third-bg-img-onboarding.jpg") center/cover
       no-repeat;
   color: #fff;
   padding: 112px 0;
