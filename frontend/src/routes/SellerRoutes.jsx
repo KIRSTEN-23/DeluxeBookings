@@ -13,7 +13,7 @@ export default function SellerRoutes() {
         path="listings/:id"
         element={<SellerAdminListingDetails role="seller" />}
       />
-      <Route path="listings/new" element={<SellerCreateListing />} />
+      <Route path="new" element={<SellerCreateListing />} />
 
       <Route path="listings/:id/edit" element={<SellerEditListing />} />
     </Routes>

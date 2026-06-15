@@ -4,11 +4,11 @@ import AccountRoleTabs from "../../components/common/AccountRoleTabs.jsx";
 
 import BuyerSavedListingsSection from "../../pages/listings/BuyerSavedListingsSection.jsx";
 
-import SellerAccountWorkspace from "./SellerAccountWorkspace.jsx";
+import SellerAccountWorkspace from "../../pages/userAccounts/SellerAccountWorkspace.jsx";
 
 import AdminListingQueueSection from "../../pages/listings/AdminListingQueueSection.jsx";
 
-import "../../styles/pages/userAccounts/AccountPage.css";
+import "../../styles/AccountPage.css";
 
 export default function AccountPage() {
   const [activeRole, setActiveRole] = useState("seller");

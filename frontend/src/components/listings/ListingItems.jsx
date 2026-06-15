@@ -12,7 +12,7 @@ import {
   Star,
 } from "lucide-react";
 
-import "../../styles/components/listings/ListingItems.css";
+import "../../styles/ListingItems.css";
 
 export function ListingGallery({ images = [], title }) {
   if (!images.length) return null;

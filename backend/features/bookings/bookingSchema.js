@@ -1,16 +1,126 @@
 const mongoose = require("mongoose");
 
-const bookingSchema = new mongoose.Schema({
-  customerName: String,
-  propertyName: String,
-  checkIn: Date,
-  checkOut: Date,
-  totalPrice: Number,
+const bookingSchema = new mongoose.Schema(
+  {
+    totalPrice: Number,
+    
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
 
-  status: {
-    type: String,
-    default: "Pending"
-  }
-});
+    listing: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Listing",
+      required: false,
+    },
 
-module.exports = mongoose.models.Booking || mongoose.model("Booking", bookingSchema);
+    customerName: {
+      type: String,
+      required: true,
+    },
+
+    email: {
+      type: String,
+      required: true,
+    },
+
+    propertyName: {
+      type: String,
+      required: true,
+    },
+
+    checkIn: {
+      type: Date,
+      required: true,
+    },
+
+    checkOut: {
+      type: Date,
+      required: true,
+    },
+
+    guests: {
+      type: Number,
+      required: true,
+    },
+
+    status: {
+      type: String,
+      default: "Pending",
+    },
+
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    phone: {
+      type: String,
+      required: true,
+    },
+
+    addons: {
+      type: [String],
+      default: [],
+    },
+
+    destination: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    suite: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    checkIn: {
+      type: String,
+      required: true,
+    },
+
+    checkOut: {
+      type: String,
+      required: true,
+    },
+
+    guests: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+
+    specialRequest: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    status: {
+      type: String,
+      default: "confirmed",
+      trim: true,
+    },
+  },
+
+  {
+    timestamps: true,
+  },
+);

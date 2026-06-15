@@ -15,7 +15,7 @@ import {
   ListingTitle,
 } from "../../components/listings/ListingItems.jsx";
 
-import "../../styles/components/listings/ListingDetails.css";
+import "../../styles/ListingDetails.css";
 
 export default function SellerAdminListingDetails({
   listing,

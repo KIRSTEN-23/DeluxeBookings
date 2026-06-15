@@ -1,50 +1,67 @@
-/*
-─────────────────────────────────────────────────────────────
-AUTH CONTROLLER
-─────────────────────────────────────────────────────────────
+const bcrypt = require("bcrypt");
 
-Purpose:
-Authentication only.
+const User = require("../../features/users/userSchema");
+const generateToken = require("../../utils/generateToken.js");
 
-Responsibilities:
-• Register users
-• Login users
-• Issue JWT tokens
-• Verify authentication state
+const registerUser = async (req, res) => {
+  try {
+    const { name, email, password, userRole } = req.body;
 
-NOT responsible for:
-• Profile management
-• Account updates
-• Bookings
-• Listings
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-Related Routes:
-POST   /api/auth/register
-POST   /api/auth/login
-POST   /api/auth/logout
-GET    /api/auth/me
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      userRole,
+    });
 
-*/
+    await user.save();
 
-/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
-as it only serves as guidelines for development and is not needed in the final codebase. */
+    res.status(201).send("User registered successfully");
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
+const loginUser = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      email: req.body.email,
+    });
 
+    if (!user) {
+      return res.status(400).send("User not found");
+    }
 
-/*
-─────────────────────────────────────────────────────────────
-USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
 
-registerUser()
-POST /api/auth/register
+    if (!validPassword) {
+      return res.status(400).send("Wrong password");
+    }
 
-loginUser()
-POST /api/auth/login
+    const token = generateToken(user);
 
-logoutUser()
-POST /api/auth/logout
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        userRole: user.userRole,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
-getCurrentUser()
-GET /api/auth/me
-
-*/
+module.exports = {
+  registerUser,
+  loginUser,
+};

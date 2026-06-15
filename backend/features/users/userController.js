@@ -1,54 +1,68 @@
-/*
-─────────────────────────────────────────────────────────────
-USER CONTROLLER
-─────────────────────────────────────────────────────────────
+const User = require("../../features/users/userSchema");
 
-Shared account functionality for authenticated users,
-regardless of role level.
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
 
-Use this controller for account/profile actions that apply to:
-• Buyers
-• Sellers
-• Admins
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
 
-NOT responsible for:
-• Login/register logic → authController
-• Buyer bookings → buyerBookingsController
-• Seller listings → sellerListingController
-• Seller bookings → sellerBookingController
-• Admin moderation → adminListingController
-• Role-specific activity dashboards
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
-Related Routes:
-GET    /api/users/profile
-PUT    /api/users/profile
-PATCH  /api/users/password
-PATCH  /api/users/role
-DELETE /api/users/account
+const updateUserProfile = async (req, res) => {
+  try {
+    const { name, email, userRole } = req.body;
 
-*/
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        name,
+        email,
+        userRole,
+      },
+      {
+        new: true,
+      }
+    ).select("-password");
 
-/* MOVE THE ABOVE COMMENT To docs/ once code is implemented, 
-as it only serves as guidelines for development and is not needed in the final codebase. */
+    if (!updatedUser) {
+      return res.status(404).send("User not found");
+    }
 
+    res.status(200).json({
+      user: {
+        id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        userRole: updatedUser.userRole,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
-/*
-─────────────────────────────────────────────────────────────
-USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
+const deleteUserProfile = async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.user.id);
 
-getUserProfile()
-GET /api/users/profile
+    if (!deletedUser) {
+      return res.status(404).send("User not found");
+    }
 
-updateUserProfile()
-PUT /api/users/profile
+    res.status(200).send("Account deleted successfully");
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
-changeUserPassword()
-PATCH /api/users/password
-
-requestRoleChange()
-PATCH /api/users/role
-
-deleteUserAccount()
-DELETE /api/users/account
-
-*/
+module.exports = {
+  getUserProfile,
+  updateUserProfile,
+  deleteUserProfile,
+};

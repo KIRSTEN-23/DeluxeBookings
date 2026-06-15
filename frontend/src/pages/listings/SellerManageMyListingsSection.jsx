@@ -11,7 +11,7 @@ import {
   deleteSellerListing,
 } from "../../api/sellerApi.jsx";
 
-import "../../styles/pages/seller/MyListings.css";
+import "../../styles/MyListings.css";
 
 const FILTERS = [
   "all",
