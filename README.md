@@ -150,7 +150,7 @@ Users can create/register an account by filling in their details and creating a 
 
 Sellers can create and edit listings
 
-![image16][image16]
+![image17][image17]
 
 ### Review component
 
@@ -253,8 +253,7 @@ See the [open issues](https://github.com/username/projectname/issues) for a list
 [image12]: frontend/src/Assets/ReadMeimages/wireframes3.png
 [image13]: frontend/src/Assets/ReadMeimages/wireframes4.png
 [image14]: frontend/src/Assets/ReadMeimages/userflow.png
-[image15]: frontend/src/Assets/ReadMeimages/product-listings.png
-[image16]: frontend/src/Assets/ReadMeimages/create-listings.png
+[image17]: frontend/src/Assets/ReadMeimages/ReviewForm.jpeg
 
 <!-- Refer to https://shields.io/ for more information and options about the shield links at the top of the ReadMe file -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
