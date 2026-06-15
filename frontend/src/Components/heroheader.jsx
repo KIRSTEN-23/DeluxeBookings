@@ -20,7 +20,9 @@ function HeroHeader() {
         <div className='herocard marginBody'>
             <p> Showcase your property to the world's most discerning travellers. We don't just list hotels; we curate experiences for a global audience that values quality over quantity.</p>
             <Link to="/seller">
-            <Button variant="light" className="heroButton">List your property <ArrowUpRight className="iconStyle"/></Button>
+            <Button as={Link} to="/seller" variant="light" className="heroButton">
+              List your property <ArrowUpRight className="iconStyle"/>
+            </Button>
             </Link>
             </div>
           </div>
