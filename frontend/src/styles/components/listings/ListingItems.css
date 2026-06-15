@@ -1,0 +1,379 @@
+/* ─────────────────────────────────────
+   LISTING ITEMS
+   Reusable listing UI pieces only
+   Uses variables from index.css
+───────────────────────────────────── */
+
+/* Shared rows */
+
+.listing-meta-row,
+.listing-facts-row,
+.listing-amenity-row,
+.listing-tags,
+.listing-host-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.listing-meta-row {
+  color: var(--color-text-weak);
+}
+
+.listing-location,
+.listing-rating,
+.listing-fact,
+.listing-house-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-weak);
+  font-size: var(--fs-base);
+}
+
+.listing-location svg,
+.listing-rating svg,
+.listing-fact svg,
+.listing-house-rule svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: var(--color-stroke-strong);
+  stroke-width: 1.8;
+}
+
+/* Title + description */
+
+.listing-title {
+  margin: 0;
+  color: var(--color-brand);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+  font-size: var(--fs-h4);
+}
+
+.listing-description {
+  margin: 0;
+  color: var(--color-text-weak);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+}
+
+.listing-description-truncated {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* Pills, chips, tags */
+
+.listing-pill,
+.listing-property-type,
+.listing-tag,
+.listing-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: 0 var(--radius-control) 0 var(--radius-control);
+  background: var(--color-fill);
+  color: var(--color-brand);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.listing-tag {
+  border-radius: 999px;
+  color: var(--color-text-weak);
+}
+
+.listing-chip {
+  background: var(--color-background);
+  color: var(--color-text-strong);
+}
+
+/* Rating */
+
+.listing-rating {
+  color: var(--color-brand);
+  font-weight: 500;
+}
+
+.listing-rating span {
+  color: var(--color-text-weak);
+  font-weight: 400;
+}
+
+/* Status */
+
+.listing-status {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.listing-status.published,
+.listing-status.available,
+.listing-status.approved {
+  background: #e8fff0;
+  color: #14834b;
+}
+
+.listing-status.draft {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.listing-status.submitted-for-review,
+.listing-status.in-review,
+.listing-status.paused {
+  background: #fff3cd;
+  color: #8a6d3b;
+}
+
+.listing-status.approved-unpublished {
+  background: #e7f1ff;
+  color: #0b5ed7;
+}
+
+.listing-status.removed-from-public,
+.listing-status.unpublished {
+  background: #f8d7da;
+  color: #842029;
+}
+
+/* Facts */
+
+.listing-facts-row {
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-stroke-weak);
+}
+
+.listing-fact {
+  color: var(--color-brand);
+  white-space: nowrap;
+}
+
+/* Price */
+
+.listing-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  color: var(--color-text-weak);
+  font-size: var(--fs-sm);
+  text-align: right;
+}
+
+.listing-price strong {
+  color: var(--color-brand);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.listing-price small {
+  color: var(--color-text-weak);
+  text-decoration: line-through;
+}
+
+/* Gallery */
+
+.listing-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+  gap: var(--space-2);
+}
+
+.listing-gallery-main,
+.listing-gallery-stack img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-raised);
+}
+
+.listing-gallery-main {
+  height: 520px;
+}
+
+.listing-gallery-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.listing-gallery-stack img {
+  height: 119px;
+}
+
+/* Host info */
+
+.listing-host-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: var(--shadow-raised);
+}
+
+.listing-host-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.listing-host-avatar {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  object-fit: cover;
+  background: var(--color-background);
+}
+
+.listing-host-name {
+  margin: 0;
+  color: var(--color-brand);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+}
+
+.listing-host-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--color-text-weak);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.listing-host-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+.listing-host-stats div {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-2);
+  border-radius: var(--radius-control);
+  background: var(--color-background);
+}
+
+.listing-host-stats strong {
+  color: var(--color-brand);
+  font-size: var(--fs-h6);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.listing-host-stats span {
+  color: var(--color-text-weak);
+  font-size: var(--fs-sm);
+}
+
+/* House rules */
+
+.listing-house-rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listing-house-rule {
+  align-items: flex-start;
+  color: var(--color-brand);
+  line-height: 1.4;
+}
+
+/* Responsive */
+
+@media (max-width: 834px) {
+  .listing-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-gallery-main {
+    height: 360px;
+  }
+
+  .listing-gallery-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .listing-gallery-stack img {
+    height: 180px;
+  }
+
+  .listing-host-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-house-rules {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-price {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .listing-title {
+    font-size: var(--fs-h5);
+  }
+
+  .listing-location,
+  .listing-rating,
+  .listing-fact,
+  .listing-description {
+    font-size: var(--fs-sm);
+  }
+
+  .listing-gallery-main {
+    height: 280px;
+  }
+
+  .listing-gallery-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-gallery-stack img {
+    height: 180px;
+  }
+
+  .listing-host-card {
+    padding: var(--space-2);
+  }
+
+  .listing-host-main {
+    align-items: flex-start;
+  }
+
+  .listing-host-avatar {
+    width: 56px;
+    height: 56px;
+  }
+}

@@ -1,13 +1,18 @@
 /*
 ─────────────────────────────────────────────────────────────
-PUBLIC LISTING CONTROLLER
+SELLER LISTING CONTROLLER
 ─────────────────────────────────────────────────────────────
 
-Public-facing listing access.
+Seller-owned listing management.
 
 Related Routes:
-GET /api/listings
-GET /api/listings/:id
+Related Routes:
+
+// GET    /api/seller/listings
+// POST   /api/seller/listings
+// GET    /api/seller/listings/:id
+// PUT    /api/seller/listings/:id
+// DELETE /api/seller/listings/:id
 
 */
 
@@ -18,16 +23,28 @@ as it only serves as guidelines for development and is not needed in the final c
 ─────────────────────────────────────────────────────────────
 USE THE FOLLOWING FUNCTION AND ROUTE SIGNATURES FOR THIS CONTROLLER
 
-getAllListings()
-GET /api/listings
+getSellerListings()
+GET /api/seller/listings
 
-getListingById()
-GET /api/listings/:id
+getSellerListingById()
+GET /api/seller/listings/:id
 
-searchListings()
-GET /api/listings/search
+createSellerListing()
+POST /api/seller/listings
 
-getFeaturedListings()
-GET /api/listings/featured
+updateSellerListing()
+PUT /api/seller/listings/:id
+
+submitListingForReview()
+PATCH /api/seller/listings/:id/submit
+
+publishListing()
+PATCH /api/seller/listings/:id/publish
+
+unpublishListing()
+PATCH /api/seller/listings/:id/unpublish
+
+deleteSellerListing()
+DELETE /api/seller/listings/:id
 
 */

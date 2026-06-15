@@ -1,0 +1,372 @@
+/* ─────────────────────────────────────
+   LISTING DETAILS
+   Individual listing page + seller/admin detail pane
+   Salvaged from:
+   - IndividualListing.css
+───────────────────────────────────── */
+
+/* SALVAGED + RENAMED from IndividualListing.css: .seller-listing-detail-page */
+.listing-detail-page {
+  min-height: 100vh;
+  padding: var(--space-3) var(--space-2) var(--space-5);
+  background: var(--color-background);
+  color: var(--color-text-strong);
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .individual-listing-shell */
+.listing-detail-shell {
+  max-width: 1168px;
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .seller-listing-detail-page .individual-listing-shell */
+.listing-detail-page .listing-detail-shell {
+  padding: var(--space-3);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: var(--shadow-raised);
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .seller-listing-detail-pane */
+.listing-detail-pane {
+  position: sticky;
+  top: var(--space-3);
+  max-height: calc(100vh - var(--space-6));
+  overflow-y: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: var(--shadow-raised);
+}
+
+.listing-detail-pane .listing-detail-shell {
+  max-width: none;
+  padding: 0;
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: loading/alert */
+.listing-detail-loading {
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-weak);
+  text-align: left;
+}
+
+.listing-detail-alert {
+  border: 1px solid var(--color-stroke-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+  color: var(--color-text-strong);
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .detail-pane-actions */
+.listing-detail-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.listing-detail-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-height: 36px;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-stroke-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+  color: var(--color-brand);
+  font-size: var(--fs-sm);
+  font-weight: var(--button-font-weight);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.listing-detail-action-primary {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+  color: var(--color-fill);
+}
+
+.listing-detail-action-danger {
+  min-height: 38px;
+  border-color: #b24747;
+  background: var(--color-fill);
+  color: #b24747;
+}
+
+.listing-detail-action:hover {
+  opacity: var(--button-hover-opacity);
+}
+
+.listing-detail-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  margin-left: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-brand);
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .listing-hero-block */
+.listing-detail-hero {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+/* SALVAGED from IndividualListing.css: .deal-pill */
+.deal-pill {
+  width: max-content;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  background: #f3e3bc;
+  color: var(--color-text-strong);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .listing-content-grid */
+.listing-detail-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .listing-main-content */
+.listing-detail-main-content {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* SALVAGED + RENAMED from IndividualListing.css: .listing-info-card */
+.listing-detail-card,
+.booking-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-fill);
+  box-shadow: var(--shadow-raised);
+}
+
+.listing-detail-card h2,
+.listing-detail-card h3,
+.booking-card h2 {
+  margin: 0 0 var(--space-2);
+  color: var(--color-brand);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+}
+
+.listing-detail-card hr {
+  margin: var(--space-3) 0;
+  border-color: var(--color-stroke-weak);
+  opacity: 1;
+}
+
+/* SALVAGED from IndividualListing.css: booking card */
+.booking-card {
+  position: sticky;
+  top: var(--space-3);
+}
+
+.booking-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+.booking-price strong {
+  color: var(--color-brand);
+  font-size: var(--fs-h4);
+  font-weight: 500;
+}
+
+.booking-discount {
+  display: flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  color: var(--color-text-weak);
+}
+
+.booking-discount span {
+  text-decoration: line-through;
+}
+
+.booking-discount strong {
+  padding: 2px var(--space-1);
+  border-radius: 999px;
+  background: #f3e3bc;
+  color: var(--color-text-strong);
+  font-size: var(--fs-sm);
+}
+
+.booking-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.booking-form .form-label {
+  color: var(--color-text-strong);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.booking-form .form-control {
+  min-height: var(--button-min-height);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-control);
+  background: var(--color-background);
+}
+
+.reserve-button {
+  min-height: var(--button-min-height);
+  border: 1px solid var(--color-brand) !important;
+  border-radius: var(--radius-control) !important;
+  background: var(--color-brand) !important;
+  color: var(--color-fill) !important;
+  font-weight: var(--button-font-weight);
+}
+
+.booking-total {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-stroke-weak);
+  color: var(--color-text-weak);
+}
+
+.booking-total strong {
+  color: var(--color-text-strong);
+}
+
+/* SALVAGED from IndividualListing.css: pane-specific compact details */
+.listing-detail-pane .listing-detail-hero {
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.listing-detail-pane .listing-title {
+  font-size: var(--fs-h4);
+}
+
+.listing-detail-pane .listing-meta-row {
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+}
+
+.listing-detail-pane .listing-gallery {
+  grid-template-columns: minmax(0, 1fr) 96px;
+  gap: var(--space-1);
+  align-items: stretch;
+  margin-bottom: var(--space-2);
+}
+
+.listing-detail-pane .listing-gallery-main {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.listing-detail-pane .listing-gallery-stack {
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+  min-height: 0;
+}
+
+.listing-detail-pane .listing-gallery-stack img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.listing-detail-pane .listing-gallery img {
+  border-radius: var(--radius-control);
+  box-shadow: 0 8px 20px rgba(51, 42, 35, 0.14);
+}
+
+.listing-detail-pane .listing-detail-content-grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.listing-detail-pane .listing-detail-main-content {
+  gap: var(--space-2);
+}
+
+.listing-detail-pane .listing-detail-card,
+.listing-detail-pane .booking-card {
+  padding: var(--space-2);
+  border: 1px solid var(--color-stroke-weak);
+  border-radius: var(--radius-control);
+  box-shadow: none;
+}
+
+/* SALVAGED responsive rules from IndividualListing.css */
+@media (max-width: 834px) {
+  .listing-detail-pane {
+    position: static;
+    max-height: none;
+    padding: var(--space-2);
+  }
+
+  .listing-detail-page {
+    padding: var(--space-2);
+  }
+
+  .listing-detail-page .listing-detail-shell {
+    padding: var(--space-2);
+  }
+
+  .listing-detail-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-detail-pane .listing-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-card {
+    position: static;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .listing-detail-pane {
+    padding: var(--space-1);
+  }
+
+  .listing-detail-pane .listing-detail-card,
+  .listing-detail-pane .booking-card {
+    padding: var(--space-2);
+  }
+
+  .listing-detail-action {
+    min-height: 34px;
+  }
+
+  .listing-detail-actions {
+    flex-wrap: wrap;
+  }
+
+  .listing-detail-close {
+    margin-left: auto;
+  }
+}
