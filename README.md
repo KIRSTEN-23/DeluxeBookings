@@ -26,19 +26,6 @@
   
   # DeluxeBookings
 
-  <p>
-    A full stack MERN e-commerce application for discerning travellers looking for luxury accommodation.
-
- <br>
-      <a href="https://github.com/username/projectname"><strong>Explore the docs »</strong></a>
-   <br />
-   <br />
-   <a href="path/to/demonstration/video">View Demo</a>
-    ·
-    <a href="https://github.com/username/projectname/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/username/projectname/issues">Request Feature</a>
-</p>
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
@@ -62,7 +49,6 @@
     * [Mockups](#mockups)
     * [Video Demonstration](#video-demonstration)
 * [Conclusion](#conclusion)
-* [Roadmap](#roadmap)
 * [Acknowledgements](#acknowledgements)
 
 <!--PROJECT DESCRIPTION-->
@@ -79,7 +65,7 @@ Deluxe Bookings is a premium e-commerce ecosystem designed to facilitate the buy
 * [MongoDB](https://www.mongodb.com/products/platform/atlas-database)
 * [Express](https://www.mongodb.com/resources/products/compatibilities/express)
 * [React](https://react.dev/)
-* [Node](https://nodejs.org/en)
+* [Node.js](https://nodejs.org/en)
 
 <!-- GETTING STARTED -->
 <!-- Make sure to add appropriate information about what prerequesite technologies the user would need and also the steps to install your project on their own machines -->
@@ -227,11 +213,6 @@ The `Development Process` is the technical implementations and functionality don
 To see a run through of the application, click below:
 
 [View Demonstration](path/to/video/demonstration)
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/username/projectname/issues) for a list of proposed features (and known issues).
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
