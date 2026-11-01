@@ -24,6 +24,7 @@ export default function SellerAdminListingDetails({
   isPane = false,
   onClose,
   onUnpublish,
+  onPublish,
   onDelete,
 }) {
   const { id } = useParams();

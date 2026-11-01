@@ -7,6 +7,7 @@ import SellerAdminListingDetails from "../../pages/listings/SellerAdminListingDe
 
 import {
   getSellerListings,
+  publishSellerListing,
   unpublishSellerListing,
   deleteSellerListing,
 } from "../../api/sellerApi.jsx";
@@ -29,6 +30,12 @@ export default function SellerManageMyListingsSection() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handlePublishListing = async (id) => {
+    const updatedListing = await publishSellerListing(id);
+    setListings((items) => items.map((item) => item._id === id ? updatedListing : item));
+    setSelectedListing(updatedListing);
+  };
 
   const handleUnpublishListing = async (id) => {
     const updatedListing = await unpublishSellerListing(id);
@@ -167,6 +174,7 @@ export default function SellerManageMyListingsSection() {
                       listing={listing}
                       selected={selectedListing?._id === listing._id}
                       onViewDetails={() => setSelectedListing(listing)}
+                      onPublish={handlePublishListing}
                       onUnpublish={handleUnpublishListing}
                       onDelete={handleDeleteListing}
                     />
