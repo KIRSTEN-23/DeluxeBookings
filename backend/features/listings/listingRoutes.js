@@ -32,6 +32,7 @@ const {
   publishSellerListing,
   unpublishSellerListing,
   deleteSellerListing,
+  resubmitSellerListing,
 } = require("./sellerListingController");
 
 router.get("/seller/my-listings", getSellerListings);
@@ -41,6 +42,7 @@ router.put("/seller/my-listings/:id", updateSellerListing);
 router.patch("/seller/my-listings/:id/publish", publishSellerListing);
 router.patch("/seller/my-listings/:id/unpublish", unpublishSellerListing);
 router.delete("/seller/my-listings/:id", deleteSellerListing);
+router.patch("/seller/my-listings/:id/resubmit", resubmitSellerListing);
 
 // Admin listing routes
 const {

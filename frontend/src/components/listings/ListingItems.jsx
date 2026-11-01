@@ -89,7 +89,8 @@ export function ListingPrice({ price, oldPrice }) {
 }
 
 export function ListingStatus({ status }) {
-  return <span className={`listing-status ${status}`}>{status}</span>;
+  const labels = { draft: "Draft", in_review: "Awaiting review", unpublished: "Approved · Not published", published: "Published", rejected: "Changes requested" };
+  return <span className={`listing-status ${status}`}>{labels[status] || status}</span>;
 }
 
 export function ListingLocation({ location }) {

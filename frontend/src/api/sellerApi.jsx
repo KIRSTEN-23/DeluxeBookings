@@ -51,3 +51,8 @@ export const getSellerBookings = async () => {
 
   return response.data;
 };
+
+export const resubmitSellerListing = async (id) => {
+  const response = await api.patch(`/listings/seller/my-listings/${id}/resubmit`);
+  return response.data;
+};

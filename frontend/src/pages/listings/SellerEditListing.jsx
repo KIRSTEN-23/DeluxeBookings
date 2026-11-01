@@ -9,6 +9,7 @@ import ListingForm, {
 import {
   getSellerListingById,
   updateSellerListing,
+  resubmitSellerListing,
 } from "../../api/sellerApi.jsx";
 
 import "../../styles/listingForm.css";
@@ -82,6 +83,8 @@ export default function SellerEditListing() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [listingStatus, setListingStatus] = useState("");
+  const [reviewNotes, setReviewNotes] = useState("");
   const [formData, setFormData] = useState(initialListingForm);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -91,6 +94,8 @@ export default function SellerEditListing() {
       try {
         const listing = await getSellerListingById(id);
         setFormData(mapListingToForm(listing));
+        setListingStatus(listing.status);
+        setReviewNotes(listing.adminReview?.notes || "");
       } catch (error) {
         console.error(error);
         setErrorMessage("Could not load this listing.");
@@ -115,6 +120,7 @@ export default function SellerEditListing() {
     try {
       const payload = buildListingPayload(formData);
       await updateSellerListing(id, payload);
+      if (listingStatus === "rejected") await resubmitSellerListing(id);
       navigate("/seller/account");
     } catch (error) {
       console.error(error);
@@ -142,11 +148,12 @@ export default function SellerEditListing() {
           </Alert>
         )}
 
+        {listingStatus === "rejected" && <Alert variant="warning">Changes requested: {reviewNotes || "Review and correct your listing before resubmitting."}</Alert>}
         <ListingForm
           formData={formData}
           onChange={handleChange}
           onSubmit={handleUpdate}
-          submitLabel="Update listing"
+          submitLabel={listingStatus === "rejected" ? "Save and resubmit for review" : "Update listing"}
         />
       </Container>
     </main>

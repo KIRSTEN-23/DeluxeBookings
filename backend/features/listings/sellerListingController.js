@@ -141,6 +141,18 @@ const unpublishSellerListing = async (req, res) => {
   }
 };
 
+const resubmitSellerListing = async (req, res) => {
+  try {
+    const listing = await Listing.findOneAndUpdate(
+      { _id: req.params.id, seller: req.user.id, status: LISTING_STATUS.REJECTED },
+      { $set: { status: LISTING_STATUS.IN_REVIEW } },
+      { new: true, runValidators: true },
+    );
+    if (!listing) return res.status(409).json({ message: "Only rejected listings can be resubmitted." });
+    res.json(listing);
+  } catch { res.status(400).json({ message: "Could not resubmit listing. Check the listing details and try again." }); }
+};
+
 const deleteSellerListing = async (req, res) => {
   try {
     const sellerId = req.user.id;
@@ -173,4 +185,5 @@ module.exports = {
   publishSellerListing,
   unpublishSellerListing,
   deleteSellerListing,
+  resubmitSellerListing,
 };

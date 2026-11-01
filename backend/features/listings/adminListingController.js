@@ -65,6 +65,7 @@ const approveListing = async (req, res) => {
 };
 
 const rejectListing = async (req, res) => {
+  if (typeof req.body.notes !== "string" || !req.body.notes.trim() || req.body.notes.length > 1000) return res.status(400).json({ message: "Provide a rejection reason of up to 1000 characters." });
   try {
     const reviewerId = req.user?._id || req.user?.id;
 

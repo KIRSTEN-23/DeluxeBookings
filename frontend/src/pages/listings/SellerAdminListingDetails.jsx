@@ -105,6 +105,9 @@ export default function SellerAdminListingDetails({
           </div>
         </div>
 
+        {selectedListing.adminReview?.notes && <div className="alert alert-info"><strong>Admin feedback:</strong> {selectedListing.adminReview.notes}</div>}
+        {selectedListing.status === "in_review" && <p role="status">Awaiting admin review. No action is needed yet.</p>}
+        {selectedListing.status === "unpublished" && <p>Approved and ready to publish. This listing is not visible to guests yet.</p>}
         <hr />
 
         <ListingFacts

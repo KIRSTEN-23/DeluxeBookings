@@ -17,6 +17,8 @@ export default function AdminListingQueueSection() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [pendingId, setPendingId] = useState(null);
+  const [rejectId, setRejectId] = useState(null);
+  const [rejectionNotes, setRejectionNotes] = useState("");
   const actionPending = useRef(false);
 
   useEffect(() => {
@@ -46,6 +48,8 @@ export default function AdminListingQueueSection() {
     setSuccessMessage("");
     try {
       await (approve ? approveListing : rejectListing)(id, notes);
+      setRejectId(null);
+      setRejectionNotes("");
       await loadQueue();
       setSuccessMessage(approve ? "Listing approved. The seller can now publish it." : "Listing rejected. Feedback is available to the seller.");
     } catch (error) {
@@ -56,7 +60,7 @@ export default function AdminListingQueueSection() {
     }
   };
   const handleApprove = (id) => decide(id, true, "Approved by admin.");
-  const handleReject = (id) => decide(id, false, "Rejected by admin.");
+  const handleReject = (id) => { setRejectId(id); setRejectionNotes(""); };
 
   return (
     <section className="admin-queue-section">
@@ -65,6 +69,12 @@ export default function AdminListingQueueSection() {
         <p>Review submitted listings before they become available to publish.</p>
       </div>
 
+      {rejectId && <form className="alert alert-warning" onSubmit={(event) => { event.preventDefault(); if (rejectionNotes.trim()) decide(rejectId, false, rejectionNotes.trim()); }}>
+        <label htmlFor="rejection-notes">Explain what the seller needs to fix</label>
+        <textarea id="rejection-notes" required maxLength={1000} value={rejectionNotes} onChange={(event) => setRejectionNotes(event.target.value)} />
+        <button type="submit" disabled={Boolean(pendingId) || !rejectionNotes.trim()}>Confirm rejection</button>
+        <button type="button" disabled={Boolean(pendingId)} onClick={() => setRejectId(null)}>Cancel</button>
+      </form>}
       {isLoading && <p>Loading review queue...</p>}
 
       {errorMessage && <p role="alert">{errorMessage} <button disabled={Boolean(pendingId)} onClick={loadQueue}>Reload queue</button></p>}
