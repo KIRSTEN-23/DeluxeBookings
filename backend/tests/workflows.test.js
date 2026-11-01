@@ -38,9 +38,11 @@ test('invalid booking dates are rejected before database work', async () => {
 });
 
 test('seller editing cannot change status or ownership', async (t) => {
+  t.mock.method(Listing, 'findOne', async () => ({ status: 'published' }));
   t.mock.method(Listing, 'findOneAndUpdate', async (query, update) => {
     assert.equal(query.seller, 'seller');
-    assert.deepEqual(update, { $set: { title: 'Updated' } });
+    assert.equal(query.status, 'published');
+    assert.deepEqual(update, { $set: { title: 'Updated', status: 'in_review' } });
     return { title: 'Updated' };
   });
   const res = response();

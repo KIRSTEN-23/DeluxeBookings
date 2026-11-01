@@ -133,7 +133,7 @@ export default function SellerEditListing() {
       const payload = buildListingPayload(formData);
       await updateSellerListing(id, payload);
       if (listingStatus === "rejected") await resubmitSellerListing(id);
-      navigate("/seller/account", { state: { message: listingStatus === "rejected" ? "Listing resubmitted for review." : "Listing changes saved." } });
+      navigate("/seller/account", { state: { message: listingStatus === "rejected" ? "Listing resubmitted for review." : "Listing changes saved and submitted for review." } });
     } catch (error) {
       console.error(error);
       setErrorMessage(getErrorMessage(error, "Could not save this listing. Your changes are still here; please try again."));
@@ -166,7 +166,7 @@ export default function SellerEditListing() {
           onChange={handleChange}
           onSubmit={handleUpdate}
           isSubmitting={isSubmitting || loadFailed}
-          submitLabel={isSubmitting ? "Saving…" : listingStatus === "rejected" ? "Save and resubmit for review" : "Update listing"}
+          submitLabel={isSubmitting ? "Saving…" : listingStatus === "rejected" ? "Save and resubmit for review" : "Save and submit for review"}
         />
       </Container>
     </main>

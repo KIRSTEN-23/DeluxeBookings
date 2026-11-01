@@ -60,13 +60,17 @@ const pickListingFields = (body) => Object.fromEntries(editableFields.filter((ke
 const updateSellerListing = async (req, res) => {
   try {
     const sellerId = req.user.id;
+    const existing = await Listing.findOne({ _id: req.params.id, seller: sellerId });
+    if (!existing) return res.status(404).json({ message: "Listing not found." });
+    const nextStatus = existing.status === LISTING_STATUS.REJECTED ? LISTING_STATUS.REJECTED : LISTING_STATUS.IN_REVIEW;
 
     const listing = await Listing.findOneAndUpdate(
       {
         _id: req.params.id,
         seller: sellerId,
+        status: existing.status,
       },
-      { $set: pickListingFields(req.body) },
+      { $set: { ...pickListingFields(req.body), status: nextStatus } },
       {
         new: true,
         runValidators: true,
@@ -74,7 +78,7 @@ const updateSellerListing = async (req, res) => {
     );
 
     if (!listing) {
-      return res.status(404).json({ message: "Listing not found." });
+      return res.status(409).json({ message: "This listing changed while you were editing. Reload it and try again." });
     }
 
     res.status(200).json(listing);
