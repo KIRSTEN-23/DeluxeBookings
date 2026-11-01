@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { getSellerListingById } from "../../api/sellerApi";
+import { useEffect, useRef, useState } from "react";
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
+import { getSellerListingById, publishSellerListing, unpublishSellerListing, deleteSellerListing } from "../../api/sellerApi";
 import { getAdminListingById } from "../../api/adminApi";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import {
   ListingAmenities,
@@ -32,6 +33,10 @@ export default function SellerAdminListingDetails({
   onDelete,
 }) {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
+  const [actionMessage, setActionMessage] = useState("");
+  const actionPending = useRef(false);
 
   const [loadedListing, setLoadedListing] = useState(null);
   const [error, setError] = useState("");
@@ -49,6 +54,26 @@ export default function SellerAdminListingDetails({
     return () => { active = false; };
   }, [id, listing, role, attempt]);
   const selectedListing = listing || listings.find((item) => item._id === id) || loadedListing;
+  const act = async (action, listingId, callback) => {
+    if (callback) return callback(listingId);
+    if (actionPending.current) return;
+    if (action === "delete" && !window.confirm("Permanently delete this listing? This cannot be undone.")) return;
+    actionPending.current = true;
+    setSaving(true);
+    setActionMessage("");
+    setError("");
+    try {
+      if (action === "delete") {
+        await deleteSellerListing(listingId);
+        navigate("/seller/account", { state: { message: "Listing permanently deleted." } });
+      } else {
+        const updated = await (action === "publish" ? publishSellerListing : unpublishSellerListing)(listingId);
+        setLoadedListing(updated);
+        setActionMessage(action === "publish" ? "Listing published. Guests can now find it." : "Listing unpublished. It is no longer visible to guests.");
+      }
+    } catch (err) { setActionMessage(getErrorMessage(err, "Could not change listing. Please try again.")); }
+    finally { actionPending.current = false; setSaving(false); }
+  };
   if (loading) return <p role="status">Loading listing…</p>;
   if (error) return <div><p role="alert">{error}</p><button onClick={() => setAttempt((n) => n + 1)}>Retry</button></div>;
 
@@ -75,6 +100,8 @@ export default function SellerAdminListingDetails({
       }
     >
       <div className={isPane ? "" : "container py-4"}>
+        {saving && <p role="status">Saving listing change…</p>}
+        {actionMessage && <p role="status">{actionMessage}</p>}
         {isPane && (
           <div className="d-flex justify-content-between align-items-center mb-3">
             <span className="badge bg-light text-dark border">{role} view</span>
@@ -161,10 +188,10 @@ export default function SellerAdminListingDetails({
                   </Link>
 
                   <button
-                    disabled={pending}
+                    disabled={pending || saving}
                     type="button"
                     className="btn btn-outline-warning"
-                    onClick={() => onUnpublish?.(selectedListing._id)}
+                    onClick={() => act("unpublish", selectedListing._id, onUnpublish)}
                   >
                     Unpublish
                   </button>
@@ -174,19 +201,19 @@ export default function SellerAdminListingDetails({
               {selectedListing.status === "unpublished" && (
                 <>
                   <button
-                    disabled={pending}
+                    disabled={pending || saving}
                     type="button"
                     className="btn btn-outline-success"
-                    onClick={() => onPublish?.(selectedListing._id)}
+                    onClick={() => act("publish", selectedListing._id, onPublish)}
                   >
                     Publish
                   </button>
 
                   <button
-                    disabled={pending}
+                    disabled={pending || saving}
                     type="button"
                     className="btn btn-outline-danger"
-                    onClick={() => onDelete?.(selectedListing._id)}
+                    onClick={() => act("delete", selectedListing._id, onDelete)}
                   >
                     Delete permanently
                   </button>
@@ -203,10 +230,10 @@ export default function SellerAdminListingDetails({
                   </Link>
 
                   <button
-                    disabled={pending}
+                    disabled={pending || saving}
                     type="button"
                     className="btn btn-outline-danger"
-                    onClick={() => onDelete?.(selectedListing._id)}
+                    onClick={() => act("delete", selectedListing._id, onDelete)}
                   >
                     Delete permanently
                   </button>
@@ -223,10 +250,10 @@ export default function SellerAdminListingDetails({
                   </Link>
 
                   <button
-                    disabled={pending}
+                    disabled={pending || saving}
                     type="button"
                     className="btn btn-outline-danger"
-                    onClick={() => onDelete?.(selectedListing._id)}
+                    onClick={() => act("delete", selectedListing._id, onDelete)}
                   >
                     Delete permanently
                   </button>
