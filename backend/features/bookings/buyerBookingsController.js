@@ -18,6 +18,12 @@ const createBooking = async (req, res) => {
       });
     }
 
+    const arrival = new Date(arrivalDate);
+    const departure = new Date(departureDate);
+    if (!Number.isFinite(arrival.getTime()) || !Number.isFinite(departure.getTime()) || departure <= arrival || arrival < new Date(new Date().setHours(0, 0, 0, 0))) {
+      return res.status(400).json({ error: "Choose valid future dates, with departure after arrival." });
+    }
+
     const newBooking = await Booking.create({
       firstName,
       lastName,

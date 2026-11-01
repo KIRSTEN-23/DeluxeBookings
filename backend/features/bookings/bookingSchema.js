@@ -46,13 +46,13 @@ const bookingSchema = new mongoose.Schema(
 
     destination: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
 
     suite: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
 
@@ -68,7 +68,7 @@ const bookingSchema = new mongoose.Schema(
 
     guests: {
       type: Number,
-      required: true,
+      default: 1,
       min: 1,
     },
 
@@ -89,3 +89,5 @@ const bookingSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+module.exports = mongoose.models.Booking || mongoose.model("Booking", bookingSchema);
