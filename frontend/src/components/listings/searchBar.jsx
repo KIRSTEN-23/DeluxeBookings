@@ -5,36 +5,19 @@ import Form from 'react-bootstrap/Form';
 import { Search } from 'lucide-react';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-import axios from 'axios';
+import { propertyTypeOptions } from "./ListingForm";
+import { propertyTypeValue } from "../../utils/listingValidation";
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, isSearching }) {
   // States that store the selected fields
   const [guests, setGuests] = useState("");
   const [propertyType, setPropertyType] = useState("");
   const [province, setProvince] = useState("");
   const [city, setCity] = useState("");
 
-  const handleSearchSubmit = async (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    
-    try {
-      // These are the parameters
-      const params = {};
-      if (guests) params.guestCapacity = guests;
-      if (propertyType) params.propertyType = propertyType;
-      if (province) params.province = province;
-      if (city) params.city = city;
-
-      // Using the parameters in the API request
-      const res = await axios.get("http://localhost:5001/api/listings/search", { params });
-      
-      // Sends filtered data
-      if (onSearch) {
-        onSearch(res.data);
-      }
-    } catch (err) {
-      console.error("Filtering error:", err);
-    }
+    onSearch({ guestCapacity: guests, propertyType, province, city });
   };
 
   return (
@@ -66,8 +49,7 @@ function SearchBar({ onSearch }) {
               className='searchElements'
             >
                 <option value="">Property (All)</option>
-                <option value="Apartment">Apartment</option>
-                <option value="Hotel">Hotel</option>
+                {propertyTypeOptions.map((type) => <option key={type.name} value={propertyTypeValue(type.name)}>{type.name}</option>)}
             </Form.Select>
 
             {/* Province selection */}
@@ -104,8 +86,8 @@ function SearchBar({ onSearch }) {
                 <option value="Gqeberha">Port Elizabeth (Gqeberha)</option>
             </Form.Select>
 
-            <Button type="submit" variant="light" className="primaryButton col-2 searchHeading">
-              Search <Search/>
+            <Button disabled={isSearching} type="submit" variant="light" className="primaryButton col-2 searchHeading">
+              {isSearching ? "Searching…" : "Search"} <Search/>
             </Button>
 
           </Nav>

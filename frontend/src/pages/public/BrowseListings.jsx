@@ -5,49 +5,36 @@ import FilterPanel from "../../components/listings/filterPanel";
 import BrowseListingResults from "../../components/listings/BrowseListingResults.jsx";
 // import Footer from "../../components/common/footer";
 
-import { getPublicListings } from "../../api/publicApi";
+import api from "../../api/config";
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
 
 export default function BrowseListings() {
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [query, setQuery] = useState({});
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
-    loadDefaultListings();
-  }, []);
-
-  const loadDefaultListings = async () => {
-    try {
-      setIsLoading(true);
-      setErrorMessage("");
-
-      // API call.
-      const data = await getPublicListings();
-      setListings(data);
-    } catch (error) {
-      setErrorMessage("Could not load listings.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleListingsUpdate = (updatedListings) => {
-    setListings(updatedListings);
-
-    if (updatedListings.length === 0) {
-      console.log("No matching listings");
-    } else {
-      console.log(`Found ${updatedListings.length} matching listing(s).`);
-    }
-  };
+    let active = true;
+    setIsLoading(true);
+    setErrorMessage("");
+    api.get("/listings/search", { params: query }).then(({ data }) => {
+      if (active) setListings(data);
+    }).catch((error) => {
+      if (active) setErrorMessage(getErrorMessage(error, "Could not load listings. Please try again."));
+    }).finally(() => { if (active) setIsLoading(false); });
+    return () => { active = false; };
+  }, [query, attempt]);
+  const handleQueryUpdate = (fields) => setQuery((current) => ({ ...current, ...fields }));
 
   return (
     <main className="container-fluid px-4 py-4">
       <div className="row g-4">
-        <h1>Browse page is rendering</h1>
+        <h1>Find your stay</h1>
         <aside className="col-12 col-lg-3">
-          <SearchBar onSearch={handleListingsUpdate} />
-          <FilterPanel onFilter={handleListingsUpdate} />
+          <SearchBar onSearch={handleQueryUpdate} isSearching={isLoading} />
+          <FilterPanel onFilter={handleQueryUpdate} isSearching={isLoading} />
         </aside>
 
         <section className="col-12 col-lg-9">
@@ -58,7 +45,7 @@ export default function BrowseListings() {
           )}
 
           {errorMessage && (
-            <div className="alert alert-danger">{errorMessage}</div>
+            <div role="alert" className="alert alert-danger">{errorMessage} <button onClick={() => setAttempt((n) => n + 1)}>Retry</button></div>
           )}
 
           {!isLoading && !errorMessage && (

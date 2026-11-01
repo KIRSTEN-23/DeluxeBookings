@@ -2,12 +2,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
-import axios from 'axios';
 
-function FilterPanel({ onFilter }) {
+
+function FilterPanel({ onFilter, isSearching }) {
   // Checkbox selections arrays
   const [bedrooms, setBedrooms] = useState([]);
-  const [ratings, setRatings] = useState([]);
   const [amenities, setAmenities] = useState([]);
 
   const handleCheckboxChange = (e, state, setState) => {
@@ -24,28 +23,14 @@ function FilterPanel({ onFilter }) {
   // Clears all choices
   const handleClearAll = () => {
     setBedrooms([]);
-    setRatings([]);
     setAmenities([]);
+    onFilter({ bedrooms: "", amenities: "" });
   };
 
   // Sends choices to backend
-  const handleFilterSubmit = async (e) => {
+  const handleFilterSubmit = (e) => {
     e.preventDefault();
-    try {
-      const params = {};
-      
-      if (bedrooms.length > 0) params.bedrooms = bedrooms.join(',');
-      if (ratings.length > 0) params.ratingAverage = ratings.join(',');
-      if (amenities.length > 0) params.amenities = amenities.join(',');
-
-      const res = await axios.get("http://localhost:5001/api/listings/search", { params });
-      
-      if (onFilter) {
-        onFilter(res.data);
-      }
-    } catch (err) {
-      console.error("Filter panel error:", err);
-    }
+    onFilter({ bedrooms: bedrooms.join(","), amenities: amenities.join(",") });
   };
 
   return (
@@ -53,7 +38,7 @@ function FilterPanel({ onFilter }) {
       <h4 className='filterTitle'>Filter by</h4>
 
       <Button variant="light" onClick={handleClearAll} type="button">Clear</Button>
-      <Button variant="light" type="submit" className="primaryButton col-7 searchHeading">
+      <Button disabled={isSearching} variant="light" type="submit" className="primaryButton col-7 searchHeading">
         Search <Search/>
       </Button>
 
@@ -74,27 +59,10 @@ function FilterPanel({ onFilter }) {
         ))}
       </div>
 
-      {/* Ratings */}
-      <h5>Guest Rating</h5>
-      <div className="mb-3">
-        {[1, 2, 3, 4, 5].map((num) => (
-          <label className="checkContainer" key={`rate-${num}`}>
-            <input 
-              type="checkbox" 
-              value={num}
-              checked={ratings.includes(String(num))}
-              onChange={(e) => handleCheckboxChange(e, ratings, setRatings)}
-            />
-            <span className="checkmark"></span>
-            <h6>{num} Star(s)</h6>
-          </label>
-        ))}
-      </div>
-
       {/* Amenities */}
       <h5>Amenities</h5>
       <div className="mb-3">
-        {["Wifi", "Pool", "Gym", "Sea view", "Parking"].map((amenity) => (
+        {["WiFi", "Pool", "Kitchen", "Sea view", "Parking"].map((amenity) => (
           <label className="checkContainer" key={amenity}>
             <input 
               type="checkbox" 
