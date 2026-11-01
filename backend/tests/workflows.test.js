@@ -150,10 +150,14 @@ test('token verification uses current database roles and rejects deleted account
   assert.equal(res.code, 401);
 });
 
-test('missing and invalid tokens are rejected without database access', async (t) => {
+test('missing, invalid and expired tokens are rejected without database access', async (t) => {
+  const previousSecret = process.env.JWT_SECRET;
+  process.env.JWT_SECRET = 'workflow-test-secret';
+  t.after(() => { if (previousSecret === undefined) delete process.env.JWT_SECRET; else process.env.JWT_SECRET = previousSecret; });
+  const expired = require('jsonwebtoken').sign({ id: new mongoose.Types.ObjectId().toString() }, process.env.JWT_SECRET, { expiresIn: -1 });
   const verify = require('../middleware/verifyToken');
   t.mock.method(User, 'findById', () => assert.fail('must not query for invalid token'));
-  for (const headers of [{}, { authorization: 'Bearer invalid' }]) {
+  for (const headers of [{}, { authorization: 'Bearer invalid' }, { authorization: `Bearer ${expired}` }]) {
     const res = response();
     await verify({ headers }, res, () => assert.fail('must not authenticate'));
     assert.equal(res.code, 401);
