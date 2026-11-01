@@ -95,22 +95,3 @@
   background: var(--color-fill);
   box-shadow: 0 12px 30px rgba(51, 42, 35, 0.12);
 }
-
-@media (max-width: 834px) {
-  .account-page__hero {
-    min-height: 210px;
-  }
-
-  .account-page__hero-content {
-    padding: var(--space-3) var(--space-2);
-  }
-
-  .seller-account-workspace-shell {
-    gap: var(--space-3);
-    padding: 0 var(--space-2) var(--space-4);
-  }
-
-  .seller-account-workspace-shell .seller-bookings-section {
-    padding: var(--space-2);
-  }
-}

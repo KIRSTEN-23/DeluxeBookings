@@ -1,0 +1,312 @@
+/*
+ * Fluid layout rules. The only custom viewport breakpoints are 390, 1440 and
+ * 1920px. Preferred sizes remain in the component styles; flexible bases,
+ * min()/max()/clamp() and wrapping accommodate the space between those widths.
+ * Imported last so Bootstrap's grid widths do not constrain these layouts.
+ */
+:root {
+  --page-gutter: 16px;
+  --layout-gap: 16px;
+  --content-width: 1600px;
+}
+
+#root { min-width: 0; }
+img { max-width: 100%; }
+:where(input, select, textarea, button, .btn) { max-width: 100%; }
+:where(main, section, aside, article, form, fieldset) { min-width: 0; }
+:where(.browse-page, .account-page, .listing-detail-page, .create-listing-page, .checkoutbg, .logInBox) {
+  overflow-wrap: anywhere;
+}
+:where(.browse-page, .logInBox, .checkoutbg, .account-page, .create-listing-page) h1 {
+  font-size: clamp(2rem, 4.25vw, 61px);
+}
+:where(.logInBox, .checkoutbg) h2 { font-size: clamp(1.5rem, 3.4vw, 49px); }
+:where(.logInBox, .checkoutbg) h3 { font-size: clamp(1.375rem, 2.7vw, 39px); }
+:where(.logInBox, .checkoutbg) h4 { font-size: clamp(1.125rem, 2.2vw, 31px); }
+:where(.logInBox, .checkoutbg) h5 { font-size: clamp(1rem, 1.75vw, 25px); }
+:where(.btn, button, a) { touch-action: manipulation; }
+:where(.btn, button) { white-space: normal; }
+
+/* Shared navigation: intrinsic logo width; no percentage-offset link spacing. */
+.Navbar > .container {
+  width: min(100%, 1320px);
+  max-width: 1320px;
+  gap: var(--layout-gap);
+  padding: 8px var(--page-gutter);
+}
+.Navbar .navbar-brand { flex: 0 1 210px; min-width: 0; margin: 0; padding: 0; }
+.Navbar .logoStyling { display: block; width: min(100%, 210px); height: auto; }
+.Navbar .navbar-toggler { min-width: 44px; min-height: 44px; margin-left: auto; }
+.Navbar .navbar-collapse { flex-basis: 100%; min-width: 0; }
+.Navbar .site-nav-links { gap: 8px; padding-block: 8px; }
+.Navbar .navItemsSpacing { width: auto; min-width: 0; margin: 0; padding: 0; }
+.Navbar .pagelinks { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; }
+.Navbar .pagelinks h5 { font-size: clamp(18px, 1.75vw, 25px); }
+.Navbar .navButton { width: auto; min-width: 110px; min-height: 44px; margin: 0; }
+
+/* Browse: full-width search, then a wrapping sidebar/results pair. */
+.browse-page { width: min(100%, var(--content-width)); margin-inline: auto; padding: 24px var(--page-gutter) 48px; }
+.browse-page > h1 { margin-bottom: var(--layout-gap); }
+.browse-layout { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--layout-gap); }
+.browse-filters { flex: 1 1 100%; min-width: 0; }
+.browse-layout:has(.browse-filter-content.is-open) .browse-filters { flex-basis: 250px; }
+.browse-filter-toggle { width: 100%; min-height: 44px; }
+.browse-filter-content { display: none; margin-top: 12px; }
+.browse-filter-content.is-open { display: block; }
+.browse-results { flex: 999 1 560px; min-width: min(100%, 560px); }
+.searchBarMain { width: 100% !important; margin: 0 0 var(--layout-gap); padding: 16px !important; border-radius: 15px; background: #f8f9fa; }
+.searchBarMain .searchHeading { margin: 0 0 12px; font-size: 20px; }
+.stay-search-form { display: flex; flex-wrap: wrap; gap: 12px; }
+.stay-search-form .searchElements { flex: 1 1 160px; width: auto !important; min-width: 0; min-height: 44px; margin: 0; }
+.stay-search-submit { flex: 0 1 160px; min-height: 44px; padding-inline: 16px; }
+.filterBack { display: grid; gap: 20px; width: 100%; margin: 0; padding: 16px; }
+.filterBack .filterTitle { margin: 0; font-size: 25px; }
+.filter-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-actions .btn { flex: 1 1 88px; min-height: 44px; padding-inline: 12px; }
+.filter-group { padding: 0; margin: 0; }
+.filter-group legend { float: none; margin-bottom: 12px; font-size: 20px; }
+.filter-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr)); gap: 4px 12px; }
+.filterBack .checkContainer { display: flex; align-items: center; min-height: 44px; margin: 0; padding: 4px 0 4px 36px; }
+.filterBack .checkmark { top: 50%; transform: translateY(-50%); }
+.checkContainer input:focus-visible ~ .checkmark { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+.browse-results-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.browse-results-toolbar p { flex: 1 1 140px; margin: 0; }
+.browse-results-toolbar .form-select { flex: 0 1 270px; width: min(100%, 270px); min-height: 44px; }
+.browse-result-list { display: grid; gap: var(--layout-gap); }
+.browse-result-item { min-width: 0; }
+
+/* Cards wrap when their preferred image/text widths no longer fit. */
+.listing-card-shell,
+.listing-card-shell--buyer,
+.listing-card-shell--seller,
+.listing-card-shell--admin,
+.listing-card-shell--compact { display: flex; flex-wrap: wrap; min-width: 0; }
+.listing-card-shell__image-wrap { display: flex; flex: 1 1 250px; min-width: 0; min-height: 0; }
+.listing-card-shell__image { width: 100%; height: 100%; min-height: 0; aspect-ratio: 4 / 3; object-fit: cover; }
+.listing-card-shell__body { flex: 3 1 480px; min-width: 0; padding: clamp(16px, 2vw, 24px); }
+.listing-card-content-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+.listing-card-main-content { flex: 999 1 320px; min-width: 0; }
+.listing-card-sidebar { flex: 1 1 160px; min-width: 0; gap: 16px; align-items: flex-start; }
+.listing-title { font-size: clamp(25px, 2.2vw, 31px); overflow-wrap: anywhere; }
+.listing-location { min-width: 0; }
+.listing-location svg { flex-shrink: 0; }
+.listing-facts-row > span { display: inline-flex; align-items: center; gap: 4px; }
+.listing-facts-row svg { flex: 0 0 18px; }
+.listing-price { max-width: 100%; align-items: flex-start; text-align: left; }
+.listing-price strong { overflow-wrap: anywhere; }
+.listing-chip, .listing-property-type, .listing-tag, .listing-status { max-width: 100%; line-height: 1.35; overflow-wrap: anywhere; }
+.listing-status { position: static; width: fit-content; }
+.listing-card-shell__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.listing-card-shell__actions :is(.btn, button) { flex: 1 1 140px; width: auto; padding-inline: 12px; }
+
+/* Detail views: keep the booking column around 320px and wrap intrinsically. */
+.listing-detail-page { padding: var(--layout-gap) var(--page-gutter) 48px; }
+.listing-detail-page .listing-detail-shell { padding: clamp(12px, 2vw, 24px); }
+.listing-detail-content-grid { display: flex; flex-wrap: wrap; gap: var(--layout-gap); }
+.listing-detail-main-content { flex: 999 1 480px; min-width: 0; }
+.listing-detail-sidebar { flex: 1 1 320px; min-width: 0; }
+.listing-detail-card, .booking-card { padding: clamp(16px, 2vw, 32px); }
+.listing-gallery { display: flex; flex-wrap: wrap; gap: 12px; }
+.listing-gallery-main { flex: 2 1 420px; min-width: 0; width: 100%; height: auto; aspect-ratio: 4 / 3; max-height: 520px; }
+.listing-gallery-stack { flex: 1 1 220px; min-width: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 12px; }
+.listing-gallery-stack img { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+.listing-host-stats, .listing-house-rules { grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); }
+.listing-detail-pane { position: static; min-width: 0; max-height: none; }
+.listing-detail-pane .listing-gallery { display: flex; }
+.listing-detail-pane .listing-gallery-main { flex-basis: 320px; height: auto; }
+.listing-detail-pane .listing-gallery-stack { grid-template-rows: none; grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); }
+.listing-detail-pane .listing-gallery-stack img { height: auto; }
+.listing-detail-pane .listing-detail-content-grid { display: flex; }
+
+/* Account, review queue and booking table keep scrolling local to the table. */
+.account-page__hero-content, .seller-account-workspace-shell { padding-inline: var(--page-gutter); }
+.account-workspace, .seller-account-workspace-shell, .my-listings-primary, .my-listings-list { min-width: 0; }
+.Accountpage { width: min(100%, 960px); padding: clamp(16px, 3vw, 32px); margin: 24px auto; }
+.Accountbox, .Accountbox > div { width: 100%; min-width: 0; }
+.Accountbox .row { margin-inline: 0; gap: 12px; }
+.Accountbox :is(input, .custom-toggle-group) { width: min(100%, 480px); }
+.Accountbox .custom-toggle-group { display: flex; flex-wrap: wrap; }
+.Accountbox .custom-toggle-group .btn { flex: 1 1 160px; min-width: 0; }
+.Accountbox .row > .btn { flex: 1 1 200px; width: auto; }
+.my-listings-toolbar { margin-inline: 0; gap: 12px; }
+.my-listings-filter-column, .my-listings-action-column { width: auto; min-width: 0; padding: 0; flex: 1 1 220px; }
+.my-listings-action-column { justify-content: flex-start; }
+.my-listings-filters { display: flex; }
+.my-listings-filter-dropdown { display: none; }
+.my-listings-filter { min-height: 44px; }
+.my-listings-add-button { min-height: 44px; white-space: normal; }
+.my-listings-card-scroll { padding: clamp(0px, 1vw, 16px); }
+.my-listings-layout.has-detail-pane .seller-listing-detail-pane {
+  width: min(100%, 760px); min-width: 0; height: 100dvh; max-height: 100dvh;
+  padding: clamp(16px, 3vw, 32px); overscroll-behavior: contain;
+}
+.seller-bookings-table-wrapper { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.seller-bookings-table { width: 100%; min-width: 700px; border-collapse: collapse; }
+.seller-bookings-table :is(th, td) { padding: 12px; vertical-align: top; overflow-wrap: anywhere; }
+.seller-bookings-section { min-width: 0; }
+.admin-queue-section { width: min(100%, 1320px); margin-inline: auto; padding: 24px var(--page-gutter); }
+.admin-queue-layout { display: flex; flex-wrap: wrap; gap: var(--layout-gap); align-items: flex-start; }
+.admin-queue-list { flex: 1 1 480px; display: grid; gap: 16px; min-width: 0; }
+.admin-queue-layout > .listing-detail-pane { flex: 1 1 480px; }
+.admin-queue-row { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px; border: 1px solid var(--color-stroke-weak); border-radius: 8px; background: white; }
+.admin-queue-cell { flex: 1 1 140px; min-width: 0; overflow-wrap: anywhere; }
+.admin-queue-cell:first-child { flex: 2 1 240px; }
+.admin-queue-cell :is(strong, span) { display: block; }
+.admin-queue-actions { display: flex; flex-wrap: wrap; flex: 1 1 100%; gap: 8px; }
+.admin-queue-actions button { min-height: 44px; flex: 1 1 100px; }
+.admin-queue-section textarea { display: block; width: 100%; margin-block: 12px; }
+
+/* Forms keep sensible preferred widths, without viewport padding or 340px minima. */
+.logInBack { padding: 24px var(--page-gutter); background-size: cover; }
+.logInBox { width: min(100%, 1120px); margin: 0; padding: clamp(16px, 3vw, 40px); }
+.logInBox > div, .logInBox .tab-content, .logInBox .tab-pane { min-width: 0; width: 100%; }
+.logInBox > div > .nav-tabs { flex-wrap: wrap; }
+.logInBox .customFormInput { width: min(100%, 480px); min-height: 44px; }
+.logInBox .custom-toggle-group { display: flex; flex-wrap: wrap; justify-content: center; }
+.logInBox .custom-toggle-group .btn { flex: 1 1 160px; min-width: 0; }
+.picture-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.picture-options .logInButton { flex: 0 1 200px; width: min(100%, 200px); min-width: 0; margin: 0; padding: 12px; }
+.picture-options .logInButtonImg { width: min(100%, 100px); height: auto; }
+.picture-options .logInButton p { overflow-wrap: anywhere; margin-bottom: 0; }
+.checkoutbg { margin: 0; }
+.checkout-summary { width: min(100%, 960px); margin-inline: auto; padding: 24px var(--page-gutter); }
+.checkout-summary label { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.checkout-summary input { width: min(100%, 120px); min-height: 44px; }
+.checkout-layout { width: min(100%, 960px); margin-inline: auto; padding: 0 var(--page-gutter) 32px; }
+.CheckoutBack { width: 100%; min-width: 0; margin: 0; padding: 0; }
+.CheckoutBox { width: 100%; min-width: 0; margin: 0; padding: clamp(16px, 3vw, 40px); }
+.CheckoutBox .row { display: flex; flex-wrap: wrap; margin-inline: 0; row-gap: 16px; }
+.CheckoutBox .row > [class*="col-"] { flex: 1 1 240px; width: auto; min-width: 0; }
+.CheckoutBox .formGroup :is(input, textarea) { width: 100%; min-width: 0; min-height: 44px; }
+.CheckoutBox .checkBoxAlign { padding-left: 0; justify-content: center; gap: 12px; }
+.CheckoutBox .checkContainer { width: auto; min-height: 44px; margin: 0; }
+.CheckoutBox .checkContainer h6 { padding-left: 0; }
+.CheckoutBox .react-datepicker-wrapper, .CheckoutBox .react-datepicker__input-container { width: min(100%, 480px); margin-inline: auto; }
+.CheckoutBox .react-datepicker__input-container input { width: 100%; min-height: 44px; }
+.CheckoutBox form > div[style] { flex-wrap: wrap; justify-content: center; }
+.CheckoutBox .btn { flex: 1 1 180px; width: auto; min-height: 44px; }
+.create-listing-page { padding: 24px var(--page-gutter) 48px; }
+.create-listing-page.edit-listing-page { min-height: 0; padding: 0; }
+.create-listing-shell { width: min(100%, 1168px); max-width: 1168px; padding-inline: 0; }
+.create-listing-page .fields-grid > fieldset { display: grid; gap: 24px; min-width: 0; }
+.create-listing-page .form-card { padding: clamp(16px, 2.2vw, 32px); }
+.create-listing-page .form-card .row { margin-inline: -8px; row-gap: 16px; }
+.create-listing-page .form-card .row > [class*="col"] { flex: 1 1 260px; width: auto; min-width: 0; padding-inline: 8px; }
+.create-listing-page .form-card .row > .col-12:not([class*="col-lg-"]) { flex-basis: 100%; }
+.create-listing-page :is(.section-grid, .split-grid, .photo-preview-grid) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.create-listing-page :is(.photo-uploader-layout, .pricing-step-layout) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.create-listing-page .photo-dropzone { min-height: clamp(232px, 25vw, 360px); padding: clamp(16px, 2vw, 32px); }
+.create-listing-page .pill-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr)); }
+.create-listing-page .form-actions, .create-listing-page .action-group { flex-wrap: wrap; gap: 12px; }
+.create-listing-page .form-actions > .btn, .create-listing-page .action-group { flex: 1 1 200px; }
+.create-listing-page .action-group > .btn { flex: 1 1 140px; }
+.create-listing-page :is(input, select, textarea) { min-width: 0; }
+.review-form { width: min(100%, 750px); margin-block: clamp(24px, 5vw, 80px); padding: clamp(16px, 4vw, 50px); }
+.review-form h2 { font-size: clamp(25px, 3vw, 40px); }
+.review-form .star-rating { flex-wrap: wrap; gap: 4px; }
+.review-form .star-btn { min-width: 44px; min-height: 44px; padding: 4px; }
+
+/* Home sections: shrink fixed cards only as needed and wrap at intrinsic widths. */
+.home-page .heroImage { background-size: cover; background-attachment: scroll; }
+.home-page .heroImage > .row { display: flex; flex-wrap: wrap; gap: var(--layout-gap); width: min(100%, 1600px); margin-inline: auto; padding: 32px var(--page-gutter); }
+.home-page .heroImage > .row > [class*="col-"] { flex: 1 1 440px; min-width: 0; width: auto; padding: 0; }
+.home-page .marginBody { margin-left: 0; }
+.home-page .herotext { padding-top: clamp(0px, 8vw, 120px); font-size: clamp(36px, 4.5vw, 64px); }
+.home-page .herocard { width: min(100%, 560px); padding: clamp(16px, 2vw, 32px); }
+.home-page .circularText { display: block; width: min(100%, 400px); padding: 0; margin: clamp(16px, 5vw, 80px) auto; }
+.home-page :is(.hero, .about-section, .stats-section, .property-section, .featured-properties, .offers-section) { padding: clamp(32px, 6vw, 100px) var(--page-gutter); }
+.home-page .hero { display: flex; flex-wrap: wrap; }
+.home-page :is(.hero-image, .hero-content) { flex: 1 1 400px; min-width: 0; }
+.home-page .hero-image img { height: auto; max-height: 500px; aspect-ratio: 4 / 3; }
+.home-page .hero-content h1 { font-size: clamp(32px, 4.5vw, 64px); }
+.home-page .about-section { display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 60px); }
+.home-page .about-section .left-content { flex: 1 1 360px; min-width: 0; }
+.home-page .about-section .right-content { flex: 1.3 1 480px; min-width: 0; }
+.home-page .about-section .left-content h1 { font-size: clamp(32px, 3.4vw, 48px); }
+.home-page .about-section .info-card { width: min(100%, 800px); flex-wrap: wrap; padding: clamp(16px, 2vw, 30px); gap: 20px; }
+.home-page .about-section .card-text { flex: 1 1 240px; min-width: 0; }
+.home-page .about-section .card-image { flex: 1 1 180px; width: min(100%, 220px); max-width: 100%; }
+.home-page .about-section .gallery { display: flex; flex-wrap: wrap; gap: 16px; }
+.home-page .about-section .gallery img { flex: 1 1 140px; width: min(100%, 180px); min-width: 0; }
+.home-page .stats-container { display: flex; flex-wrap: wrap; gap: 24px; }
+.home-page .stat-card { flex: 1 1 200px; min-width: 0; }
+.home-page .stat-card h2 { font-size: clamp(48px, 5.5vw, 80px); }
+.home-page .carousel-container { min-width: 0; padding: clamp(16px, 4vw, 64px); }
+.home-page .section-header h2 { font-size: clamp(28px, 3.4vw, 48px); }
+.home-page .swiper-slide { width: min(350px, 100%); height: auto; aspect-ratio: 7 / 9; }
+.home-page .swiper-controller { gap: clamp(12px, 4vw, 80px); }
+.home-page .swiper-pagination { min-width: 0; }
+.home-page .property-grid { columns: 3 280px; }
+.home-page .property-card img { height: auto; aspect-ratio: 4 / 5; max-height: 620px; }
+.home-page .property-card.small img { aspect-ratio: 4 / 3; }
+.home-page .property-card.medium img { aspect-ratio: 1; }
+.home-page .property-card.tall img { aspect-ratio: 2 / 3; }
+.home-page .property-card .overlay { padding: 16px; gap: 12px; }
+.home-page .property-card h3 { font-size: clamp(24px, 2.2vw, 32px); }
+.home-page .property-card .arrow-btn { flex: 0 0 52px; }
+.home-page .offer-card { flex-wrap: wrap; }
+.home-page .offer-image { flex: 1 1 180px; min-width: 0; max-width: 320px; }
+.home-page .offer-content { flex: 3 1 360px; min-width: 0; }
+.home-page .offer-content h2 { font-size: clamp(25px, 2.5vw, 35px); }
+.site-footer { padding: 32px var(--page-gutter); }
+.footer-row { display: flex; flex-wrap: wrap; gap: 24px; width: min(100%, 1440px); margin-inline: auto; }
+.footer-row + .footer-row { margin-top: 32px; }
+.footer-intro { flex: 7 1 440px; min-width: 0; }
+.footer-visual { flex: 5 1 320px; min-width: 0; }
+.footer-column { flex: 1 1 220px; min-width: 0; }
+.site-footer :is(.footerHeading, .footerText, .footerPageLinks) { padding: 0; overflow-wrap: anywhere; }
+.site-footer .footerHeading { font-size: clamp(32px, 4.5vw, 64px); }
+.site-footer .footerText { padding-top: 16px; }
+.site-footer .footerimage { display: block; width: min(100%, 560px); height: auto; padding: 0; }
+.site-footer .footer-column .footerimage { max-width: 262px; }
+
+/* Phone refinement: one of the three allowed breakpoints. */
+@media (min-width: 390px) {
+  :root { --page-gutter: clamp(16px, 2.5vw, 48px); --layout-gap: clamp(16px, 1.7vw, 32px); }
+  .picture-options .logInButton { flex-basis: clamp(144px, 18vw, 200px); }
+}
+
+/* Seller onboarding's original desktop rules are left intact at >=1440px. */
+@media (width < 1440px) {
+  .seller-onboarding-page { overflow-wrap: anywhere; }
+  .seller-onboarding-page .container { width: min(100%, 1320px); max-width: 1320px; padding-inline: var(--page-gutter); }
+  .seller-onboarding-page .seller-hero { height: auto; min-height: min(620px, 100svh); padding: clamp(48px, 7vw, 96px) 0; }
+  .seller-onboarding-page .seller-hero h1 { font-size: clamp(36px, 6.4vw, 92px); }
+  .seller-onboarding-page .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+  .seller-onboarding-page .hero-actions .btn { flex: 0 1 auto; max-width: 100%; padding-inline: clamp(16px, 2vw, 32px) !important; }
+  .seller-onboarding-page :is(.seller-section, .seller-final-cta) { padding-block: clamp(48px, 7.8vw, 112px); }
+  .seller-onboarding-page .earnings-section { padding-bottom: 0; }
+  .seller-onboarding-page .stats-strip .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 144px), 1fr)); margin-inline: 0; }
+  .seller-onboarding-page .stats-strip [class*="col"] { width: auto; min-width: 0; padding-inline: 8px; }
+  .seller-onboarding-page :is(.benefit-mosaic, .earnings-summary) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px; }
+  .seller-onboarding-page .earnings-controls { gap: 32px; margin-block: 32px; }
+  .seller-onboarding-page .slider-meta { flex-wrap: wrap; gap: 8px; }
+  .seller-onboarding-page .step-card { display: flex; flex-wrap: wrap; gap: 20px; padding: clamp(16px, 3vw, 32px); }
+  .seller-onboarding-page .step-card > div:not(.step-number) { flex: 1 1 280px; min-width: 0; }
+  .seller-onboarding-page .testimonial-layout { display: flex; flex-wrap: wrap; gap: 24px; padding-inline: var(--page-gutter); }
+  .seller-onboarding-page .testimonial-copy { flex: 1 1 320px; min-width: 0; }
+  .seller-onboarding-page .testimonial-carousel-area { flex: 2 1 520px; min-width: 0; max-width: 100%; }
+  .seller-onboarding-page .quote-stage { --quote-card-width: min(520px, 100%); --testimonial-peek: 0px; --testimonial-viewport-width: var(--quote-card-width); min-height: 0; }
+  .seller-onboarding-page .quote-card { min-width: 0; padding: clamp(24px, 3.4vw, 48px); }
+  .seller-onboarding-page .quote-card::before { display: none; }
+  .seller-onboarding-page .faq-section .row { display: flex; flex-wrap: wrap; gap: 24px; margin-inline: 0; }
+  .seller-onboarding-page .faq-section [class*="col"] { flex: 1 1 400px; min-width: 0; width: auto; padding: 0; }
+  .seller-onboarding-page .seller-faq { max-width: 100%; }
+}
+
+@media (min-width: 1440px) {
+  .browse-filters { flex-basis: 250px; }
+  .browse-filter-toggle { display: none; }
+  .browse-filter-content { display: block; margin-top: 0; }
+  .Navbar .navbar-toggler { display: none; }
+  .Navbar .navbar-collapse { display: flex !important; flex: 1 1 0; }
+  .Navbar .site-nav-links { flex: 1; flex-direction: row; align-items: center; justify-content: space-evenly; gap: 24px; }
+  .listing-card-sidebar { align-items: flex-end; }
+  .listing-card-sidebar .listing-price { align-items: flex-end; text-align: right; }
+  .my-listings-layout.has-detail-pane .seller-listing-detail-pane { width: min(760px, 48vw); }
+}
+
+@media (min-width: 1920px) {
+  :root { --content-width: 1760px; }
+  .browse-page { padding-block: 40px 64px; }
+}

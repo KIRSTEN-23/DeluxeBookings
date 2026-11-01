@@ -112,51 +112,9 @@
 
 /* Responsive */
 
-@media (max-width: 834px) {
-  .listing-card-shell,
-  .listing-card-shell--buyer,
-  .listing-card-shell--seller,
-  .listing-card-shell--admin,
-  .listing-card-shell--compact {
-    grid-template-columns: 1fr;
-  }
 
-  .listing-card-shell__image {
-    height: 220px;
-    min-height: 220px;
-  }
 
-  .listing-card-shell__body {
-    padding: var(--space-2);
-  }
 
-  .listing-card-shell__actions {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    justify-content: stretch;
-  }
-
-  .listing-card-shell__actions .btn,
-  .listing-card-shell__actions button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 420px) {
-  .listing-card-shell.is-selected::before {
-    display: none;
-  }
-
-  .listing-card-shell__image {
-    height: 190px;
-    min-height: 190px;
-  }
-
-  .listing-card-shell__body {
-    gap: var(--space-2);
-    padding: var(--space-2);
-  }
-}
 
 
 /* ─────────────────────────────────────
@@ -284,57 +242,3 @@
 }
 
 /* SALVAGED responsive behaviour from SellerListingCard.css */
-@media (max-width: 834px) {
-  .listing-card-content-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
-  }
-
-  .listing-card-sidebar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    gap: var(--space-2);
-  }
-
-  .listing-card-desktop-actions {
-    display: none;
-  }
-
-  .listing-card-action-menu {
-    display: block;
-  }
-
-  .listing-status {
-    position: absolute;
-    top: var(--space-2);
-    right: var(--space-2);
-    z-index: 2;
-  }
-
-  .listing-price {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: flex-end;
-    gap: var(--space-1);
-    text-align: right;
-  }
-
-  .listing-price span:first-child {
-    display: none;
-  }
-}
-
-@media (max-width: 420px) {
-  .listing-card-sidebar {
-    align-items: center;
-    gap: var(--space-1);
-  }
-
-  .listing-card-action-menu,
-  .listing-card-action-menu .listing-card-action-menu-toggle.btn {
-    width: 42px;
-    min-width: 42px;
-  }
-}

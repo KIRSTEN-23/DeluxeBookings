@@ -14,7 +14,7 @@ import OfferSection from "../../components/public/OfferSection";
 
 function Home() {
   return (
-    <div>
+    <div className="home-page">
   <HeroHeader></HeroHeader>
       <div>
         <Carousel />

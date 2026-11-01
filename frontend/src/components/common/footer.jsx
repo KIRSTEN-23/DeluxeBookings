@@ -5,23 +5,23 @@ import deluxeLogo from '../../Assets/images/DeluxeLogo.svg';
 
 function Footer() {
   return (
-    <footer>
-        <div className='row container-fluid'>
+    <footer className="site-footer">
+        <div className='footer-row'>
 
-        <div className='col-lg-7'>
+        <div className='footer-intro'>
             <h1 className='footerHeading'>Engage with Us in <em className='headingAlt'>Conversation</em></h1>
             <p className='footerText'>In a global world based on communication, a premium hospitality brand must look beyond its borders, open up to new experiences, and dare to be different. Meeting the brightest minds of one's time is the most effective way to nurture creativity and trust.</p>
         </div>
 
-        <div className='col-lg-5'>
+        <div className='footer-visual'>
             <img src={FooterImage} alt="House with swimming pool" className="footerimage"/>
         </div>
 
         </div>
 
-        <div className='row container-fluid'>
+        <div className='footer-row'>
 
-            <div className='col-lg-3 marginFooter'>
+            <div className='footer-column'>
                 <p className='footerText'>About Us</p>
 
                 <p className="footerPageLinks">Our Story</p>
@@ -31,7 +31,7 @@ function Footer() {
                 <p className="footerPageLinks">Contact</p>
             </div>
 
-            <div className='col-lg-3'>
+            <div className='footer-column'>
                 <p className='footerText'><strong>Customer Service</strong></p>
 
                 <p className="footerPageLinks">Prices and Payments</p>
@@ -42,7 +42,7 @@ function Footer() {
 
             </div>
 
-            <div className='col-lg-2'>
+            <div className='footer-column'>
                 <p className='footerText'><strong>Social Media</strong></p>
 
                 <p className="footerPageLinks">Instagram</p>
@@ -51,7 +51,7 @@ function Footer() {
                 <p className="footerPageLinks">X (Twitter)</p>
             </div>
 
-            <div className='col-lg-3'>
+            <div className='footer-column'>
                 <Link to="/"><img src={deluxeLogo} alt="Deluxe Bookings logo" className="footerimage"/></Link>
             </div>
 

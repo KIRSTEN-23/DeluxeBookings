@@ -16,6 +16,7 @@ import "./styles/LuxurySection.css";
 import "./styles/OfferSection.css";
 import "./styles/PropertyGrid.css";
 import "./styles/ReviewForm.css";
+import "./styles/Responsiveness.css";
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

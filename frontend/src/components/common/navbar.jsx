@@ -23,22 +23,22 @@ function NavBar() {
   };
 
   return (
-    <Navbar expand="lg" className="Navbar" sticky="top" data-bs-theme="dark">
+    <Navbar expand={false} className="Navbar" sticky="top" data-bs-theme="dark">
       <Container>
         <Navbar.Brand>
           <NavLink to="/"><img src={deluxeLogo} alt="Deluxe Bookings logo" className='logoStyling'/></NavLink>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link className="navItemsSpacing col-4" as="div">
+        <Navbar.Toggle aria-controls="site-navigation" />
+        <Navbar.Collapse id="site-navigation">
+          <Nav className="site-nav-links">
+            <Nav.Link className="navItemsSpacing" as="div">
               <NavLink to="/product" className="pagelinks">
                 <h5 style={{color: 'white'}}>Stays</h5>
               </NavLink>
             </Nav.Link>
             
             {/* Checks if user has seller role */}
-            <Nav.Link className="navItemsSpacing col-12" as="div">
+            <Nav.Link className="navItemsSpacing" as="div">
               <NavLink to={hasDashboardAccess ? "/seller/account" : "/seller-onboarding"} className="pagelinks">
                 <h5 className="PageLinkwidth" style={{color: 'white'}}>{hasDashboardAccess ? "Seller Dashboard" : "List your property"}</h5>
               </NavLink>

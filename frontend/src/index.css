@@ -185,10 +185,3 @@ textarea::placeholder,
 .card {
   border-radius: var(--radius-card);
 }
-
-@media (min-width: 768px) {
-  :root {
-    --fs-sm: 16px;
-    --fs-base: 20px;
-  }
-}
