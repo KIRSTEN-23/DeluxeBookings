@@ -136,7 +136,7 @@ export default function SellerManageMyListingsSection() {
 
             <div className="col-12 col-lg-4 my-listings-action-column">
               <Link
-                to="/seller/listings/new"
+                to="/seller/new"
                 className="btn btn-primary my-listings-add-button"
               >
                 Create Listing

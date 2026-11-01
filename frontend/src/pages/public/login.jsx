@@ -12,31 +12,6 @@ import Authentication from "../../components/auth/authentication";
 
 
 function LogIn() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-
-  const register = async () => {
-    const res = await axios.post("http://localhost:5001/auth/register", {
-      email,
-      password,
-      name
-    });
-
-    setMessage(res.data);
-  };
-
-  const login = async () => {
-    const res = await axios.post("http://localhost:5001/auth/login", {
-      email,
-      password,
-      name
-    });
-
-    setMessage(res.data);
-  };
-
   return (
     <div>
     <div className="logInBack">

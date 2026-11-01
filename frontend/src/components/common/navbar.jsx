@@ -39,7 +39,7 @@ function NavBar() {
             
             {/* Checks if user has seller role */}
             <Nav.Link className="navItemsSpacing col-12" as="div">
-              <NavLink to={hasDashboardAccess ? "/seller-dashboard/account" : "/seller-onboarding"} className="pagelinks">
+              <NavLink to={hasDashboardAccess ? "/seller/account" : "/seller-onboarding"} className="pagelinks">
                 <h5 className="PageLinkwidth" style={{color: 'white'}}>{hasDashboardAccess ? "Seller Dashboard" : "List your property"}</h5>
               </NavLink>
             </Nav.Link>

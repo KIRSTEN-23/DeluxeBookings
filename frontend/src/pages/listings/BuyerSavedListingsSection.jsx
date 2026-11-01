@@ -197,7 +197,7 @@ function BuyerSavedListingsSection() {
             {isAdmin && (
               <Button 
                 className="primaryButton buttontext MarginBtn" 
-                onClick={() => navigate("/adminDashboard")}
+                onClick={() => navigate("/admin")}
               >
                 Admin Dashboard
               </Button>
@@ -206,7 +206,7 @@ function BuyerSavedListingsSection() {
             {(isSeller || isAdmin) && (
               <Button 
                 className="primaryButton buttontext" 
-                onClick={() => navigate("/sellerLoggedIn")}
+                onClick={() => navigate("/seller/account")}
               >
                 Seller Dashboard
               </Button>

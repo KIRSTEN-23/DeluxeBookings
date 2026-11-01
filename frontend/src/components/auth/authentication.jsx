@@ -141,7 +141,7 @@ const login = async () => {
         if (user?.userRole === 'A') {
           navigate("/"); 
         } else if (user?.userRole === 'S') {
-          navigate("/sellerLoggedIn"); 
+          navigate("/seller/account"); 
         } else {
           navigate("/"); 
         }
