@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from "../../api/config";
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -22,6 +23,9 @@ function BuyerSavedListingsSection() {
   const [email, setEmail] = useState('');
   const [userRole, setUserRole] = useState('B'); 
   const [updateMessage, setUpdateMessage] = useState('');
+  const [pending, setPending] = useState(false);
+  const [syncAttempt, setSyncAttempt] = useState(0);
+  const actionPending = useRef(false);
 
   useEffect(() => {
     const syncProfile = async () => {
@@ -35,14 +39,14 @@ function BuyerSavedListingsSection() {
         setEmail(res.data.email || '');
         setUserRole(res.data.userRole || 'B');
       } catch (err) {
-        console.error("Safety check: Profile sync failed.", err);
+        setUpdateMessage("Could not refresh your profile. Displaying your last saved details.");
       }
     };
 
     if (token && user) {
       syncProfile();
     }
-  }, [token]);
+  }, [token, syncAttempt]);
 
   // Set default form values
   useEffect(() => {
@@ -61,6 +65,10 @@ function BuyerSavedListingsSection() {
   // Update user info
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
+    if (actionPending.current) return;
+    actionPending.current = true;
+    setPending(true);
+    setUpdateMessage("");
     try {
       const finalRole = isAdmin ? 'A' : userRole;
 
@@ -74,15 +82,19 @@ function BuyerSavedListingsSection() {
       setUpdateMessage("Profile updated successfully!");
       setIsEditing(false);
     } catch (err) {
-      setUpdateMessage(typeof err.response?.data === "string" ? err.response.data : err.response?.data?.error || "Failed to update profile. Please try again.");
-    }
+      setUpdateMessage(getErrorMessage(err, "Failed to update profile. Please try again."));
+    } finally { actionPending.current = false; setPending(false); }
   };
 
   // makes sure the user wants to delete their account
   const handleDeleteAccount = async () => {
+    if (actionPending.current) return;
     const confirmDelete = window.confirm("Are you absolutely sure you want to permanently delete your account? This action cannot be undone.");
     
     if (confirmDelete) {
+      actionPending.current = true;
+      setPending(true);
+      setUpdateMessage("");
       try {
         await api.delete("/users/delete", {
           headers: { Authorization: `Bearer ${token}` }
@@ -91,8 +103,8 @@ function BuyerSavedListingsSection() {
         logout();
         navigate("/login");
       } catch (err) {
-        setUpdateMessage("Could not delete your account. Please try again.");
-      }
+        setUpdateMessage(getErrorMessage(err, "Could not delete your account. Please try again."));
+      } finally { actionPending.current = false; setPending(false); }
     }
   };
 
@@ -170,8 +182,8 @@ function BuyerSavedListingsSection() {
                 </div>
               )}
 
-              <Button type="submit" variant="light" className="heroButton" style={{ marginRight: "2%"}}>Save Changes<Save style={{ marginLeft: "2%"}}/></Button>
-              <Button type="button" className="primaryButton buttontext" onClick={() => setIsEditing(false)}>Cancel</Button>
+              <Button disabled={pending} type="submit" variant="light" className="heroButton" style={{ marginRight: "2%"}}>Save Changes<Save style={{ marginLeft: "2%"}}/></Button>
+              <Button type="button" className="primaryButton buttontext" disabled={pending} onClick={() => setIsEditing(false)}>Cancel</Button>
             </form>
           ) : (
             <div className="LogInText">
@@ -181,11 +193,13 @@ function BuyerSavedListingsSection() {
                 <strong>Account Type:</strong> {isAdmin ? "Admin" : isSeller ? "Seller" : "Customer"}
               </p>
 
-              <Button variant="light" className="heroButton" onClick={() => setIsEditing(true)}>Edit profile <Pencil/></Button>
+              <Button variant="light" className="heroButton" disabled={pending} onClick={() => setIsEditing(true)}>Edit profile <Pencil/></Button>
             </div>
           )}
 
-          {updateMessage && <p className="LogInText">{updateMessage}</p>}
+          {pending && <p role="status">Saving account change…</p>}
+          {updateMessage && <p role="status" className="LogInText">{updateMessage}</p>}
+          <Button disabled={pending} variant="light" onClick={() => { setUpdateMessage(""); setSyncAttempt((n) => n + 1); }}>Refresh profile</Button>
 
           <br />
 
@@ -217,7 +231,7 @@ function BuyerSavedListingsSection() {
 
           <Button variant="light" className="primaryButton" onClick={handleLogout} style={{ marginRight: "2%"}}>Log Out <LogOut/></Button>
 
-          <Button variant="light" className="primaryButton deleteButton" onClick={handleDeleteAccount}>Delete Account <Trash2/></Button>
+          <Button variant="light" className="primaryButton deleteButton" disabled={pending} onClick={handleDeleteAccount}>Delete Account <Trash2/></Button>
 
         </div>
       </div>
