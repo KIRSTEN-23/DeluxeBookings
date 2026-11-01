@@ -221,7 +221,7 @@ const login = async () => {
             <h2 className="passwordText LogInText">Create a custom password:</h2>          
             <h4 className="LogInText">Choose your favourite colour</h4>
 
-            <div type="row">
+            <div className="picture-options">
               <button disabled={isSubmitting} aria-pressed={String(password11) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(1); passSelect11(); }}>
                 <img src={ruby} alt="ruby red" className="logInButtonImg"/>
                 <p>Ruby Red</p>
@@ -255,7 +255,7 @@ const login = async () => {
           <div>
             <h4 className="LogInText">Choose the best place to relax</h4>
 
-            <div type="row">
+            <div className="picture-options">
               <button disabled={isSubmitting} aria-pressed={String(password12) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword12(1); passSelect12(); }}>
                 <img src={golf} alt="golf course" className="logInButtonImg"/>
                 <p>The golf course</p>
@@ -281,7 +281,7 @@ const login = async () => {
           <div>
             <h4 className="LogInText">Choose your favourite drink</h4>
 
-            <div type="row">
+            <div className="picture-options">
               <button disabled={isSubmitting} aria-pressed={String(password13) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword13(1); passSelect13(); }}>
                 <img src={wine} alt="wine glasses" className="logInButtonImg"/>
                 <p>Wine</p>
@@ -348,7 +348,7 @@ const login = async () => {
             <h2 className="passwordText LogInText">Select your picture password:</h2>            
             <h3 className="LogInText">Choose your favourite colour</h3>
 
-            <div type="row">
+            <div className="picture-options">
               <button disabled={isSubmitting} aria-pressed={String(password1) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(1); passSelect(); }}>
                 <img src={ruby} alt="ruby red" className="logInButtonImg"/>
                 <p>Ruby Red</p>
@@ -382,7 +382,7 @@ const login = async () => {
           <div>
             <h4 className="LogInText">Choose the best place to relax</h4>
 
-            <div type="row">
+            <div className="picture-options">
               <button disabled={isSubmitting} aria-pressed={String(password2) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword2(1); passSelect2(); }}>
                 <img src={golf} alt="golf course" className="logInButtonImg"/>
                 <p>The golf course</p>
@@ -408,7 +408,7 @@ const login = async () => {
           <div>
             <h4 className="LogInText">Choose your favourite drink</h4>
 
-            <div type="row">
+            <div className="picture-options">
               <button disabled={isSubmitting} aria-pressed={String(password3) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword3(1); passSelect3(); }}>
                 <img src={wine} alt="wine glasses" className="logInButtonImg"/>
                 <p>Wine</p>

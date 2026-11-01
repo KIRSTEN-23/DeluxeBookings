@@ -44,7 +44,7 @@ function Checkout() {
   };
 
   const handleDetailsSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (!listing || !arrivalDate || !departureDate || departureDate <= arrivalDate || arrivalDate < new Date(new Date().setHours(0, 0, 0, 0))) {
       setMessage("Select an available stay and valid dates, with departure after arrival.");
       return;
@@ -53,7 +53,7 @@ function Checkout() {
       setMessage(`Choose between 1 and ${listing.guestCapacity} guests.`); return;
     }
     setMessage(""); // resets message
-    setCheckoutPage(2); 
+    setCheckoutPage(2);
   };
 
   // Submit the booking request
@@ -63,7 +63,7 @@ function Checkout() {
     submitting.current = true;
     setIsSubmitting(true);
     setMessage("");
-    
+
     try {
       const res = await api.post("/bookings", {
         listing: listingId,
@@ -76,7 +76,7 @@ function Checkout() {
         arrivalDate: format(arrivalDate, "yyyy-MM-dd"),
         departureDate: format(departureDate, "yyyy-MM-dd")
       });
-      
+
       if (res.data.success) {
         setBooking(res.data.booking);
         setMessage("");
@@ -94,14 +94,14 @@ function Checkout() {
   return (
     <div className='checkoutbg'>
       {!listingId && <p role="alert">Choose a stay from <a href="/browse">Browse listings</a> before booking.</p>}
-      {listing && <div className="container py-3"><h2>{listing.title}</h2><p>R{listing.pricePerNight} per night. Add-ons are requests for the host to confirm.</p><label>Guests <input disabled={checkoutPage !== 1} type="number" min="1" max={listing.guestCapacity} value={guests} onChange={(e) => setGuests(Number(e.target.value))} /></label>{arrivalDate && departureDate > arrivalDate && <p>Stay total: R{Math.ceil((departureDate - arrivalDate) / 86400000) * listing.pricePerNight}</p>}</div>}
-      <div className='row'>
+      {listing && <div className="checkout-summary"><h2>{listing.title}</h2><p>R{listing.pricePerNight} per night. Add-ons are requests for the host to confirm.</p><label>Guests <input disabled={checkoutPage !== 1} type="number" min="1" max={listing.guestCapacity} value={guests} onChange={(e) => setGuests(Number(e.target.value))} /></label>{arrivalDate && departureDate > arrivalDate && <p>Stay total: R{Math.ceil((departureDate - arrivalDate) / 86400000) * listing.pricePerNight}</p>}</div>}
+      <div className='checkout-layout'>
 
         {/* Personal details form */}
         {checkoutPage === 1 && (
-          <div className="CheckoutBack col-6">
+          <div className="CheckoutBack">
             <div className="CheckoutBox">
-              
+
               <ProgressBar now={33} variant="dark" className='progressBar'/>
 
               <h3 className='m-plus-rounded-1c-bold checkoutHeading LogInText'>Enter your personal details:</h3>
@@ -114,7 +114,7 @@ function Checkout() {
                     <input
                       placeholder="First Name"
                       value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)} 
+                      onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
                   </div>
@@ -169,10 +169,10 @@ function Checkout() {
 
                     <div className="row checkBoxAlign">
                       <label className="checkContainer">
-                        <input 
-                          type="checkbox" 
-                          id="Breakfast" 
-                          name="select_addons" 
+                        <input
+                          type="checkbox"
+                          id="Breakfast"
+                          name="select_addons"
                           value="Breakfast"
                           onChange={handleAddonChange}
                         />
@@ -185,10 +185,10 @@ function Checkout() {
                       <br />
 
                       <label className="checkContainer">
-                        <input 
-                          type="checkbox" 
-                          id="Housekeeping" 
-                          name="select_addons" 
+                        <input
+                          type="checkbox"
+                          id="Housekeeping"
+                          name="select_addons"
                           value="Housekeeping"
                           onChange={handleAddonChange}
                         />
@@ -204,7 +204,7 @@ function Checkout() {
                 <br></br>
                 <Button className="primaryButton" type="submit">Finalise details</Button>
               </form>
-              
+
               {message && <p role="alert" className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
             </div>
           </div>
@@ -212,9 +212,9 @@ function Checkout() {
 
         {/* Booking review */}
         {checkoutPage === 2 && (
-          <div className="CheckoutBack col-6">
+          <div className="CheckoutBack">
             <div className="CheckoutBox">
-              
+
               <ProgressBar variant="dark" now={66} className='progressBar'/>
 
               <h3 className='checkoutHeading'>Review your booking:</h3>
@@ -225,7 +225,7 @@ function Checkout() {
                 <p>{arrivalDate && new Date(arrivalDate).toLocaleDateString()} – {departureDate && new Date(departureDate).toLocaleDateString()}</p>
                 <p>This project does not process payments. No card details are required and no email will be sent.</p>
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <Button 
+                  <Button
                     disabled={isSubmitting}
                     onClick={() => setCheckoutPage(1)}
                     variant='light'
@@ -234,7 +234,7 @@ function Checkout() {
                     Go Back
                     <Undo2 className="iconStyle" style={{ marginLeft: "5%"}}/>
                   </Button>
-                  
+
                   <Button className="primaryButton" type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting…" : "Submit booking"} <Send className="iconStyle"/></Button>
                 </div>
               </form>
@@ -246,24 +246,24 @@ function Checkout() {
 
         {/* Booking saved */}
         {checkoutPage === 3 && (
-          <div className="CheckoutBack col">
+          <div className="CheckoutBack">
             <div className="CheckoutBox" style={{ textAlign: 'center', padding: '40px 20px' }}>
-              
+
               <ProgressBar variant="success" now={100} className='progressBar'/>
 
               <div style={{ fontSize: '50px', color: '#198754', marginBottom: '15px' }}>✓</div>
-              
+
               <h3 className='checkoutHeading'>
                 Booking submitted
               </h3>
-              
+
               <p className='LogInText'>
                 Thank you, {firstName}! Your booking was saved. Reference: <strong>{booking?._id}</strong>. Total: R{booking?.totalPrice}. No payment has been taken and no confirmation email has been sent.
               </p>
 
-              <Button 
-                className="primaryButton" 
-                style={{ width: "15%"}}
+              <Button
+                className="primaryButton"
+
                 onClick={() => window.location.href = '/'}
               >
                 Return Home <House className="iconStyle" style={{ marginLeft: "5%"}}/>

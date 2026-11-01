@@ -86,7 +86,7 @@ export default function AdminListingQueueSection() {
 
       {!isLoading && listings.length > 0 && (
         <div className="admin-queue-layout">
-          <div className="admin-queue-list">
+          <div className="admin-queue-list" aria-label="Listings awaiting review">
             {listings.map((listing) => (
               <AdminListingCard
                 key={listing._id}
