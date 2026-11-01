@@ -1,21 +1,16 @@
 const jwt = require("jsonwebtoken");
+const User = require("../features/users/userSchema");
 
-const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).send("Access Denied: No Token Provided");
-  }
-
-  const token = authHeader.split(" ")[1];
-
+module.exports = async (req, res, next) => {
+  const header = req.headers.authorization;
+  if (!header?.startsWith("Bearer ")) return res.status(401).json({ message: "Please sign in to continue." });
+  let claims;
+  try { claims = jwt.verify(header.slice(7), process.env.JWT_SECRET); }
+  catch { return res.status(401).json({ message: "Your session has expired. Please sign in again." }); }
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified;
+    const user = await User.findById(claims.id).select("_id userRole");
+    if (!user) return res.status(401).json({ message: "Please sign in to continue." });
+    req.user = { id: user._id.toString(), userRole: user.userRole };
     next();
-  } catch (err) {
-    return res.status(400).send("Invalid Token");
-  }
+  } catch { res.status(503).json({ message: "Could not verify your session. Please try again." }); }
 };
-
-module.exports = verifyToken;

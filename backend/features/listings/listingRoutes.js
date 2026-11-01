@@ -20,7 +20,8 @@ const {
 router.get("/search", searchListings);
 
 
-router.use("/seller", verifyToken);
+router.use("/seller", verifyToken, require("../../middleware/requireSeller"));
+router.use("/admin", verifyToken, require("../../middleware/requireRole"));
 
 // Seller listing routes
 const {

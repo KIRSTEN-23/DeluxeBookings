@@ -18,6 +18,7 @@ const updateUserProfile = async (req, res) => {
   try {
     const { name, email, userRole } = req.body;
 
+    if (userRole && (req.user.userRole === "A" ? userRole !== "A" : !["B", "S"].includes(userRole))) return res.status(403).json({ error: "This account role cannot be assigned here." });
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
       {
@@ -27,6 +28,7 @@ const updateUserProfile = async (req, res) => {
       },
       {
         new: true,
+        runValidators: true,
       }
     ).select("-password");
 

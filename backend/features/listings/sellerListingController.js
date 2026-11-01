@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Listing = require("./listingSchema");
 const { LISTING_STATUS } = require("../../_config/constants");
 const getSellerListings = async (req, res) => {
@@ -41,7 +40,7 @@ const createSellerListing = async (req, res) => {
     const sellerId = req.user.id;
 
     const listing = await Listing.create({
-      ...req.body,
+      ...pickListingFields(req.body),
       seller: sellerId,
       status: LISTING_STATUS.IN_REVIEW,
     });
@@ -55,6 +54,9 @@ const createSellerListing = async (req, res) => {
   }
 };
 
+const editableFields = ["title", "description", "propertyType", "location", "images", "pricePerNight", "guestCapacity", "bedrooms", "bathrooms", "beds", "area", "amenities", "houseRules", "tags"];
+const pickListingFields = (body) => Object.fromEntries(editableFields.filter((key) => Object.hasOwn(body, key)).map((key) => [key, body[key]]));
+
 const updateSellerListing = async (req, res) => {
   try {
     const sellerId = req.user.id;
@@ -64,7 +66,7 @@ const updateSellerListing = async (req, res) => {
         _id: req.params.id,
         seller: sellerId,
       },
-      req.body,
+      { $set: pickListingFields(req.body) },
       {
         new: true,
         runValidators: true,
@@ -121,6 +123,7 @@ const unpublishSellerListing = async (req, res) => {
       {
         _id: req.params.id,
         seller: sellerId,
+        status: LISTING_STATUS.PUBLISHED,
       },
       {
         status: LISTING_STATUS.UNPUBLISHED,

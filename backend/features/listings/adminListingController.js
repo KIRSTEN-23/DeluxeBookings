@@ -41,8 +41,8 @@ const approveListing = async (req, res) => {
   try {
     const reviewerId = req.user?._id || req.user?.id;
 
-    const listing = await Listing.findByIdAndUpdate(
-      req.params.id,
+    const listing = await Listing.findOneAndUpdate(
+      { _id: req.params.id, status: LISTING_STATUS.IN_REVIEW },
       {
         status: LISTING_STATUS.UNPUBLISHED,
         adminReview: {
@@ -55,7 +55,7 @@ const approveListing = async (req, res) => {
     );
 
     if (!listing) {
-      return res.status(404).json({ message: "Listing not found." });
+      return res.status(409).json({ message: "Listing is unavailable or no longer awaiting review. Refresh the queue." });
     }
 
     res.status(200).json(listing);
@@ -68,8 +68,8 @@ const rejectListing = async (req, res) => {
   try {
     const reviewerId = req.user?._id || req.user?.id;
 
-    const listing = await Listing.findByIdAndUpdate(
-      req.params.id,
+    const listing = await Listing.findOneAndUpdate(
+      { _id: req.params.id, status: LISTING_STATUS.IN_REVIEW },
       {
         status: LISTING_STATUS.REJECTED,
         adminReview: {
@@ -82,7 +82,7 @@ const rejectListing = async (req, res) => {
     );
 
     if (!listing) {
-      return res.status(404).json({ message: "Listing not found." });
+      return res.status(409).json({ message: "Listing is unavailable or no longer awaiting review. Refresh the queue." });
     }
 
     res.status(200).json(listing);

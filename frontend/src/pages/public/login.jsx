@@ -14,6 +14,7 @@ import Authentication from "../../components/auth/authentication";
 function LogIn() {
   return (
     <div>
+    {new URLSearchParams(window.location.search).has("expired") && <p role="alert">Your session has expired. Please sign in again.</p>}
     <div className="logInBack">
         <div className="logInBox" style={{backgroundColor: "#EFEBEA"}}>
           <div type="col">

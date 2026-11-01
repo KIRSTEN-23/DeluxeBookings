@@ -6,6 +6,7 @@ import SellerRoutes from "../routes/SellerRoutes";
 import AdminRoutes from "../routes/AdminRoutes";
 import AuthRoutes from "../routes/AuthRoutes";
 import UserRoutes from "../routes/UserRoutes";
+import ProtectedRoute from "./ProtectedRoutes";
 import NotFound from "../pages/errors/NotFound";
 
 export default function AppRoutes() {
@@ -23,8 +24,8 @@ export default function AppRoutes() {
         {/* New grouped URLs */}
         <Route path="/auth/*" element={<AuthRoutes />} />
         <Route path="/user/*" element={<UserRoutes />} />
-        <Route path="/seller/*" element={<SellerRoutes />} />
-        <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route path="/seller/*" element={<ProtectedRoute allowedRoles={["S", "A"]}><SellerRoutes /></ProtectedRoute>} />
+        <Route path="/admin/*" element={<ProtectedRoute allowedRoles={["A"]}><AdminRoutes /></ProtectedRoute>} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -23,6 +23,6 @@ router.post("/", createBooking);
 // Seller booking routes
 // const { getSellerBookings } = require("./sellerBookingController");
 
-router.get("/seller", getSellerBookings);
+router.get("/seller", verifyToken, require("../../middleware/requireSeller"), getSellerBookings);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'; 
+import { createContext, useContext, useState, useEffect } from 'react'; 
 
 const AuthContext = createContext();
 
@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   // Checks local storage for  user data
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try { return savedUser ? JSON.parse(savedUser) : null; } catch { return null; }
   });
 
   const login = (userData, tokenValue) => {
@@ -27,6 +27,15 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   };
+
+  useEffect(() => {
+    const expire = () => {
+      logout();
+      window.location.assign("/login?expired=1");
+    };
+    window.addEventListener("session-expired", expire);
+    return () => window.removeEventListener("session-expired", expire);
+  }, []);
 
   const isAdmin = user?.userRole === 'A';
   const isSeller = user?.userRole === 'S';
