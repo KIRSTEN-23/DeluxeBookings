@@ -1,3 +1,4 @@
+import NotFound from "../pages/errors/NotFound";
 import { Routes, Route } from "react-router-dom";
 
 import AdminListingQueueSection from "../pages/listings/AdminListingQueueSection";
@@ -12,6 +13,7 @@ export default function AdminRoutes() {
         path="listings/:id"
         element={<SellerAdminListingDetails role="admin" />}
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

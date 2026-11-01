@@ -1,3 +1,4 @@
+import NotFound from "../pages/errors/NotFound";
 import { Route, Routes } from "react-router-dom";
 
 import BuyerListingDetails from "../pages/listings/BuyerListingDetails.jsx";
@@ -34,6 +35,7 @@ export default function BuyerRoutes() {
       {/* <Route element={<ProtectedRoutes minLevel={1} />}> 
         <Route path="account" element={<BuyerAccountPage />} />
       </Route>  */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

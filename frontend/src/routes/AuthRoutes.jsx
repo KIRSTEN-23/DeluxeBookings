@@ -1,3 +1,4 @@
+import NotFound from "../pages/errors/NotFound";
 import { Routes, Route } from "react-router-dom";
 
 import Login from "../pages/public/login";
@@ -13,6 +14,7 @@ function AuthRoutes() {
         path="/register"
         element={<Register />}
       /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

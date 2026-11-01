@@ -8,9 +8,9 @@ import AdminListingQueueSection from "../../pages/listings/AdminListingQueueSect
 
 import "../../styles/AccountPage.css";
 
-export default function AccountPage() {
+export default function AccountPage({ workspace }) {
   const { user, isSeller, isAdmin } = useAuth();
-  const activeRole = isAdmin ? "admin" : isSeller ? "seller" : "buyer";
+  const activeRole = workspace || (isAdmin ? "admin" : isSeller ? "seller" : "buyer");
 
   return (
     <main className="account-page">

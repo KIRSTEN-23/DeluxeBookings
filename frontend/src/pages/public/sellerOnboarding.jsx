@@ -399,7 +399,7 @@ function SellerOnboarding() {
           <p>Join South Africa's most discerning property owners and start welcoming exceptional guests today.</p>
 
           <div className="hero-actions">
-            <Button className="deluxe-btn-primary light" onClick={() => onNavigate("/seller/create-listing")}>
+            <Button className="deluxe-btn-primary light" onClick={() => navigate("/seller/new")}>
               Start Listing Your Property
               <ArrowRight size={20} strokeWidth={2.4} />
             </Button>

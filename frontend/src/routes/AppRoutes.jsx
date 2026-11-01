@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import SellerOnboarding from "../pages/public/sellerOnboarding";
 import NavBar from "../components/common/navbar";
 import BuyerRoutes from "../routes/BuyerRoutes";
 import SellerRoutes from "../routes/SellerRoutes";
@@ -24,6 +25,7 @@ export default function AppRoutes() {
         {/* New grouped URLs */}
         <Route path="/auth/*" element={<AuthRoutes />} />
         <Route path="/user/*" element={<UserRoutes />} />
+        <Route path="/seller" element={<SellerOnboarding />} />
         <Route path="/seller/*" element={<ProtectedRoute allowedRoles={["S", "A"]}><SellerRoutes /></ProtectedRoute>} />
         <Route path="/admin/*" element={<ProtectedRoute allowedRoles={["A"]}><AdminRoutes /></ProtectedRoute>} />
         
