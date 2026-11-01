@@ -17,6 +17,7 @@ import "./styles/OfferSection.css";
 import "./styles/PropertyGrid.css";
 import "./styles/ReviewForm.css";
 import "./styles/Responsiveness.css";
+import "./styles/Buttons.css";
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

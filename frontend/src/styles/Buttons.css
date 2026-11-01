@@ -1,0 +1,96 @@
+/* Action button contract. Page styles own layout; this file owns appearance. */
+:root {
+  --button-radius: 12px;
+  --button-primary: #332A23;
+  --button-secondary: #8C8578;
+  --button-tertiary: #7B593F;
+  --button-neutral: #EFEBEA;
+  --button-danger: #B24747;
+  --button-success: #246344;
+  --button-warning: #8A5A13;
+  --button-info: #245678;
+}
+
+.app-shell .app-button {
+  --action-colour: var(--button-primary);
+  --action-label: #FFFFFF;
+  --action-outline-label: var(--action-colour);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  max-width: 100%;
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid var(--action-colour);
+  border-radius: var(--button-radius);
+  background: var(--action-colour);
+  color: var(--action-label);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+}
+.app-shell .app-button[data-intent="primary"][data-surface="dark"] {
+  --action-colour: #FFFFFF;
+  --action-label: #332A23;
+}
+.app-shell .app-button[data-intent="secondary"] {
+  --action-colour: var(--button-secondary);
+  --action-label: #16120F;
+  --action-outline-label: #655E52;
+}
+.app-shell .app-button[data-intent="secondary"][data-surface="dark"] { --action-outline-label: #E3DFDE; }
+.app-shell .app-button[data-intent="tertiary"] { --action-colour: var(--button-tertiary); }
+.app-shell .app-button[data-intent="neutral"] {
+  --action-colour: var(--button-neutral);
+  --action-label: var(--button-primary);
+  --action-outline-label: var(--button-primary);
+}
+.app-shell .app-button[data-intent="danger"] { --action-colour: var(--button-danger); }
+.app-shell .app-button[data-intent="success"] { --action-colour: var(--button-success); }
+.app-shell .app-button[data-intent="warning"] { --action-colour: var(--button-warning); }
+.app-shell .app-button[data-intent="info"] { --action-colour: var(--button-info); }
+.app-shell .app-button[data-intent="tertiary"][data-surface="dark"] { --action-outline-label: #D3B49F; }
+.app-shell .app-button[data-intent="danger"][data-surface="dark"] { --action-outline-label: #F5AAAA; }
+.app-shell .app-button[data-intent="success"][data-surface="dark"] { --action-outline-label: #AED6BD; }
+.app-shell .app-button[data-intent="warning"][data-surface="dark"] { --action-outline-label: #F0CF95; }
+.app-shell .app-button[data-intent="info"][data-surface="dark"] { --action-outline-label: #B9D9F0; }
+.app-shell .app-button[data-appearance="outline"] {
+  background: transparent;
+  color: var(--action-outline-label);
+  border-color: var(--action-outline-label);
+}
+.app-shell .app-button:hover:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--action-label);
+  background: var(--action-colour);
+  box-shadow: inset 0 0 0 100px rgb(0 0 0 / 8%);
+  opacity: 1;
+}
+.app-shell .app-button:active:not(:disabled):not([aria-disabled="true"]) { box-shadow: inset 0 0 0 100px rgb(0 0 0 / 16%); }
+.app-shell .app-button:focus-visible {
+  outline: 3px solid var(--color-stroke-strong);
+  outline-offset: 3px;
+}
+.app-shell .app-button:disabled,
+.app-shell .app-button[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+.app-shell .app-button svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: currentColor;
+  border-radius: 0;
+  stroke-width: 2;
+}
+.app-shell .app-button[data-icon="false"] svg { display: none; }
+.app-shell .app-button[data-icon-only="true"] { width: 44px; height: 44px; padding: 10px; }

@@ -13,6 +13,7 @@ import NotFound from "../pages/errors/NotFound";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
+      <div className="app-shell">
       <NavBar />
       <Routes>
         <Route path="/*" element={<BuyerRoutes />} />
@@ -31,6 +32,7 @@ export default function AppRoutes() {
         
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </div>
     </BrowserRouter>
   );
 }
