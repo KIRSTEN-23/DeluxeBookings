@@ -28,6 +28,7 @@ export default function SellerAdminListingDetails({
   onClose,
   onUnpublish,
   onPublish,
+  pending,
   onDelete,
 }) {
   const { id } = useParams();
@@ -160,6 +161,7 @@ export default function SellerAdminListingDetails({
                   </Link>
 
                   <button
+                    disabled={pending}
                     type="button"
                     className="btn btn-outline-warning"
                     onClick={() => onUnpublish?.(selectedListing._id)}
@@ -172,6 +174,7 @@ export default function SellerAdminListingDetails({
               {selectedListing.status === "unpublished" && (
                 <>
                   <button
+                    disabled={pending}
                     type="button"
                     className="btn btn-outline-success"
                     onClick={() => onPublish?.(selectedListing._id)}
@@ -180,6 +183,7 @@ export default function SellerAdminListingDetails({
                   </button>
 
                   <button
+                    disabled={pending}
                     type="button"
                     className="btn btn-outline-danger"
                     onClick={() => onDelete?.(selectedListing._id)}
@@ -199,6 +203,7 @@ export default function SellerAdminListingDetails({
                   </Link>
 
                   <button
+                    disabled={pending}
                     type="button"
                     className="btn btn-outline-danger"
                     onClick={() => onDelete?.(selectedListing._id)}
@@ -218,6 +223,7 @@ export default function SellerAdminListingDetails({
                   </Link>
 
                   <button
+                    disabled={pending}
                     type="button"
                     className="btn btn-outline-danger"
                     onClick={() => onDelete?.(selectedListing._id)}

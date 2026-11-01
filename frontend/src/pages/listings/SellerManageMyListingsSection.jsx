@@ -1,5 +1,6 @@
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { getListingDraft } from "../../utils/listingStorage";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Alert, Dropdown, Spinner } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
@@ -34,33 +35,35 @@ export default function SellerManageMyListingsSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handlePublishListing = async (id) => {
-    const updatedListing = await publishSellerListing(id);
-    setListings((items) => items.map((item) => item._id === id ? updatedListing : item));
-    setSelectedListing(updatedListing);
+  const [pending, setPending] = useState(false);
+  const [actionMessage, setActionMessage] = useState("");
+  const [actionError, setActionError] = useState("");
+  const actionPending = useRef(false);
+  const changeListing = async (id, action) => {
+    if (actionPending.current) return;
+    if (action === "delete" && !window.confirm("Permanently delete this listing? This cannot be undone.")) return;
+    actionPending.current = true;
+    setPending(true);
+    setActionMessage("");
+    setActionError("");
+    try {
+      if (action === "delete") {
+        await deleteSellerListing(id);
+        setListings((items) => items.filter((item) => item._id !== id));
+        setSelectedListing(null);
+      } else {
+        const updated = await (action === "publish" ? publishSellerListing : unpublishSellerListing)(id);
+        setListings((items) => items.map((item) => item._id === id ? updated : item));
+        setSelectedListing((current) => current?._id === id ? updated : current);
+      }
+      setActionMessage({ publish: "Listing published. Guests can now find it.", unpublish: "Listing unpublished. It is no longer visible to guests.", delete: "Listing permanently deleted." }[action]);
+    } catch (error) {
+      setActionError(getErrorMessage(error, "Could not change this listing. Please try again."));
+    } finally { actionPending.current = false; setPending(false); }
   };
-
-  const handleUnpublishListing = async (id) => {
-    const updatedListing = await unpublishSellerListing(id);
-
-    setListings((currentListings) =>
-      currentListings.map((listing) =>
-        listing._id === id ? updatedListing : listing,
-      ),
-    );
-
-    setSelectedListing(null);
-  };
-
-  const handleDeleteListing = async (id) => {
-    await deleteSellerListing(id);
-
-    setListings((currentListings) =>
-      currentListings.filter((listing) => listing._id !== id),
-    );
-
-    setSelectedListing(null);
-  };
+  const handlePublishListing = (id) => changeListing(id, "publish");
+  const handleUnpublishListing = (id) => changeListing(id, "unpublish");
+  const handleDeleteListing = (id) => changeListing(id, "delete");
 
   useEffect(() => {
     const loadListings = async () => {
@@ -95,6 +98,9 @@ export default function SellerManageMyListingsSection() {
 
   return (
     <section className="my-listings-section">
+      {pending && <Alert role="status">Saving listing change…</Alert>}
+      {actionMessage && <Alert variant="success" role="status">{actionMessage}</Alert>}
+      {actionError && <Alert variant="danger" role="alert">{actionError}</Alert>}
       {draft && <Alert variant="info">You have an unfinished draft saved on this device. <Link to="/seller/new">Resume draft</Link></Alert>}
       {location.state?.message && <Alert variant="success" role="status">{location.state.message}</Alert>}
       <div
@@ -177,6 +183,7 @@ export default function SellerManageMyListingsSection() {
                     <SellerListingCard
                       key={listing._id}
                       listing={listing}
+                      pending={pending}
                       selected={selectedListing?._id === listing._id}
                       onViewDetails={() => setSelectedListing(listing)}
                       onPublish={handlePublishListing}
@@ -202,6 +209,7 @@ export default function SellerManageMyListingsSection() {
               listing={selectedListing}
               role="seller"
               isPane
+              pending={pending}
               onClose={() => setSelectedListing(null)}
               onUnpublish={handleUnpublishListing}
               onPublish={handlePublishListing}

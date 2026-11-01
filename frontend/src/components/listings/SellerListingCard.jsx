@@ -19,6 +19,7 @@ export default function SellerListingCard({
   onViewDetails,
   onDelete,
   onPublish,
+  pending,
   onUnpublish
 }) {
   const coverImage =
@@ -35,6 +36,7 @@ export default function SellerListingCard({
       actions={
         <>
           <button
+            disabled={pending}
             type="button"
             className="btn btn-outline-dark"
             onClick={() => onViewDetails?.(listing)}
@@ -44,18 +46,20 @@ export default function SellerListingCard({
 
           {status === "published" && (
             <button
-              type="button"
+              disabled={pending}
+            type="button"
               className="btn btn-outline-warning"
               onClick={() => onUnpublish?.(listing._id)}
             >
-              Remove
+              Unpublish
             </button>
           )}
 
           {status === "unpublished" && (
             <>
               <button
-                type="button"
+                disabled={pending}
+            type="button"
                 className="btn btn-outline-success"
                 onClick={() => onPublish?.(listing._id)}
               >
@@ -63,7 +67,8 @@ export default function SellerListingCard({
               </button>
 
               <button
-                type="button"
+                disabled={pending}
+            type="button"
                 className="btn btn-outline-danger"
                 onClick={() => onDelete?.(listing._id)}
               >
@@ -82,7 +87,8 @@ export default function SellerListingCard({
               </Link>
 
               <button
-                type="button"
+                disabled={pending}
+            type="button"
                 className="btn btn-outline-danger"
                 onClick={() => onDelete?.(listing._id)}
               >
@@ -101,7 +107,8 @@ export default function SellerListingCard({
               </Link>
 
               <button
-                type="button"
+                disabled={pending}
+            type="button"
                 className="btn btn-outline-danger"
                 onClick={() => onDelete?.(listing._id)}
               >
