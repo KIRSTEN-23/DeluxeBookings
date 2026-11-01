@@ -1,5 +1,6 @@
-import { useState } from "react";
-import axios from "axios";
+import { useRef, useState } from "react";
+import api from "../../api/config";
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { useNavigate } from "react-router-dom"; // 1. Imported useNavigate
 import { useAuth } from "../../context/authContext"; // 2. Imported useAuth global context
 
@@ -76,55 +77,68 @@ function Authentication() {
   var [password13, setPassword13] = useState("");
 
   const passSelect = async () => {
-    setMessagePass1("Answer collected");
+    setMessagePass1("Selection saved");
   };
 
   const passSelect2 = async () => {
-    setMessagePass2("Answer collected");
+    setMessagePass2("Selection saved");
   };
 
   const passSelect3 = async () => {
-    setMessagePass3("Answer collected");
+    setMessagePass3("Selection saved");
   };
 
     const passSelect11 = async () => {
-    setMessagePass11("Answer collected");
+    setMessagePass11("Selection saved");
   };
 
   const passSelect12 = async () => {
-    setMessagePass12("Answer collected");
+    setMessagePass12("Selection saved");
   };
 
   const passSelect13 = async () => {
-    setMessagePass13("Answer collected");
+    setMessagePass13("Selection saved");
   };
 
-  const [selected, setSelected] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitting = useRef(false);
 
 const register = async () => {
+    if (submitting.current) return;
+    if (!name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !password11 || !password12 || !password13) {
+      setMessageR("Enter your name, a valid email and one picture from each of the three groups."); return;
+    }
+    submitting.current = true;
+    setIsSubmitting(true);
+    setMessageR("");
     const finalPassword = `${password11}${password12}${password13}`;
     
     try {
-      const res = await axios.post("http://localhost:5001/api/auth/register", {
+      const res = await api.post("/auth/register", {
         name,
         email,
         password: finalPassword,
         userRole
       });
-      setMessageR(res.data);
+      setMessageR(`${res.data}. Open the Log in tab to sign in.`);
       setPassword(finalPassword); 
     } catch (error) {
       console.error("Backend Error Response:", error.response?.data);
-      setMessageR("Registration failed.");
-    }
+      setMessageR(getErrorMessage(error, "Could not register. Please check your connection and try again."));
+    } finally { submitting.current = false; setIsSubmitting(false); }
 };
 
 const login = async () => {
+    if (submitting.current) return;
+    if (!email || !password1 || !password2 || !password3) { setMessage("Enter your email and select one picture from each group."); return; }
+    submitting.current = true;
+    setIsSubmitting(true);
+    setMessage("");
     // Adds the passwords from each picture
     const finalPassword = `${password1}${password2}${password3}`;
 
     try {
-      const res = await axios.post("http://localhost:5001/api/auth/login", {
+      const res = await api.post("/auth/login", {
         email,
         password: finalPassword,
         name
@@ -139,7 +153,7 @@ const login = async () => {
 
       setTimeout(() => {
         if (user?.userRole === 'A') {
-          navigate("/"); 
+          navigate("/admin"); 
         } else if (user?.userRole === 'S') {
           navigate("/seller/account"); 
         } else {
@@ -148,8 +162,8 @@ const login = async () => {
       }, 1000);
 
     }  catch (error) {
-      setMessage("Login failed.");
-    }
+      setMessage(getErrorMessage(error, "Could not sign in. Please check your connection and try again."));
+    } finally { submitting.current = false; setIsSubmitting(false); }
   };
 
   return (
@@ -184,6 +198,7 @@ const login = async () => {
             <input
               id="signup-email"
               className="customFormInput"
+              type="email"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -207,27 +222,27 @@ const login = async () => {
             <h4 className="LogInText">Choose your favourite colour</h4>
 
             <div type="row">
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(1); passSelect11(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password11) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(1); passSelect11(); }}>
                 <img src={ruby} alt="ruby red" className="logInButtonImg"/>
                 <p>Ruby Red</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(2); passSelect11(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password11) === "2"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(2); passSelect11(); }}>
                 <img src={copper} alt="copper brown" className="logInButtonImg"/>
                 <p>Copper Brown</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(3); passSelect11(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password11) === "3"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(3); passSelect11(); }}>
                 <img src={emerald} alt="emerald green" className="logInButtonImg"/>
                 <p>Emerald Green</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(4); passSelect11(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password11) === "4"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(4); passSelect11(); }}>
                 <img src={gold} alt="gold coins" className="logInButtonImg"/>
                 <p>Gold</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(5); passSelect11(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password11) === "5"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(5); passSelect11(); }}>
                 <img src={violet} alt="purple gems" className="logInButtonImg"/>
                 <p>Violet</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword11(6); passSelect11(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password11) === "6"} variant="outline-dark" className="logInButton" onClick={() => { setPassword11(6); passSelect11(); }}>
                 <img src={pink} alt="pink crystals" className="logInButtonImg"/>
                 <p>Pink</p>
               </button>
@@ -241,19 +256,19 @@ const login = async () => {
             <h4 className="LogInText">Choose the best place to relax</h4>
 
             <div type="row">
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword12(1); passSelect12(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password12) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword12(1); passSelect12(); }}>
                 <img src={golf} alt="golf course" className="logInButtonImg"/>
                 <p>The golf course</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword12(2); passSelect12(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password12) === "2"} variant="outline-dark" className="logInButton" onClick={() => { setPassword12(2); passSelect12(); }}>
                 <img src={bar} alt="a bar" className="logInButtonImg"/>
                 <p>The bar</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword12(3); passSelect12(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password12) === "3"} variant="outline-dark" className="logInButton" onClick={() => { setPassword12(3); passSelect12(); }}>
                 <img src={marina} alt="a marina" className="logInButtonImg"/>
                 <p>The marina</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword12(4); passSelect12(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password12) === "4"} variant="outline-dark" className="logInButton" onClick={() => { setPassword12(4); passSelect12(); }}>
                 <img src={theatre} alt="a theatre" className="logInButtonImg"/>
                 <p>The theatre</p>
               </button>
@@ -267,19 +282,19 @@ const login = async () => {
             <h4 className="LogInText">Choose your favourite drink</h4>
 
             <div type="row">
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword13(1); passSelect13(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password13) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword13(1); passSelect13(); }}>
                 <img src={wine} alt="wine glasses" className="logInButtonImg"/>
                 <p>Wine</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword13(2); passSelect13(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password13) === "2"} variant="outline-dark" className="logInButton" onClick={() => { setPassword13(2); passSelect13(); }}>
                 <img src={whiskey} alt="whiskey in a glass" className="logInButtonImg"/>
                 <p>Whiskey</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword13(3); passSelect13(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password13) === "3"} variant="outline-dark" className="logInButton" onClick={() => { setPassword13(3); passSelect13(); }}>
                 <img src={drinks} alt="cocktails" className="logInButtonImg"/>
                 <p>Cocktails</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword13(4); passSelect13(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password13) === "4"} variant="outline-dark" className="logInButton" onClick={() => { setPassword13(4); passSelect13(); }}>
                 <img src={IcedCoffe} alt="iced coffee" className="logInButtonImg"/>
                 <p>Iced coffee</p>
               </button>
@@ -287,11 +302,11 @@ const login = async () => {
 
             <h5 className="LogInText">{messagePass13}</h5>
 
-            <Button variant="light" className="primaryButton" onClick={register}>Sign Up <ArrowRight className="iconStyle"/></Button>
+            <Button variant="light" className="primaryButton" disabled={isSubmitting} onClick={register}>{isSubmitting ? "Creating account…" : "Sign Up"} <ArrowRight className="iconStyle"/></Button>
 
             <br /><br />
 
-            <h4 className="LogInText">{messageR}</h4>
+            <p role="status" aria-live="polite" className="LogInText">{messageR}</p>
           </div>
         </div>
       </Tab>
@@ -303,10 +318,10 @@ const login = async () => {
           <h2 className="LogInSubHeading LogInText">Fill in your details to access your account</h2>
 
           <div className="formGroup">
-            <label htmlFor="signup-username" className="formFieldLabel">Enter your username</label>
+            <label htmlFor="login-username" className="formFieldLabel">Enter your username</label>
             <br></br>
             <input
-              id="signup-username"
+              id="login-username"
               className="customFormInput"
               placeholder="Username"
               onChange={(e) => setName(e.target.value)}
@@ -316,11 +331,12 @@ const login = async () => {
           <br /><br />
 
           <div className="formGroup">
-            <label htmlFor="signup-email" className="formFieldLabel">Enter your email address</label>
+            <label htmlFor="login-email" className="formFieldLabel">Enter your email address</label>
             <br></br>
             <input
-              id="signup-email"
+              id="login-email"
               className="customFormInput"
+              type="email"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -329,31 +345,31 @@ const login = async () => {
           <br /><br />
 
           <div>
-            <h2 className="passwordText LogInText">Create a custom password:</h2>            
+            <h2 className="passwordText LogInText">Select your picture password:</h2>            
             <h3 className="LogInText">Choose your favourite colour</h3>
 
             <div type="row">
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(1); passSelect(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password1) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(1); passSelect(); }}>
                 <img src={ruby} alt="ruby red" className="logInButtonImg"/>
                 <p>Ruby Red</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(2); passSelect(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password1) === "2"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(2); passSelect(); }}>
                 <img src={copper} alt="copper brown" className="logInButtonImg"/>
                 <p>Copper Brown</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(3); passSelect(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password1) === "3"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(3); passSelect(); }}>
                 <img src={emerald} alt="emerald green" className="logInButtonImg"/>
                 <p>Emerald Green</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(4); passSelect(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password1) === "4"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(4); passSelect(); }}>
                 <img src={gold} alt="emerald green" className="logInButtonImg"/>
                 <p>Gold</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(5); passSelect(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password1) === "5"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(5); passSelect(); }}>
                 <img src={violet} alt="emerald green" className="logInButtonImg"/>
                 <p>Violet</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword1(6); passSelect(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password1) === "6"} variant="outline-dark" className="logInButton" onClick={() => { setPassword1(6); passSelect(); }}>
                 <img src={pink} alt="emerald green" className="logInButtonImg"/>
                 <p>Pink</p>
               </button>
@@ -367,19 +383,19 @@ const login = async () => {
             <h4 className="LogInText">Choose the best place to relax</h4>
 
             <div type="row">
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword2(1); passSelect2(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password2) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword2(1); passSelect2(); }}>
                 <img src={golf} alt="golf course" className="logInButtonImg"/>
                 <p>The golf course</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword2(2); passSelect2(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password2) === "2"} variant="outline-dark" className="logInButton" onClick={() => { setPassword2(2); passSelect2(); }}>
                 <img src={bar} alt="a bar" className="logInButtonImg"/>
                 <p>The bar</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword2(3); passSelect2(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password2) === "3"} variant="outline-dark" className="logInButton" onClick={() => { setPassword2(3); passSelect2(); }}>
                 <img src={marina} alt="a marina" className="logInButtonImg"/>
                 <p>The marina</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword2(4); passSelect2(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password2) === "4"} variant="outline-dark" className="logInButton" onClick={() => { setPassword2(4); passSelect2(); }}>
                 <img src={theatre} alt="a marina" className="logInButtonImg"/>
                 <p>The theatre</p>
               </button>
@@ -393,19 +409,19 @@ const login = async () => {
             <h4 className="LogInText">Choose your favourite drink</h4>
 
             <div type="row">
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword3(1); passSelect3(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password3) === "1"} variant="outline-dark" className="logInButton" onClick={() => { setPassword3(1); passSelect3(); }}>
                 <img src={wine} alt="wine glasses" className="logInButtonImg"/>
                 <p>Wine</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword3(2); passSelect3(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password3) === "2"} variant="outline-dark" className="logInButton" onClick={() => { setPassword3(2); passSelect3(); }}>
                 <img src={whiskey} alt="whiskey in a glass" className="logInButtonImg"/>
                 <p>Whiskey</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword3(3); passSelect3(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password3) === "3"} variant="outline-dark" className="logInButton" onClick={() => { setPassword3(3); passSelect3(); }}>
                 <img src={drinks} alt="cocktails" className="logInButtonImg"/>
                 <p>Cocktails</p>
               </button>
-              <button variant="outline-dark" className="logInButton" onClick={() => { setPassword3(4); passSelect3(); }}>
+              <button disabled={isSubmitting} aria-pressed={String(password3) === "4"} variant="outline-dark" className="logInButton" onClick={() => { setPassword3(4); passSelect3(); }}>
                 <img src={IcedCoffe} alt="cocktails" className="logInButtonImg"/>
                 <p>Iced coffee</p>
               </button>
@@ -413,11 +429,11 @@ const login = async () => {
 
             <h5 className="LogInText">{messagePass3}</h5>
 
-            <Button variant="light" className="primaryButton" onClick={login}>Log In <ArrowRight className="iconStyle"/></Button>
+            <Button variant="light" className="primaryButton" disabled={isSubmitting} onClick={login}>{isSubmitting ? "Signing in…" : "Log In"} <ArrowRight className="iconStyle"/></Button>
 
             <br /><br />
 
-            <h4 className="LogInText">{message}</h4>
+            <p role="status" aria-live="polite" className="LogInText">{message}</p>
 
           </div>
         </div>

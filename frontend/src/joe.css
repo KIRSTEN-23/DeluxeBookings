@@ -526,3 +526,4 @@ input{
 .MarginBtn {
   margin-bottom : 2%;
 }
+.logInButton[aria-pressed="true"] { outline: 3px solid #7b593f; outline-offset: 3px; }
