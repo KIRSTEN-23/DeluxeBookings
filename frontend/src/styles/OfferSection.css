@@ -1,4 +1,4 @@
-::root {
+:root {
     --color-brand: #332a23;
   --color-text-strong: #7b593f;
   --color-text-weak: #8c8578;
@@ -31,7 +31,7 @@ body {
   min-height: 100vh;
 
   /* BACKGROUND IMAGE */
-  background-image: url("../src/assets/wide_Img1.jpg");
+  background-image: url("../Assets/wide_Img1.jpg");
   filter: brightness(90%);
   opacity: 0.9;
   background-size: cover;

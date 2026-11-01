@@ -17,7 +17,7 @@
 
 .logInBack {
   display: flex ;
-  background-image: url('./Assets/images/Hero header.png header.png');
+  background-image: url('./Assets/images/Hero header.jpg');
   justify-content: center;
 
 }
@@ -519,7 +519,7 @@ input{
 
 .Accountbox {
   display: flex;
-  background-image: url('./Assets/images/Hero header.png header.png');
+  background-image: url('./Assets/images/Hero header.jpg');
   justify-content: center;
 }
 
