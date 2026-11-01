@@ -1,5 +1,5 @@
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "../../api/config";
 import DatesPicker from '../../components/listings/datePicker';
 import Footer from '../../components/common/footer';
@@ -18,6 +18,9 @@ function Checkout() {
   }, [listingId]);
   const [checkoutPage, setCheckoutPage] = useState(1);
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitting = useRef(false);
+  const [booking, setBooking] = useState(null);
 
   // Personal details form
   const [firstName, setFirstName] = useState('');
@@ -27,12 +30,6 @@ function Checkout() {
   const [addons, setAddons] = useState([]);
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");
-
-  // Payment form
-  const [cardName, setCardName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
 
   // checked addons
   const handleAddonChange = (e) => {
@@ -57,7 +54,10 @@ function Checkout() {
   // finalises the payment
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
-    console.log("Processing payment securely...");
+    if (submitting.current) return;
+    submitting.current = true;
+    setIsSubmitting(true);
+    setMessage("");
     
     try {
       const res = await api.post("/bookings", {
@@ -73,6 +73,7 @@ function Checkout() {
       });
       
       if (res.data.success) {
+        setBooking(res.data.booking);
         setMessage("");
         setCheckoutPage(3); // Moves to success payment display
       }
@@ -83,6 +84,9 @@ function Checkout() {
       } else {
         setMessage("Error finalizing your booking. Please check your connection.");
       }
+    } finally {
+      submitting.current = false;
+      setIsSubmitting(false);
     }
   };
 
@@ -200,7 +204,7 @@ function Checkout() {
                 <Button className="primaryButton" type="submit">Finalise details</Button>
               </form>
               
-              {message && <p className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
+              {message && <p role="alert" className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
             </div>
           </div>
         )}
@@ -212,59 +216,16 @@ function Checkout() {
               
               <ProgressBar variant="dark" now={66} className='progressBar'/>
 
-              <h3 className='checkoutHeading'>Enter your payment details:</h3>
+              <h3 className='checkoutHeading'>Review your booking:</h3>
 
               <form onSubmit={handlePaymentSubmit}>
-                <div className="row">
-                  <div className="col-lg-6 formGroup">
-                    <label className="formFieldLabel">Cardholder's name</label>
-                    <br></br>
-                    <input
-                      placeholder="Cardholder's name"
-                      value={cardName}
-                      onChange={(e) => setCardName(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-lg-6 formGroup">
-                    <label className="formFieldLabel">Card number</label>
-                    <br></br>
-                    <input
-                      placeholder="Card number"
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-                <br></br>
-                <div className="row">
-                  <div className="col-lg-6 formGroup">
-                    <label className="formFieldLabel">Card expiration date</label>
-                    <br></br>
-                    <input
-                      placeholder="Expiration date"
-                      value={expiry}
-                      onChange={(e) => setExpiry(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-lg-6 formGroup">
-                    <label className="formFieldLabel">CVC</label>
-                    <br></br>
-                    <input
-                      placeholder="CVC"
-                      value={cvc}
-                      onChange={(e) => setCvc(e.target.value)} 
-                      required
-                    />
-                  </div>
-                </div>
-                <br></br>
+                <p>{firstName} {lastName} · {email}</p>
+                <p>{listing?.title} · {guests} guest(s)</p>
+                <p>{arrivalDate && new Date(arrivalDate).toLocaleDateString()} – {departureDate && new Date(departureDate).toLocaleDateString()}</p>
+                <p>This project does not process payments. No card details are required and no email will be sent.</p>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button 
+                    disabled={isSubmitting}
                     onClick={() => setCheckoutPage(1)}
                     variant='light'
                     className="heroButton"
@@ -273,11 +234,11 @@ function Checkout() {
                     <Undo2 className="iconStyle" style={{ marginLeft: "5%"}}/>
                   </Button>
                   
-                  <Button className="primaryButton" type="submit">Finalise payment <Send className="iconStyle"/></Button>
+                  <Button className="primaryButton" type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting…" : "Submit booking"} <Send className="iconStyle"/></Button>
                 </div>
               </form>
 
-              {message && <p className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
+              {message && <p role="alert" className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
             </div>
           </div>
         )}
@@ -292,11 +253,11 @@ function Checkout() {
               <div style={{ fontSize: '50px', color: '#198754', marginBottom: '15px' }}>✓</div>
               
               <h3 className='checkoutHeading'>
-                Payment Successful!
+                Booking submitted
               </h3>
               
               <p className='LogInText'>
-                Thank you, {firstName}! Your reservation has been confirmed. A receipt and summary details have been sent to <strong>{email}</strong>.
+                Thank you, {firstName}! Your booking was saved. Reference: <strong>{booking?._id}</strong>. Total: R{booking?.totalPrice}. No payment has been taken and no confirmation email has been sent.
               </p>
 
               <Button 
