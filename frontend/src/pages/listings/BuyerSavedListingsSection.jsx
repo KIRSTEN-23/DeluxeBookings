@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../api/config";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Footer from '../../components/common/footer';
@@ -26,7 +26,7 @@ function BuyerSavedListingsSection() {
   useEffect(() => {
     const syncProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/auth/profile", {
+        const res = await api.get("/users/profile", {
           headers: { Authorization: `Bearer ${token}` }
         });
         // Makes sure the data is synced
@@ -64,7 +64,7 @@ function BuyerSavedListingsSection() {
     try {
       const finalRole = isAdmin ? 'A' : userRole;
 
-      const res = await axios.put("http://localhost:5001/api/auth/update", 
+      const res = await api.put("/users/update", 
         { name, email, userRole: finalRole },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -74,7 +74,7 @@ function BuyerSavedListingsSection() {
       setUpdateMessage("Profile updated successfully!");
       setIsEditing(false);
     } catch (err) {
-      setUpdateMessage(err.response?.data || "Failed to update profile.");
+      setUpdateMessage(typeof err.response?.data === "string" ? err.response.data : err.response?.data?.error || "Failed to update profile. Please try again.");
     }
   };
 
@@ -84,14 +84,14 @@ function BuyerSavedListingsSection() {
     
     if (confirmDelete) {
       try {
-        await axios.delete("http://localhost:5001/api/auth/delete", {
+        await api.delete("/users/delete", {
           headers: { Authorization: `Bearer ${token}` }
         });
         alert("Your account has been successfully deleted.");
         logout();
         navigate("/login");
       } catch (err) {
-        alert(err.response?.data || "Failed to delete account.");
+        setUpdateMessage("Could not delete your account. Please try again.");
       }
     }
   };
