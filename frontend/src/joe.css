@@ -31,34 +31,38 @@
   border-width: 1px;
 }
 
-.logInButton{
+div .logInButton {
   margin: 1%;
-  padding: 0%;
+  padding: 1%;
+  background-color: #ffffff !important;
+  border-color: #EFEBEA !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-radius: 15px !important;
+  color: #8C8578 !important;
+  width: 200px;
+  outline: none !important;   
+  box-shadow: none !important;
 }
 
 .logInButton:hover {
-  background-color: #7B593F;
-  color: white;
+  background-color: #7B593F !important;
+  color: white !important;
+}
+
+.logInButton:focus,
+.logInButton:active,
+.logInButton:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #ffffff !important;
+  color: #8C8578 !important;
 }
 
 .loginPagination{
   display: flex ;
   justify-content: center;
   padding: 2%;
-}
-
-.logInButton{
-  padding: 1%;
-  background-color: #ffffff;
-  border-radius: 15px;
-  border-color: #EFEBEA;
-  color: #8C8578;
-  width: 200px;
-}
-
-.logInButton:hover {
-  background-color: #7B593F;
-  color: white;
 }
 
 .formFieldLabel {
