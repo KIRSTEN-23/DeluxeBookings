@@ -1,0 +1,5 @@
+.content-state { color: var(--color-brand); }
+.content-state__icon { color: var(--color-text-weak); }
+.content-state__heading { margin: 0; font-size: var(--fs-h5); color: var(--color-brand); }
+.content-state__description { margin: 0; color: var(--color-text-weak); }
+.content-state--framed { border: 1px solid var(--color-stroke-weak); border-radius: var(--radius-card); background: var(--color-fill); }

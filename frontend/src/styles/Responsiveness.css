@@ -310,3 +310,10 @@ img { max-width: 100%; }
   :root { --content-width: 1760px; }
   .browse-page { padding-block: 40px 64px; }
 }
+
+/* Section and page states keep the same reading order at every width. */
+.content-state { display: grid; justify-items: center; align-content: center; gap: 16px; min-height: 280px; padding: clamp(24px, 4vw, 48px) var(--page-gutter); text-align: center; }
+.content-state__description { max-width: 520px; overflow-wrap: anywhere; }
+.content-state__heading { max-width: 100%; overflow-wrap: anywhere; }
+.content-state > .app-button { max-width: 100%; }
+.seller-listings-container { min-width: 0; }
