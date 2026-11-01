@@ -74,6 +74,9 @@ const BOOKING_STATUS = {
 
 const PROPERTY_TYPES = {
   APARTMENT: 'apartment',
+  HOUSE: 'house',
+  BEACH_HOUSE: 'beach_house',
+  FARM_STAY: 'farm_stay',
   HOTEL: 'hotel',
   VILLA: 'villa',
   PENTHOUSE: 'penthouse',

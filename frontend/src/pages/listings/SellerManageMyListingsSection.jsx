@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Dropdown, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import SellerListingCard from "../../components/listings/SellerListingCard.jsx";
 import SellerAdminListingDetails from "../../pages/listings/SellerAdminListingDetails.jsx";
@@ -24,6 +24,7 @@ const FILTERS = [
 ];
 
 export default function SellerManageMyListingsSection() {
+  const location = useLocation();
   const [listings, setListings] = useState([]);
   const [selectedListing, setSelectedListing] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -92,6 +93,7 @@ export default function SellerManageMyListingsSection() {
 
   return (
     <section className="my-listings-section">
+      {location.state?.message && <Alert variant="success" role="status">{location.state.message}</Alert>}
       <div
         className={`my-listings-layout ${
           hasDetailPane ? "has-detail-pane" : ""

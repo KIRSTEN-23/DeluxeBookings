@@ -642,7 +642,7 @@ export function ImagesSection({ formData, helpers }) {
             );
           }
 
-            const src = typeof image === "string" ? image : image.preview;
+            const src = typeof image === "string" ? image : image.preview || image.url;
             const name = typeof image === "string" ? `Image ${index + 1}` : image.name;
 
             return (
@@ -976,7 +976,7 @@ export function ListingFormSection({ step, formData, onChange }) {
   );
 }
 
-function ListingForm({ formData, onChange, onSubmit, submitLabel }) {
+function ListingForm({ formData, onChange, onSubmit, submitLabel, isSubmitting }) {
   return (
     <main className="create-listing-page edit-listing-page">
       <Container fluid="lg" className="create-listing-shell">
@@ -986,7 +986,8 @@ function ListingForm({ formData, onChange, onSubmit, submitLabel }) {
           <p className="form-subtitle">Review and update the complete listing information guests see.</p>
         </div>
 
-        <Form className="fields-grid">
+        <Form className="fields-grid" onSubmit={(event) => { event.preventDefault(); onSubmit(); }}>
+          <fieldset disabled={isSubmitting}>
           {listingFormSteps.map((step, index) => (
             <ListingFormSection
               key={step.title}
@@ -997,10 +998,11 @@ function ListingForm({ formData, onChange, onSubmit, submitLabel }) {
           ))}
 
           <div className="form-actions justify-content-end">
-            <Button type="button" className="publish-button" onClick={onSubmit}>
+            <Button type="submit" className="publish-button">
               {submitLabel}
             </Button>
           </div>
+          </fieldset>
         </Form>
       </Container>
     </main>

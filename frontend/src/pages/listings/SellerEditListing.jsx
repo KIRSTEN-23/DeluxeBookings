@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { validateListing, propertyTypeValue } from "../../utils/listingValidation";
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Container, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -12,7 +14,7 @@ import {
   resubmitSellerListing,
 } from "../../api/sellerApi.jsx";
 
-import "../../styles/listingForm.css";
+import "../../styles/ListingForm.css";
 
 const mapListingToForm = (listing) => ({
   ...initialListingForm,
@@ -48,7 +50,7 @@ const buildListingPayload = (formData) => {
   return {
     title: formData.propertyName,
     description: formData.description,
-    propertyType: formData.propertyType?.toLowerCase().replaceAll(" ", "_"),
+    propertyType: propertyTypeValue(formData.propertyType),
     location: {
       destination: formData.city || formData.province || "South Africa",
       country: formData.country || "South Africa",
@@ -85,9 +87,12 @@ export default function SellerEditListing() {
 
   const [listingStatus, setListingStatus] = useState("");
   const [reviewNotes, setReviewNotes] = useState("");
+  const [loadFailed, setLoadFailed] = useState(false);
   const [formData, setFormData] = useState(initialListingForm);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitting = useRef(false);
 
   useEffect(() => {
     const loadListing = async () => {
@@ -98,7 +103,8 @@ export default function SellerEditListing() {
         setReviewNotes(listing.adminReview?.notes || "");
       } catch (error) {
         console.error(error);
-        setErrorMessage("Could not load this listing.");
+        setLoadFailed(true);
+        setErrorMessage("Could not load this listing. Please return to your listings and try again.");
       } finally {
         setIsLoading(false);
       }
@@ -117,15 +123,21 @@ export default function SellerEditListing() {
   };
 
   const handleUpdate = async () => {
+    if (submitting.current || loadFailed) return;
+    const invalid = validateListing(formData);
+    if (invalid) { setErrorMessage(invalid.message); return; }
+    submitting.current = true;
+    setIsSubmitting(true);
+    setErrorMessage("");
     try {
       const payload = buildListingPayload(formData);
       await updateSellerListing(id, payload);
       if (listingStatus === "rejected") await resubmitSellerListing(id);
-      navigate("/seller/account");
+      navigate("/seller/account", { state: { message: listingStatus === "rejected" ? "Listing resubmitted for review." : "Listing changes saved." } });
     } catch (error) {
       console.error(error);
-      setErrorMessage("Could not update this listing.");
-    }
+      setErrorMessage(getErrorMessage(error, "Could not save this listing. Your changes are still here; please try again."));
+    } finally { submitting.current = false; setIsSubmitting(false); }
   };
 
   if (isLoading) {
@@ -153,7 +165,8 @@ export default function SellerEditListing() {
           formData={formData}
           onChange={handleChange}
           onSubmit={handleUpdate}
-          submitLabel={listingStatus === "rejected" ? "Save and resubmit for review" : "Update listing"}
+          isSubmitting={isSubmitting || loadFailed}
+          submitLabel={isSubmitting ? "Saving…" : listingStatus === "rejected" ? "Save and resubmit for review" : "Update listing"}
         />
       </Container>
     </main>

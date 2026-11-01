@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { validateListing, propertyTypeValue } from "../../utils/listingValidation";
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
+import { useRef, useState } from "react";
 import { Button, Container, Form, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +18,7 @@ import {
   clearListingDraft,
 } from "../../utils/listingStorage.jsx";
 
-import "../../styles/listingForm.css";
+import "../../styles/ListingForm.css";
 
 const buildListingPayload = (formData, status = "in_review") => {
   const amenities = [
@@ -33,7 +35,7 @@ const buildListingPayload = (formData, status = "in_review") => {
   return {
     title: formData.propertyName,
     description: formData.description,
-    propertyType: formData.propertyType?.toLowerCase().replaceAll(" ", "_"),
+    propertyType: propertyTypeValue(formData.propertyType),
     location: {
       destination: formData.city || formData.province || "South Africa",
       country: formData.country || "South Africa",
@@ -75,6 +77,8 @@ export default function SellerCreateListing() {
     ...(savedDraft?.formData || {}),
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitting = useRef(false);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -91,18 +95,27 @@ export default function SellerCreateListing() {
   };
 
   const handleSubmit = async () => {
+    if (submitting.current) return;
+    const invalid = validateListing(formData);
+    if (invalid) { setCurrentStep(invalid.step); setErrorMessage(invalid.message); return; }
+    submitting.current = true;
+    setIsSubmitting(true);
+    setErrorMessage("");
     try {
       const payload = buildListingPayload(formData, "in_review");
       await createSellerListing(payload);
       clearListingDraft();
-      navigate("/seller/account");
+      navigate("/seller/account", { state: { message: "Listing submitted for review. You can check its status here." } });
     } catch (error) {
       console.error(error);
-      setErrorMessage("Could not create listing.");
-    }
+      setErrorMessage(getErrorMessage(error, "Could not submit listing. Your details are still here; please try again."));
+    } finally { submitting.current = false; setIsSubmitting(false); }
   };
 
   const goNext = () => {
+    const invalid = validateListing(formData, currentStep);
+    if (invalid) { setErrorMessage(invalid.message); return; }
+    setErrorMessage("");
     setCurrentStep((step) => Math.min(step + 1, listingFormSteps.length - 1));
   };
 
@@ -124,7 +137,7 @@ export default function SellerCreateListing() {
         </div>
 
         {errorMessage && (
-          <div className="alert alert-danger">
+          <div role="alert" className="alert alert-danger">
             {errorMessage}
           </div>
         )}
@@ -139,6 +152,7 @@ export default function SellerCreateListing() {
         />
 
         <Form className="fields-grid intake-step-form">
+          <fieldset disabled={isSubmitting}>
           <ListingFormSection
             step={currentStep}
             formData={formData}
@@ -179,11 +193,12 @@ export default function SellerCreateListing() {
                   className="publish-button"
                   onClick={handleSubmit}
                 >
-                  Submit for review
+                  {isSubmitting ? "Submitting…" : "Submit for review"}
                 </Button>
               )}
             </div>
           </div>
+          </fieldset>
         </Form>
       </Container>
     </main>
