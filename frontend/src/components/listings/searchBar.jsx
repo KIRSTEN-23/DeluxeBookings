@@ -1,6 +1,3 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import { Search } from 'lucide-react';
 import Button from 'react-bootstrap/Button';
@@ -21,15 +18,13 @@ function SearchBar({ onSearch, isSearching }) {
   };
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary searchBarMain">
-      <Container>
-        <Navbar.Brand className='col-3 searchHeading'>Search our catalog of listings</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" as="form" onSubmit={handleSearchSubmit}>
+    <section className="searchBarMain" aria-labelledby="stay-search-heading">
+      <h2 id="stay-search-heading" className="searchHeading">Search our catalog of listings</h2>
+      <Form className="stay-search-form" onSubmit={handleSearchSubmit}>
             
             {/* Guest amount selection */}
             <Form.Select 
+              aria-label="Number of guests"
               value={guests} 
               onChange={(e) => setGuests(e.target.value)}
               className='searchElements'
@@ -44,6 +39,7 @@ function SearchBar({ onSearch, isSearching }) {
 
             {/* Property type selection */}
             <Form.Select 
+              aria-label="Property type"
               value={propertyType} 
               onChange={(e) => setPropertyType(e.target.value)}
               className='searchElements'
@@ -54,6 +50,7 @@ function SearchBar({ onSearch, isSearching }) {
 
             {/* Province selection */}
             <Form.Select 
+              aria-label="Province"
               value={province} 
               onChange={(e) => setProvince(e.target.value)}
               className='searchElements'
@@ -72,6 +69,7 @@ function SearchBar({ onSearch, isSearching }) {
 
             {/* City Selection */}
             <Form.Select 
+              aria-label="City"
               value={city} 
               onChange={(e) => setCity(e.target.value)}
               className='searchElements'
@@ -86,14 +84,12 @@ function SearchBar({ onSearch, isSearching }) {
                 <option value="Gqeberha">Port Elizabeth (Gqeberha)</option>
             </Form.Select>
 
-            <Button disabled={isSearching} type="submit" variant="light" className="primaryButton col-2 searchHeading">
+            <Button disabled={isSearching} type="submit" variant="light" className="primaryButton stay-search-submit">
               {isSearching ? "Searching…" : "Search"} <Search/>
             </Button>
 
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      </Form>
+    </section>
   );
 }
 

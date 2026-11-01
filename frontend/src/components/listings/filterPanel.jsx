@@ -34,17 +34,19 @@ function FilterPanel({ onFilter, isSearching }) {
   };
 
   return (
-    <Form className='filterBack col-2' onSubmit={handleFilterSubmit}>
+    <Form className='filterBack' onSubmit={handleFilterSubmit}>
       <h4 className='filterTitle'>Filter by</h4>
 
+      <div className="filter-actions">
       <Button variant="light" onClick={handleClearAll} type="button">Clear</Button>
-      <Button disabled={isSearching} variant="light" type="submit" className="primaryButton col-7 searchHeading">
+      <Button disabled={isSearching} variant="light" type="submit" className="primaryButton">
         Search <Search/>
       </Button>
+      </div>
 
       {/* Bedrooms */}
-      <h5>Bedrooms</h5>
-      <div className="mb-3">
+      <fieldset className="filter-group"><legend>Bedrooms</legend>
+      <div className="filter-options">
         {[1, 2, 3, 4].map((num) => (
           <label className="checkContainer" key={`bed-${num}`}>
             <input 
@@ -54,14 +56,14 @@ function FilterPanel({ onFilter, isSearching }) {
               onChange={(e) => handleCheckboxChange(e, bedrooms, setBedrooms)}
             />
             <span className="checkmark"></span>
-            <h6>{num === 4 ? "4+" : num}</h6>
+            <span>{num === 4 ? "4+" : num}</span>
           </label>
         ))}
-      </div>
+      </div></fieldset>
 
       {/* Amenities */}
-      <h5>Amenities</h5>
-      <div className="mb-3">
+      <fieldset className="filter-group"><legend>Amenities</legend>
+      <div className="filter-options">
         {["WiFi", "Pool", "Kitchen", "Sea view", "Parking"].map((amenity) => (
           <label className="checkContainer" key={amenity}>
             <input 
@@ -71,10 +73,10 @@ function FilterPanel({ onFilter, isSearching }) {
               onChange={(e) => handleCheckboxChange(e, amenities, setAmenities)}
             />
             <span className="checkmark"></span>
-            <h6>{amenity}</h6>
+            <span>{amenity}</span>
           </label>
         ))}
-      </div>
+      </div></fieldset>
     </Form>
   );
 }

@@ -13,6 +13,7 @@ export default function BrowseListings() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [query, setQuery] = useState({});
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
@@ -29,28 +30,22 @@ export default function BrowseListings() {
   const handleQueryUpdate = (fields) => setQuery((current) => ({ ...current, ...fields }));
 
   return (
-    <main className="container-fluid px-4 py-4">
-      <div className="row g-4">
-        <h1>Find your stay</h1>
-        <aside className="col-12 col-lg-3">
-          <SearchBar onSearch={handleQueryUpdate} isSearching={isLoading} />
-          <FilterPanel onFilter={handleQueryUpdate} isSearching={isLoading} />
+    <main className="browse-page">
+      <h1>Find your stay</h1>
+      <SearchBar onSearch={handleQueryUpdate} isSearching={isLoading} />
+      <div className="browse-layout">
+        <aside className="browse-filters" aria-label="Filter stays">
+          <button type="button" className="browse-filter-toggle btn btn-outline-dark" aria-expanded={filtersOpen} aria-controls="browse-filter-content" onClick={() => setFiltersOpen((open) => !open)}>
+            {filtersOpen ? "Hide filters" : "Show filters"}
+          </button>
+          <div id="browse-filter-content" className={`browse-filter-content ${filtersOpen ? "is-open" : ""}`}>
+            <FilterPanel onFilter={handleQueryUpdate} isSearching={isLoading} />
+          </div>
         </aside>
-
-        <section className="col-12 col-lg-9">
-          {isLoading && (
-            <div className="alert alert-light border">
-              Loading available stays...
-            </div>
-          )}
-
-          {errorMessage && (
-            <div role="alert" className="alert alert-danger">{errorMessage} <button onClick={() => setAttempt((n) => n + 1)}>Retry</button></div>
-          )}
-
-          {!isLoading && !errorMessage && (
-            <BrowseListingResults listings={listings} />
-          )}
+        <section className="browse-results" aria-label="Available stays" aria-busy={isLoading}>
+          {isLoading && <div role="status" className="alert alert-light border">Loading available stays...</div>}
+          {errorMessage && <div role="alert" className="alert alert-danger">{errorMessage} <button onClick={() => setAttempt((n) => n + 1)}>Retry</button></div>}
+          {!isLoading && !errorMessage && <BrowseListingResults listings={listings} />}
         </section>
       </div>
     </main>
