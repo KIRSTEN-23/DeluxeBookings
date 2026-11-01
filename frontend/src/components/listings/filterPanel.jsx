@@ -35,13 +35,9 @@ function FilterPanel({ onFilter, isSearching }) {
 
   return (
     <Form className='filterBack' onSubmit={handleFilterSubmit}>
-      <h4 className='filterTitle'>Filter by</h4>
-
-      <div className="filter-actions">
-      <AppButton intent="secondary" appearance="outline" onClick={handleClearAll} type="button">Clear</AppButton>
-      <AppButton intent="primary" appearance="fill" disabled={isSearching} type="submit">
-        Search <Search/>
-      </AppButton>
+      <div className="filter-header">
+        <h4 className="filterTitle">Filter by</h4>
+        <AppButton intent="secondary" appearance="outline" onClick={handleClearAll} type="button">Clear</AppButton>
       </div>
 
       {/* Bedrooms */}
@@ -77,6 +73,9 @@ function FilterPanel({ onFilter, isSearching }) {
           </label>
         ))}
       </div></fieldset>
+      <AppButton intent="primary" appearance="fill" disabled={isSearching} type="submit" icon={Search}>
+        {isSearching ? "Applying…" : "Apply filter"}
+      </AppButton>
     </Form>
   );
 }

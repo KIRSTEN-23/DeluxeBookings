@@ -1,6 +1,5 @@
 import ContentState from "../../components/common/ContentState.jsx";
 import { TriangleAlert } from "lucide-react";
-import AppButton from "../../components/common/AppButton.jsx";
 import { useEffect, useState } from "react";
 
 import SearchBar from "../../components/listings/searchBar";
@@ -16,7 +15,6 @@ export default function BrowseListings() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [filtersOpen, setFiltersOpen] = useState(false);
   const [query, setQuery] = useState({});
   const [attempt, setAttempt] = useState(0);
   const [filterVersion, setFilterVersion] = useState(0);
@@ -45,10 +43,7 @@ export default function BrowseListings() {
       </header>
       <div className="browse-layout">
         <aside className="browse-filters" aria-label="Filter stays">
-          <AppButton intent="secondary" appearance="outline" type="button" className="browse-filter-toggle" aria-expanded={filtersOpen} aria-controls="browse-filter-content" onClick={() => setFiltersOpen((open) => !open)}>
-            {filtersOpen ? "Hide filters" : "Show filters"}
-          </AppButton>
-          <div id="browse-filter-content" className={`browse-filter-content ${filtersOpen ? "is-open" : ""}`}>
+          <div className="browse-filter-content">
             <FilterPanel key={filterVersion} onFilter={handleQueryUpdate} isSearching={isLoading} />
           </div>
         </aside>

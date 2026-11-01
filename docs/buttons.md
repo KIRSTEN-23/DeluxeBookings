@@ -17,6 +17,8 @@ Each intent supports `appearance="fill"` and `appearance="outline"`. Hierarchy a
 
 Secondary fill uses a dark label because white text on `#8C8578` has insufficient contrast at normal text sizes. Secondary outline uses a darker taupe label on light surfaces. Outline labels on dark surfaces use lighter tones.
 
+Primary outline on dark surfaces uses a white border and label, with an 8% white fill (18% on hover). This treatment is shared by Apply search and the secondary call-to-action treatment on dark hero sections.
+
 ## Shared dimensions and states
 
 - 12px radius, 1px border and minimum 44px target height.

@@ -18,8 +18,7 @@ function SearchBar({ onSearch, isSearching }) {
   };
 
   return (
-    <section className="searchBarMain" aria-labelledby="stay-search-heading">
-      <h2 id="stay-search-heading" className="searchHeading">Search our catalog of listings</h2>
+    <section className="searchBarMain" aria-label="Search stays">
       <Form className="stay-search-form" onSubmit={handleSearchSubmit}>
             
             {/* Guest amount selection */}
@@ -84,8 +83,8 @@ function SearchBar({ onSearch, isSearching }) {
                 <option value="Gqeberha">Port Elizabeth (Gqeberha)</option>
             </Form.Select>
 
-            <AppButton intent="primary" appearance="fill" onDark disabled={isSearching} type="submit" className="stay-search-submit">
-              {isSearching ? "Applying…" : "Apply"} <Search/>
+            <AppButton intent="primary" appearance="outline" onDark disabled={isSearching} type="submit" className="stay-search-submit">
+              {isSearching ? "Applying…" : "Apply search"} <Search/>
             </AppButton>
 
       </Form>
