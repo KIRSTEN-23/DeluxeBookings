@@ -2,10 +2,11 @@ import { validateListing, propertyTypeValue } from "../../utils/listingValidatio
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Container, Spinner } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ListingForm, {
   initialListingForm,
+  propertyTypeOptions,
 } from "../../components/listings/ListingForm.jsx";
 
 import {
@@ -19,7 +20,7 @@ import "../../styles/ListingForm.css";
 const mapListingToForm = (listing) => ({
   ...initialListingForm,
   propertyName: listing.title || "",
-  propertyType: listing.propertyType || "",
+  propertyType: propertyTypeOptions.find((type) => propertyTypeValue(type.name) === listing.propertyType)?.name || listing.propertyType || "",
   description: listing.description || "",
   streetAddress: listing.location?.streetAddress || "",
   suburb: listing.location?.suburb || "",
@@ -28,8 +29,8 @@ const mapListingToForm = (listing) => ({
   country: listing.location?.country || "",
   postalCode: listing.location?.postalCode || "",
   location: listing.location?.displayAddress || "",
-  bedrooms: listing.bedrooms || "",
-  bathrooms: listing.bathrooms || "",
+  bedrooms: listing.bedrooms ?? "",
+  bathrooms: listing.bathrooms ?? "",
   guestCapacity: listing.guestCapacity || "",
   beds: listing.beds || "",
   area: listing.area || "",
@@ -161,6 +162,7 @@ export default function SellerEditListing() {
         )}
 
         {listingStatus === "rejected" && <Alert variant="warning">Changes requested: {reviewNotes || "Review and correct your listing before resubmitting."}</Alert>}
+        {loadFailed && <Link to="/seller/account">Return to your listings</Link>}
         <ListingForm
           formData={formData}
           onChange={handleChange}

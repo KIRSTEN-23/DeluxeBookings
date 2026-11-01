@@ -155,7 +155,7 @@ export default function SellerCreateListing() {
           now={(stepNumber / totalSteps) * 100}
         />
 
-        <Form className="fields-grid intake-step-form">
+        <Form className="fields-grid intake-step-form" onSubmit={(event) => { event.preventDefault(); if (currentStep < totalSteps - 1) goNext(); else handleSubmit(); }}>
           <fieldset disabled={isSubmitting}>
           <ListingFormSection
             step={currentStep}

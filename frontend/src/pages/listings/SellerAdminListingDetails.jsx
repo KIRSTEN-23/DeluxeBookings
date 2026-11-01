@@ -36,6 +36,7 @@ export default function SellerAdminListingDetails({
   const navigate = useNavigate();
   const [saving, setSaving] = useState(false);
   const [actionMessage, setActionMessage] = useState("");
+  const [actionError, setActionError] = useState("");
   const actionPending = useRef(false);
 
   const [loadedListing, setLoadedListing] = useState(null);
@@ -61,6 +62,7 @@ export default function SellerAdminListingDetails({
     actionPending.current = true;
     setSaving(true);
     setActionMessage("");
+    setActionError("");
     setError("");
     try {
       if (action === "delete") {
@@ -71,7 +73,7 @@ export default function SellerAdminListingDetails({
         setLoadedListing(updated);
         setActionMessage(action === "publish" ? "Listing published. Guests can now find it." : "Listing unpublished. It is no longer visible to guests.");
       }
-    } catch (err) { setActionMessage(getErrorMessage(err, "Could not change listing. Please try again.")); }
+    } catch (err) { setActionError(getErrorMessage(err, "Could not change listing. Please try again.")); }
     finally { actionPending.current = false; setSaving(false); }
   };
   if (loading) return <p role="status">Loading listing…</p>;
@@ -101,6 +103,7 @@ export default function SellerAdminListingDetails({
     >
       <div className={isPane ? "" : "container py-4"}>
         {saving && <p role="status">Saving listing change…</p>}
+        {actionError && <p role="alert" className="text-danger">{actionError}</p>}
         {actionMessage && <p role="status">{actionMessage}</p>}
         {isPane && (
           <div className="d-flex justify-content-between align-items-center mb-3">
