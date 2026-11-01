@@ -1,6 +1,6 @@
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import api from "../../api/config";
 import DatesPicker from '../../components/listings/datePicker';
 import Footer from '../../components/common/footer';
 import Button from 'react-bootstrap/Button';
@@ -9,6 +9,13 @@ import { Send } from 'lucide-react';
 import { House } from 'lucide-react';
 
 function Checkout() {
+  const listingId = new URLSearchParams(window.location.search).get("listing");
+  const [listing, setListing] = useState(null);
+  const [guests, setGuests] = useState(1);
+  useEffect(() => {
+    if (!listingId) return;
+    api.get(`/listings/browse/${listingId}`).then(({ data }) => setListing(data)).catch(() => setMessage("This stay is unavailable. Return to browse and choose another listing."));
+  }, [listingId]);
   const [checkoutPage, setCheckoutPage] = useState(1);
   const [message, setMessage] = useState("");
 
@@ -39,6 +46,10 @@ function Checkout() {
 
   const handleDetailsSubmit = (e) => {
     e.preventDefault(); 
+    if (!listing || !arrivalDate || !departureDate || departureDate <= arrivalDate || arrivalDate < new Date(new Date().setHours(0, 0, 0, 0))) {
+      setMessage("Select an available stay and valid dates, with departure after arrival.");
+      return;
+    }
     setMessage(""); // resets message
     setCheckoutPage(2); 
   };
@@ -49,7 +60,9 @@ function Checkout() {
     console.log("Processing payment securely...");
     
     try {
-      const res = await axios.post("http://localhost:5001/api/bookings", {
+      const res = await api.post("/bookings", {
+        listing: listingId,
+        guests,
         firstName,
         lastName,
         email,
@@ -75,6 +88,8 @@ function Checkout() {
 
   return (
     <div className='checkoutbg'>
+      {!listingId && <p role="alert">Choose a stay from <a href="/browse">Browse listings</a> before booking.</p>}
+      {listing && <div className="container py-3"><h2>{listing.title}</h2><p>R{listing.pricePerNight} per night. Add-ons are complimentary.</p><label>Guests <input type="number" min="1" max={listing.guestCapacity} value={guests} onChange={(e) => setGuests(Number(e.target.value))} /></label>{arrivalDate && departureDate > arrivalDate && <p>Stay total: R{Math.ceil((departureDate - arrivalDate) / 86400000) * listing.pricePerNight}</p>}</div>}
       <div className='row'>
 
         {/* Personal details form */}

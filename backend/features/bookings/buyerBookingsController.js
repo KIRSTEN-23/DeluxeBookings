@@ -1,3 +1,5 @@
+const Listing = require("../listings/listingSchema");
+const mongoose = require("mongoose");
 const Booking = require("../../features/bookings/bookingSchema");
 
 const createBooking = async (req, res) => {
@@ -24,7 +26,18 @@ const createBooking = async (req, res) => {
       return res.status(400).json({ error: "Choose valid future dates, with departure after arrival." });
     }
 
+    if (!mongoose.isValidObjectId(req.body.listing)) return res.status(400).json({ error: "Select a valid stay." });
+    const listing = await Listing.findOne({ _id: req.body.listing, status: "published", isPaused: false });
+    if (!listing) return res.status(404).json({ error: "This stay is no longer available." });
+    const guests = Number(req.body.guests);
+    if (!Number.isInteger(guests) || guests < 1 || guests > listing.guestCapacity) return res.status(400).json({ error: "Choose a valid guest count for this stay." });
+    const nights = Math.ceil((departure - arrival) / 86400000);
     const newBooking = await Booking.create({
+      listing: listing._id,
+      destination: listing.location.displayAddress,
+      suite: listing.title,
+      guests,
+      totalPrice: nights * listing.pricePerNight,
       firstName,
       lastName,
       email,

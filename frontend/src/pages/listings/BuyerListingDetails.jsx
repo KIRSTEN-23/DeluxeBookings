@@ -114,7 +114,7 @@ export default function BuyerListingDetails() {
 
               <hr />
 
-              <button className="btn btn-primary reserve-button w-100" onClick={() => window.location.href = '/checkout'}>
+              <button className="btn btn-primary reserve-button w-100" onClick={() => window.location.href = `/checkout?listing=${listing._id}`}>
                 Book Now
               </button>
             </section>

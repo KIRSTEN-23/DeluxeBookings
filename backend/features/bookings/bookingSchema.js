@@ -13,7 +13,7 @@ const bookingSchema = new mongoose.Schema(
     listing: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Listing",
-      required: false,
+      required: true,
     },
 
     firstName: {
