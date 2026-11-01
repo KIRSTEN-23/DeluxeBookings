@@ -176,7 +176,7 @@ function createFormHelpers(formData, onChange) {
   };
 
   const readImageFile = (file) =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -189,14 +189,23 @@ function createFormHelpers(formData, onChange) {
         });
       };
 
+      reader.onerror = () => reject(new Error("Could not read this photo. Please choose it again."));
       reader.readAsDataURL(file);
     });
 
   const addImages = async (files) => {
     const currentImages = Array.isArray(formData.images) ? formData.images : [];
-    const uploadedImages = await Promise.all(Array.from(files || []).map(readImageFile));
-
-    updateField("images", [...currentImages, ...uploadedImages]);
+    const selectedFiles = Array.from(files || []);
+    const totalBytes = [...currentImages, ...selectedFiles].reduce((sum, file) => sum + (file.size || (file.url?.startsWith("data:") ? file.url.length * 0.75 : 0)), 0);
+    if (currentImages.length + selectedFiles.length > 20 || selectedFiles.some((file) => !["image/png", "image/jpeg"].includes(file.type) || file.size > 2 * 1024 * 1024) || totalBytes > 6 * 1024 * 1024) {
+      updateField("imageError", "Choose JPG or PNG photos up to 2MB each, 6MB total and 20 photos maximum.");
+      return;
+    }
+    try {
+      const uploadedImages = await Promise.all(selectedFiles.map(readImageFile));
+      updateField("images", [...currentImages, ...uploadedImages]);
+      updateField("imageError", "");
+    } catch (error) { updateField("imageError", error.message); }
   };
 
   const removeImage = (imageIndex) => {
@@ -614,8 +623,9 @@ export function ImagesSection({ formData, helpers }) {
           <label className="photo-dropzone" htmlFor="listingImages">
             <ImagePlus aria-hidden="true" />
             <span>Drag and drop or upload files</span>
-            <small>JPG, JPEG or PNG, maximum 50MB each.</small>
+            <small>JPG or PNG. Up to 2MB each, 6MB total, 20 photos maximum.</small>
           </label>
+          {formData.imageError && <p role="alert" className="text-danger">{formData.imageError}</p>}
           <Form.Control
             id="listingImages"
             className="photo-input"
