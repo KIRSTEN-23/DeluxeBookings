@@ -90,8 +90,12 @@ export default function SellerCreateListing() {
   };
 
   const handleSaveDraft = () => {
-    saveListingDraft({ formData, currentStep });
-    navigate("/seller/account");
+    try {
+      saveListingDraft({ formData, currentStep });
+      navigate("/seller/account", { state: { message: "Draft saved on this device. Use Resume draft to continue." } });
+    } catch {
+      setErrorMessage("Could not save the draft on this device. Browser storage may be full. Your details are still in this form.");
+    }
   };
 
   const handleSubmit = async () => {
@@ -104,7 +108,7 @@ export default function SellerCreateListing() {
     try {
       const payload = buildListingPayload(formData, "in_review");
       await createSellerListing(payload);
-      clearListingDraft();
+      try { clearListingDraft(); } catch { /* Submission succeeded even if browser storage cannot be cleared. */ }
       navigate("/seller/account", { state: { message: "Listing submitted for review. You can check its status here." } });
     } catch (error) {
       console.error(error);

@@ -1,3 +1,4 @@
+import { getListingDraft } from "../../utils/listingStorage";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Dropdown, Spinner } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
@@ -25,6 +26,7 @@ const FILTERS = [
 
 export default function SellerManageMyListingsSection() {
   const location = useLocation();
+  const draft = getListingDraft();
   const [listings, setListings] = useState([]);
   const [selectedListing, setSelectedListing] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -93,6 +95,7 @@ export default function SellerManageMyListingsSection() {
 
   return (
     <section className="my-listings-section">
+      {draft && <Alert variant="info">You have an unfinished draft saved on this device. <Link to="/seller/new">Resume draft</Link></Alert>}
       {location.state?.message && <Alert variant="success" role="status">{location.state.message}</Alert>}
       <div
         className={`my-listings-layout ${
