@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAuth } from "../../context/authContext";
 
 // import AccountRoleTabs from "../../components/common/AccountRoleTabs.jsx";
 
@@ -9,7 +9,8 @@ import AdminListingQueueSection from "../../pages/listings/AdminListingQueueSect
 import "../../styles/AccountPage.css";
 
 export default function AccountPage() {
-  const [activeRole, setActiveRole] = useState("seller");
+  const { user, isSeller, isAdmin } = useAuth();
+  const activeRole = isAdmin ? "admin" : isSeller ? "seller" : "buyer";
 
   return (
     <main className="account-page">
@@ -29,13 +30,7 @@ export default function AccountPage() {
         </div>
       </header>
 
-      <div className="account-workspace">
-        {activeRole === "buyer" && (
-          <>
-            <BuyerSavedListingsSection />
-          </>
-        )}
-
+      {user && <div className="account-workspace">
         {activeRole === "seller" && (
           <SellerAccountWorkspace />
         )}
@@ -45,7 +40,7 @@ export default function AccountPage() {
             <AdminListingQueueSection />
           </>
         )}
-      </div>
+      </div>}
     </main>
   );
 }

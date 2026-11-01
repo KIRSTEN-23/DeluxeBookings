@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// To add:
-// const verifyToken = require("../middleware/verifyToken");
-// const requireRole = require("../middleware/requireRole");
+const verifyToken = require("../../middleware/verifyToken");
 
 // Read Public / buyer listings
 const {
@@ -21,6 +19,8 @@ const {
 
 router.get("/search", searchListings);
 
+
+router.use("/seller", verifyToken);
 
 // Seller listing routes
 const {

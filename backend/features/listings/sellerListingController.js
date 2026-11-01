@@ -1,15 +1,9 @@
 const mongoose = require("mongoose");
 const Listing = require("./listingSchema");
 const { LISTING_STATUS } = require("../../_config/constants");
-const TEMP_SELLER_ID = "6a15854044273245363d26c6";
-
-const getTempSellerId = () => {
-  return new mongoose.Types.ObjectId(TEMP_SELLER_ID);
-};
-
 const getSellerListings = async (req, res) => {
   try {
-    const sellerId = getTempSellerId();
+    const sellerId = req.user.id;
 
     const listings = await Listing.find({ seller: sellerId }).sort({
       createdAt: -1,
@@ -25,7 +19,7 @@ const getSellerListings = async (req, res) => {
 
 const getSellerListingById = async (req, res) => {
   try {
-    const sellerId = new mongoose.Types.ObjectId(TEMP_SELLER_ID);
+    const sellerId = req.user.id;
 
     const listing = await Listing.findOne({
       _id: req.params.id,
@@ -44,7 +38,7 @@ const getSellerListingById = async (req, res) => {
 
 const createSellerListing = async (req, res) => {
   try {
-    const sellerId = getTempSellerId();
+    const sellerId = req.user.id;
 
     const listing = await Listing.create({
       ...req.body,
@@ -63,7 +57,7 @@ const createSellerListing = async (req, res) => {
 
 const updateSellerListing = async (req, res) => {
   try {
-    const sellerId = getTempSellerId();
+    const sellerId = req.user.id;
 
     const listing = await Listing.findOneAndUpdate(
       {
@@ -92,7 +86,7 @@ const updateSellerListing = async (req, res) => {
 
 const publishSellerListing = async (req, res) => {
   try {
-    const sellerId = getTempSellerId();
+    const sellerId = req.user.id;
 
     const listing = await Listing.findOneAndUpdate(
       {
@@ -121,7 +115,7 @@ const publishSellerListing = async (req, res) => {
 
 const unpublishSellerListing = async (req, res) => {
   try {
-    const sellerId = getTempSellerId();
+    const sellerId = req.user.id;
 
     const listing = await Listing.findOneAndUpdate(
       {
@@ -146,7 +140,7 @@ const unpublishSellerListing = async (req, res) => {
 
 const deleteSellerListing = async (req, res) => {
   try {
-    const sellerId = getTempSellerId();
+    const sellerId = req.user.id;
 
     const listing = await Listing.findOneAndDelete({
       _id: req.params.id,
