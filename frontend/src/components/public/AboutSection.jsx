@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import React from "react";
 
 import img1 from "../../Assets/image_5.jpg"
@@ -40,7 +41,7 @@ const AboutSection = () => {
     <section className="about-section">
       {/* LEFT SIDE */}
       <div className="left-content">
-        <button className="top-btn">About Deluxe Bookings</button>
+        <AppButton intent="primary" appearance="fill">About Deluxe Bookings</AppButton>
 
         <h1>
           Designed for Discerning <br />
@@ -76,11 +77,11 @@ const AboutSection = () => {
 
               <p>{card.description}</p>
 
-              <button className="card-btn">
+              <AppButton intent="primary" appearance="fill" onDark={card.dark}>
                 {card.button}
 
                 <span>↗</span>
-              </button>
+              </AppButton>
             </div>
 
             <div className="card-image">

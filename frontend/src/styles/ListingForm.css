@@ -416,10 +416,6 @@
 }
 
 .create-listing-page .save-exit-btn,
-.create-listing-page .secondary-button,
-.create-listing-page .back-button,
-.create-listing-page .continue-button,
-.create-listing-page .publish-button,
 .create-listing-page .primary-button {
   min-height: var(--button-min-height);
   padding: var(--space-1) var(--space-3);
@@ -428,25 +424,16 @@
   font-weight: var(--button-font-weight);
 }
 
-.create-listing-page .continue-button,
-.create-listing-page .publish-button,
 .create-listing-page .primary-button {
   border: 1px solid var(--color-brand) !important;
   background: var(--color-brand) !important;
   color: var(--color-fill) !important;
 }
 
-.create-listing-page .save-exit-btn,
-.create-listing-page .secondary-button {
+.create-listing-page .save-exit-btn {
   border: 1px solid var(--color-text-strong) !important;
   background: var(--color-text-strong) !important;
   color: var(--color-fill) !important;
-}
-
-.create-listing-page .back-button {
-  border: 2px solid var(--color-brand) !important;
-  background: transparent !important;
-  color: var(--color-brand) !important;
 }
 
 /* SALVAGED from Listing.css: responsive form */

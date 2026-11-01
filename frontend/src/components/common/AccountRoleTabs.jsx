@@ -1,29 +1,21 @@
-import { ButtonGroup, Button } from "react-bootstrap";
+import AppButton from "./AppButton.jsx";
+import { ButtonGroup } from "react-bootstrap";
 
 export default function AccountRoleTabs({ activeRole, onRoleChange }) {
   return (
     <div className="account-role-tabs mb-4">
       <ButtonGroup>
-        <Button
-          variant={activeRole === "buyer" ? "dark" : "outline-dark"}
-          onClick={() => onRoleChange("buyer")}
-        >
+        <AppButton intent="primary" appearance={activeRole === "buyer" ? "fill" : "outline"} aria-pressed={activeRole === "buyer"} onClick={() => onRoleChange("buyer")}>
           Buyer
-        </Button>
+        </AppButton>
 
-        <Button
-          variant={activeRole === "seller" ? "dark" : "outline-dark"}
-          onClick={() => onRoleChange("seller")}
-        >
+        <AppButton intent="primary" appearance={activeRole === "seller" ? "fill" : "outline"} aria-pressed={activeRole === "seller"} onClick={() => onRoleChange("seller")}>
           Seller
-        </Button>
+        </AppButton>
 
-        <Button
-          variant={activeRole === "admin" ? "dark" : "outline-dark"}
-          onClick={() => onRoleChange("admin")}
-        >
+        <AppButton intent="primary" appearance={activeRole === "admin" ? "fill" : "outline"} aria-pressed={activeRole === "admin"} onClick={() => onRoleChange("admin")}>
           Admin
-        </Button>
+        </AppButton>
       </ButtonGroup>
     </div>
   );

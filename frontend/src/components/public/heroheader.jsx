@@ -1,6 +1,6 @@
+import AppButton from "../common/AppButton.jsx";
 import Joinbutton from '../../Assets/images/buttoniconjoin.png'
 import circularText from '../../Assets/images/circularText.png'
-import Button from 'react-bootstrap/Button';
 import { ArrowUpRight } from 'lucide-react';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import SearchBar from '../listings/searchBar';
@@ -19,9 +19,7 @@ function HeroHeader() {
 
         <div className='herocard marginBody'>
             <p> Showcase your property to the world's most discerning travellers. We don't just list hotels; we curate experiences for a global audience that values quality over quantity.</p>
-            <Link to="/seller-onboarding">
-            <Button variant="light" className="heroButton">List your property <ArrowUpRight className="iconStyle"/></Button>
-            </Link>
+            <AppButton as={Link} to="/seller-onboarding" intent="primary" icon={ArrowUpRight}>List your property</AppButton>
             </div>
           </div>
       

@@ -40,7 +40,7 @@ input {
   background: #FFFFFF;
 }
 
-button {
+.booking-container button:not(.app-button) {
   width: 100%;
   padding: 15px;
 
@@ -53,6 +53,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.booking-container button:not(.app-button):hover {
   background: #332A23;
 }

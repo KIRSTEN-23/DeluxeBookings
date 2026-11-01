@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import { useState } from "react";
 import axios from "axios";
 
@@ -151,12 +152,9 @@ function ReviewForm() {
           required
         />
 
-        <button
-          className="submit-btn"
-          type="submit"
-        >
+        <AppButton intent="primary" appearance="fill" type="submit">
           Submit Review
-        </button>
+        </AppButton>
       </form>
     </>
   );

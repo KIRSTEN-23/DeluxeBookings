@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import { useState } from "react";
 import { Bath, BedDouble, Building2, Check, Clock, Hash, Home, ImagePlus, Mail, Map, MapPin, Phone, Plus, Ruler, User, Users, X } from "lucide-react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
@@ -666,14 +667,9 @@ export function ImagesSection({ formData, helpers }) {
                 >
                   <img src={src} alt={name} />
                 </button>
-                <Button
-                  type="button"
-                  className="remove-photo-btn"
-                  aria-label={`Remove ${name}`}
-                  onClick={() => helpers.removeImage(index)}
-                >
+                <AppButton intent="danger" appearance="fill" iconOnly type="button" aria-label={`Remove ${name}`} onClick={() => helpers.removeImage(index)}>
                   <X aria-hidden="true" />
-                </Button>
+                </AppButton>
                 {index === 0 && <figcaption>Thumbnail</figcaption>}
                 {index !== 0 && <span className="set-thumbnail-hint">Set thumbnail</span>}
               </figure>
@@ -768,9 +764,9 @@ export function ServicesFacilitiesSection({ formData, helpers }) {
               }
             }}
           />
-          <Button type="button" className="add-tag-btn" onClick={toggleTagInput}>
+          <AppButton intent={tagInputIsSelected ? "danger" : "secondary"} appearance="outline" type="button" onClick={toggleTagInput}>
             {tagInputIsSelected ? "Remove" : "Add"}
-          </Button>
+          </AppButton>
         </div>
 
         {selectedTags.length > 0 && (
@@ -870,9 +866,9 @@ export function HouseRulesSection({ formData, onChange, helpers }) {
                 }
               }}
             />
-            <Button type="button" className="add-tag-btn" onClick={addRuleInput}>
+            <AppButton intent={rules.includes(cleanRuleInput) ? "danger" : "secondary"} appearance="outline" type="button" onClick={addRuleInput}>
               {rules.includes(cleanRuleInput) ? "Remove" : "Add"}
-            </Button>
+            </AppButton>
           </div>
 
           {rules.length > 0 && (
@@ -1008,9 +1004,9 @@ function ListingForm({ formData, onChange, onSubmit, submitLabel, isSubmitting }
           ))}
 
           <div className="form-actions justify-content-end">
-            <Button type="submit" className="publish-button">
+            <AppButton intent="primary" appearance="fill" type="submit">
               {submitLabel}
-            </Button>
+            </AppButton>
           </div>
           </fieldset>
         </Form>

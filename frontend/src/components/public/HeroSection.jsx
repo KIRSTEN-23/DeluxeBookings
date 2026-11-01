@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import wideImg1 from "../../Assets/wide_Img1.jpg";
 
 function Hero() {
@@ -24,7 +25,7 @@ function Hero() {
           homes available for booking.
         </p>
 
-        <button>Explore Properties</button>
+        <AppButton intent="primary" appearance="fill">Explore Properties</AppButton>
       </div>
     </section>
   );

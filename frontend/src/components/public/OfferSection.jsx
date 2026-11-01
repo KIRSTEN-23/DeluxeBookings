@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import React from "react";
 import Image from "../../Assets/wide_Img1.jpg";
 
@@ -49,7 +50,7 @@ const OfferSection = () => {
             </p>
 
             {/* BUTTON */}
-            <button className="deal-btn">
+            <AppButton intent="primary" appearance="fill">
 
               Save with a Getaway Deal
 
@@ -58,7 +59,7 @@ const OfferSection = () => {
                 ↗
               </div>
 
-            </button>
+            </AppButton>
 
           </div>
         </div>

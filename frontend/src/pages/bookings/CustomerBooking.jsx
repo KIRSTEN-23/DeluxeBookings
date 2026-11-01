@@ -1,3 +1,4 @@
+import AppButton from "../../components/common/AppButton.jsx";
 import { useState } from "react";
 import axios from "axios";
 
@@ -94,9 +95,9 @@ function CustomerBooking() {
           onChange={handleChange}
         />
 
-        <button>
+        <AppButton intent="primary" appearance="fill" type="submit">
           Submit Booking
-        </button>
+        </AppButton>
 
       </form>
 

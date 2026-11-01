@@ -108,28 +108,3 @@ body {
 }
 
 /* Arrow Button */
-
-.arrow-btn {
-  width: 52px;
-  height: 52px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: var(--white);
-  color: var(--dark);
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: 0.3s;
-}
-
-.arrow-btn:hover {
-  background: var(--brown);
-  color: var(--white);
-  transform: rotate(45deg);
-}

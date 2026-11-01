@@ -1,3 +1,4 @@
+import AppButton from "../../components/common/AppButton.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Accordion, Badge, Button, Card, Col, Container, Form, Row } from "react-bootstrap";
@@ -154,15 +155,15 @@ function SellerOnboarding() {
               </p>
 
               <div className="hero-actions">
-                <Button className="deluxe-btn-primary" onClick={() => navigate("/seller/new")}>
+                <AppButton intent="primary" appearance="fill" onDark onClick={() => navigate("/seller/new")}>
                   Start Listing Your Property
                   <ArrowRight size={20} strokeWidth={2.4} />
-                </Button>
+                </AppButton>
 
-                <Button variant="outline-light" className="deluxe-btn-outline-light">
+                <AppButton intent="primary" appearance="outline" onDark>
                   <MessageCircle size={20} strokeWidth={2.4} />
                   Speak to a Specialist
-                </Button>
+                </AppButton>
               </div>
             </Col>
           </Row>
@@ -320,12 +321,12 @@ function SellerOnboarding() {
             </h2>
             <p>Here's what our partners are saying about us</p>
             <div className="testimonial-controls">
-              <button type="button" onClick={showPreviousTestimonial} aria-label="Previous testimonial">
+              <AppButton intent="secondary" appearance="outline" iconOnly type="button" onClick={showPreviousTestimonial} aria-label="Previous testimonial">
                 <ChevronLeft size={24} strokeWidth={2.4} />
-              </button>
-              <button type="button" onClick={showNextTestimonial} aria-label="Next testimonial">
+              </AppButton>
+              <AppButton intent="primary" appearance="fill" iconOnly type="button" onClick={showNextTestimonial} aria-label="Next testimonial">
                 <ChevronRight size={24} strokeWidth={2.4} />
-              </button>
+              </AppButton>
             </div>
           </div>
 
@@ -399,15 +400,15 @@ function SellerOnboarding() {
           <p>Join South Africa's most discerning property owners and start welcoming exceptional guests today.</p>
 
           <div className="hero-actions">
-            <Button className="deluxe-btn-primary light" onClick={() => navigate("/seller/new")}>
+            <AppButton intent="primary" appearance="fill" onDark onClick={() => navigate("/seller/new")}>
               Start Listing Your Property
               <ArrowRight size={20} strokeWidth={2.4} />
-            </Button>
+            </AppButton>
 
-            <Button variant="outline-light" className="deluxe-btn-outline-light">
+            <AppButton intent="primary" appearance="outline" onDark>
               <MessageCircle size={20} strokeWidth={2.4} />
               Speak to a Specialist
-            </Button>
+            </AppButton>
           </div>
         </Container>
       </section>

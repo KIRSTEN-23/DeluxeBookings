@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import axios from "axios";
 
 function BookingCard({ booking, refresh }) {
@@ -29,21 +30,17 @@ function BookingCard({ booking, refresh }) {
 
       <div className="buttons">
 
-        <button
-          onClick={() =>
+        <AppButton intent="success" appearance="fill" onClick={() =>
             updateStatus("Accepted")
-          }
-        >
+          }>
           Accept
-        </button>
+        </AppButton>
 
-        <button
-          onClick={() =>
+        <AppButton intent="danger" appearance="outline" onClick={() =>
             updateStatus("Rejected")
-          }
-        >
+          }>
           Reject
-        </button>
+        </AppButton>
 
       </div>
 

@@ -27,20 +27,3 @@ body {
   gap: 10px;
   margin-top: 15px;
 }
-
-button {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:first-child {
-  background: #7B593F;
-  color: white;
-}
-
-button:last-child {
-  background: #8C8578;
-  color: white;
-}

@@ -129,58 +129,6 @@
   margin-top: var(--space-4);
 }
 
-.deluxe-btn-primary,
-.deluxe-btn-primary.btn,
-.deluxe-btn-outline-light,
-.deluxe-btn-outline-light.btn {
-  min-height: var(--button-min-height);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  border-radius: var(--radius-control) !important;
-  font-size: var(--fs-base);
-  font-weight: var(--button-font-weight) !important;
-  padding: 12px var(--space-4) !important;
-}
-
-.deluxe-btn-primary,
-.deluxe-btn-primary.btn {
-  background: #fff !important;
-  border: 1px solid #fff !important;
-  color: var(--seller-dark) !important;
-}
-
-.deluxe-btn-primary:hover,
-.deluxe-btn-primary.btn:hover {
-  background: #fff !important;
-  border-color: #fff !important;
-  color: var(--seller-dark) !important;
-  opacity: var(--button-hover-opacity);
-}
-
-.deluxe-btn-primary.light,
-.deluxe-btn-primary.light.btn {
-  background: #fff !important;
-  border-color: #fff !important;
-  color: var(--seller-dark) !important;
-}
-
-.deluxe-btn-outline-light,
-.deluxe-btn-outline-light.btn {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.72) !important;
-  color: #fff !important;
-}
-
-.deluxe-btn-outline-light:hover,
-.deluxe-btn-outline-light.btn:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.72) !important;
-  color: #fff !important;
-  opacity: var(--button-hover-opacity);
-}
-
 .stats-strip .row {
   width: 100%;
 
@@ -558,7 +506,7 @@
   margin-top: var(--space-5);
 }
 
-.testimonial-controls button {
+.testimonial-controls button:not(.app-button) {
   width: 44px;
   height: 44px;
   display: grid;
@@ -569,7 +517,7 @@
   color: #fff;
 }
 
-.testimonial-controls button:first-child {
+.testimonial-controls button:not(.app-button):first-child {
   background: transparent;
   color: var(--seller-dark);
 }
@@ -756,22 +704,6 @@
   margin: var(--space-2) auto 0;
   color: rgba(255, 255, 255, 0.56);
   line-height: 1.7;
-}
-
-.seller-final-cta .deluxe-btn-primary.light:hover,
-.seller-final-cta .deluxe-btn-primary.light.btn:hover {
-  background: #fff !important;
-  border-color: #fff !important;
-  color: var(--seller-dark) !important;
-  opacity: var(--button-hover-opacity);
-}
-
-.seller-final-cta .deluxe-btn-outline-light:hover,
-.seller-final-cta .deluxe-btn-outline-light.btn:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.72) !important;
-  color: #fff !important;
-  opacity: var(--button-hover-opacity);
 }
 
 /*

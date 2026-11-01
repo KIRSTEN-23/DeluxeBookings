@@ -58,11 +58,11 @@ img { max-width: 100%; }
 .searchBarMain .searchHeading { margin: 0 0 12px; font-size: 20px; }
 .stay-search-form { display: flex; flex-wrap: wrap; gap: 12px; }
 .stay-search-form .searchElements { flex: 1 1 160px; width: auto !important; min-width: 0; min-height: 44px; margin: 0; }
-.stay-search-submit { flex: 0 1 160px; min-height: 44px; padding-inline: 16px; }
+.stay-search-form .stay-search-submit { flex: 0 1 160px; }
 .filterBack { display: grid; gap: 20px; width: 100%; margin: 0; padding: 16px; }
 .filterBack .filterTitle { margin: 0; font-size: 25px; }
 .filter-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.filter-actions .btn { flex: 1 1 88px; min-height: 44px; padding-inline: 12px; }
+.filter-actions .app-button { flex: 1 1 88px; min-height: 44px; padding-inline: 12px; }
 .filter-group { padding: 0; margin: 0; }
 .filter-group legend { float: none; margin-bottom: 12px; font-size: 20px; }
 .filter-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr)); gap: 4px 12px; }
@@ -184,7 +184,7 @@ img { max-width: 100%; }
 .CheckoutBox .react-datepicker-wrapper, .CheckoutBox .react-datepicker__input-container { width: min(100%, 480px); margin-inline: auto; }
 .CheckoutBox .react-datepicker__input-container input { width: 100%; min-height: 44px; }
 .CheckoutBox form > div[style] { flex-wrap: wrap; justify-content: center; }
-.CheckoutBox .btn { flex: 1 1 180px; width: auto; min-height: 44px; }
+.CheckoutBox .app-button { flex: 1 1 180px; width: auto; min-height: 44px; }
 .create-listing-page { padding: 24px var(--page-gutter) 48px; }
 .create-listing-page.edit-listing-page { min-height: 0; padding: 0; }
 .create-listing-shell { width: min(100%, 1168px); max-width: 1168px; padding-inline: 0; }
@@ -195,11 +195,12 @@ img { max-width: 100%; }
 .create-listing-page .form-card .row > .col-12:not([class*="col-lg-"]) { flex-basis: 100%; }
 .create-listing-page :is(.section-grid, .split-grid, .photo-preview-grid) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
 .create-listing-page :is(.photo-uploader-layout, .pricing-step-layout) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.create-listing-page .photo-preview-card .app-button[data-icon-only] { position: absolute; top: 8px; right: 8px; }
 .create-listing-page .photo-dropzone { min-height: clamp(232px, 25vw, 360px); padding: clamp(16px, 2vw, 32px); }
 .create-listing-page .pill-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr)); }
 .create-listing-page .form-actions, .create-listing-page .action-group { flex-wrap: wrap; gap: 12px; }
-.create-listing-page .form-actions > .btn, .create-listing-page .action-group { flex: 1 1 200px; }
-.create-listing-page .action-group > .btn { flex: 1 1 140px; }
+.create-listing-page .form-actions > .app-button, .create-listing-page .action-group { flex: 1 1 200px; }
+.create-listing-page .action-group > .app-button { flex: 1 1 140px; }
 .create-listing-page :is(input, select, textarea) { min-width: 0; }
 .review-form { width: min(100%, 750px); margin-block: clamp(24px, 5vw, 80px); padding: clamp(16px, 4vw, 50px); }
 .review-form h2 { font-size: clamp(25px, 3vw, 40px); }
@@ -243,7 +244,6 @@ img { max-width: 100%; }
 .home-page .property-card.tall img { aspect-ratio: 2 / 3; }
 .home-page .property-card .overlay { padding: 16px; gap: 12px; }
 .home-page .property-card h3 { font-size: clamp(24px, 2.2vw, 32px); }
-.home-page .property-card .arrow-btn { flex: 0 0 52px; }
 .home-page .offer-card { flex-wrap: wrap; }
 .home-page .offer-image { flex: 1 1 180px; min-width: 0; max-width: 320px; }
 .home-page .offer-content { flex: 3 1 360px; min-width: 0; }
@@ -273,7 +273,7 @@ img { max-width: 100%; }
   .seller-onboarding-page .seller-hero { height: auto; min-height: min(620px, 100svh); padding: clamp(48px, 7vw, 96px) 0; }
   .seller-onboarding-page .seller-hero h1 { font-size: clamp(36px, 6.4vw, 92px); }
   .seller-onboarding-page .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
-  .seller-onboarding-page .hero-actions .btn { flex: 0 1 auto; max-width: 100%; padding-inline: clamp(16px, 2vw, 32px) !important; }
+  .seller-onboarding-page .hero-actions .app-button { flex: 0 1 auto; }
   .seller-onboarding-page :is(.seller-section, .seller-final-cta) { padding-block: clamp(48px, 7.8vw, 112px); }
   .seller-onboarding-page .earnings-section { padding-bottom: 0; }
   .seller-onboarding-page .stats-strip .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 144px), 1fr)); margin-inline: 0; }

@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import React from "react";
 import { FaArrowUp } from "react-icons/fa";
 
@@ -68,9 +69,9 @@ const PropertyGrid = () => {
             <div className="overlay">
               <h3>{property.name}</h3>
 
-              <button className="arrow-btn">
+              <AppButton intent="primary" appearance="fill" onDark iconOnly aria-label="View property">
                 <FaArrowUp />
-              </button>
+              </AppButton>
             </div>
           </div>
         ))}

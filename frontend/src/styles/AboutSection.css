@@ -46,28 +46,6 @@ body {
 
 /* SMALL BUTTON */
 
-.top-btn {
-  width: fit-content;
-
-  padding: 12px 26px;
-
-  border: none;
-  border-radius: 50px;
-
-  background: var(--color-brand);
-
-  color: var(--color-stroke-weak);
-
-  font-weight: 600;
-  letter-spacing: 1px;
-
-  cursor: pointer;
-
-  margin-bottom: 25px;
-
-  transition: 0.3s;
-}
-
 
 
 /* HEADING */
@@ -198,33 +176,6 @@ body {
 }
 
 /* BUTTON */
-
-.card-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 50px;
-  background: var(--color-brand);
-  color: var(--color-stroke-weak);
-  cursor: pointer;
-  font-weight: 600;
-  transition: .3s;
-}
-
-.card-btn:hover {
-  background: var(--color-stroke-strong);
-}
-
-.dark-card .card-btn {
-  background: var(--color-background);
-  color: var(--color-brand);
-}
-
-.dark-card .card-btn:hover {
-  background: var(--color-background);
-}
 
 /* IMAGE */
 

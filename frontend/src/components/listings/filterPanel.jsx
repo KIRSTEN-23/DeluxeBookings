@@ -1,5 +1,5 @@
+import AppButton from "../common/AppButton.jsx";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 
@@ -38,10 +38,10 @@ function FilterPanel({ onFilter, isSearching }) {
       <h4 className='filterTitle'>Filter by</h4>
 
       <div className="filter-actions">
-      <Button variant="light" onClick={handleClearAll} type="button">Clear</Button>
-      <Button disabled={isSearching} variant="light" type="submit" className="primaryButton">
+      <AppButton intent="secondary" appearance="outline" onClick={handleClearAll} type="button">Clear</AppButton>
+      <AppButton intent="primary" appearance="fill" disabled={isSearching} type="submit">
         Search <Search/>
-      </Button>
+      </AppButton>
       </div>
 
       {/* Bedrooms */}

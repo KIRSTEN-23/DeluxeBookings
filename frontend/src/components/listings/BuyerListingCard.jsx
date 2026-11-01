@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import { Link } from "react-router-dom";
 
 import ListingCardShell from "./ListingCardShell";
@@ -25,16 +26,13 @@ export default function BuyerListingCard({ listing }) {
       badge={listing.isNew ? <span className="listing-pill">New</span> : null}
       actions={
         <>
-          <Link
-            to={`/browse/${listing._id}`}
-            className="btn btn-outline-dark listing-card-action-secondary"
-          >
+          <AppButton intent="secondary" appearance="outline" as={Link} to={`/browse/${listing._id}`}>
             View Details
-          </Link>
+          </AppButton>
 
-          <button className="btn btn-primary listing-card-action-primary">
+          <AppButton intent="primary" appearance="fill">
             Book Now
-          </button>
+          </AppButton>
         </>
       }
     >

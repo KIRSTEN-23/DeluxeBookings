@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import { Link } from "react-router-dom";
 
 import ListingCardShell from "./ListingCardShell";
@@ -35,85 +36,49 @@ export default function SellerListingCard({
       badge={<ListingPropertyType propertyType={listing.propertyType} />}
       actions={
         <>
-          <button
-            disabled={pending}
-            type="button"
-            className="btn btn-outline-dark"
-            onClick={() => onViewDetails?.(listing)}
-          >
+          <AppButton intent="secondary" appearance="outline" disabled={pending} type="button" onClick={() => onViewDetails?.(listing)}>
             View Details
-          </button>
+          </AppButton>
 
           {status === "published" && (
-            <button
-              disabled={pending}
-            type="button"
-              className="btn btn-outline-warning"
-              onClick={() => onUnpublish?.(listing._id)}
-            >
+            <AppButton intent="warning" appearance="outline" disabled={pending} type="button" onClick={() => onUnpublish?.(listing._id)}>
               Unpublish
-            </button>
+            </AppButton>
           )}
 
           {status === "unpublished" && (
             <>
-              <button
-                disabled={pending}
-            type="button"
-                className="btn btn-outline-success"
-                onClick={() => onPublish?.(listing._id)}
-              >
+              <AppButton intent="success" appearance="outline" disabled={pending} type="button" onClick={() => onPublish?.(listing._id)}>
                 Publish
-              </button>
+              </AppButton>
 
-              <button
-                disabled={pending}
-            type="button"
-                className="btn btn-outline-danger"
-                onClick={() => onDelete?.(listing._id)}
-              >
+              <AppButton intent="danger" appearance="outline" disabled={pending} type="button" onClick={() => onDelete?.(listing._id)}>
                 Delete
-              </button>
+              </AppButton>
             </>
           )}
 
           {status === "draft" && (
             <>
-              <Link
-                to={`/seller/listings/${listing._id}/edit`}
-                className="btn btn-outline-dark"
-              >
+              <AppButton intent="secondary" appearance="outline" as={Link} to={`/seller/listings/${listing._id}/edit`}>
                 Continue Editing
-              </Link>
+              </AppButton>
 
-              <button
-                disabled={pending}
-            type="button"
-                className="btn btn-outline-danger"
-                onClick={() => onDelete?.(listing._id)}
-              >
+              <AppButton intent="danger" appearance="outline" disabled={pending} type="button" onClick={() => onDelete?.(listing._id)}>
                 Delete
-              </button>
+              </AppButton>
             </>
           )}
 
           {status === "rejected" && (
             <>
-              <Link
-                to={`/seller/listings/${listing._id}/edit`}
-                className="btn btn-outline-dark"
-              >
+              <AppButton intent="secondary" appearance="outline" as={Link} to={`/seller/listings/${listing._id}/edit`}>
                 Edit
-              </Link>
+              </AppButton>
 
-              <button
-                disabled={pending}
-            type="button"
-                className="btn btn-outline-danger"
-                onClick={() => onDelete?.(listing._id)}
-              >
+              <AppButton intent="danger" appearance="outline" disabled={pending} type="button" onClick={() => onDelete?.(listing._id)}>
                 Delete
-              </button>
+              </AppButton>
             </>
           )}
         </>

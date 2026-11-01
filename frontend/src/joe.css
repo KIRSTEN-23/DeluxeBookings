@@ -151,33 +151,6 @@ div .logInButton {
   margin-left:13%;
 }
 
-.primaryButton{
-  background-color: #332a23 !important;
-  border-color: #7B593F !important;
-  color: #ffffff !important;
-  border-width: 2px;
-  border-radius: 15px;
-  padding-left: 0%;
-}
-
-.deleteButton{
-  background-color: #B24747 !important;
-  border-color: #B24747 !important;
-}
-
-.primaryButton:hover {
-  background-color: #ffffff !important;
-  color: #332a23 !important;
-  border-color: #EFEBEA !important;
-}
-
-.buttontext {
-  font-size: 16px;
-  padding-left: 2%;
-  color: #7B593F;
-  text-decoration: none;
-}
-
 .joinButton{
   width:25%;
   padding-left: 3%;
@@ -207,10 +180,6 @@ div .logInButton {
 .navButton{
   margin-top: 25%;
   width: 110px;
-}
-
-.heroButton{
-  width: 180px;
 }
 
 .logoStyling {

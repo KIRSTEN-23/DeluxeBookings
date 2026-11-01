@@ -1,3 +1,4 @@
+import AppButton from "../../components/common/AppButton.jsx";
 import { addDays, format } from "date-fns";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -5,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import api from "../../api/config";
 import DatesPicker from '../../components/listings/datePicker';
 import Footer from '../../components/common/footer';
-import Button from 'react-bootstrap/Button';
 import { Undo2 } from 'lucide-react';
 import { Send } from 'lucide-react';
 import { House } from 'lucide-react';
@@ -202,7 +202,7 @@ function Checkout() {
                   </div>
                 </div>
                 <br></br>
-                <Button className="primaryButton" type="submit">Finalise details</Button>
+                <AppButton intent="primary" appearance="fill" type="submit">Finalise details</AppButton>
               </form>
 
               {message && <p role="alert" className="text-center mt-3" style={{color: 'red'}}>{message}</p>}
@@ -225,17 +225,12 @@ function Checkout() {
                 <p>{arrivalDate && new Date(arrivalDate).toLocaleDateString()} – {departureDate && new Date(departureDate).toLocaleDateString()}</p>
                 <p>This project does not process payments. No card details are required and no email will be sent.</p>
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <Button
-                    disabled={isSubmitting}
-                    onClick={() => setCheckoutPage(1)}
-                    variant='light'
-                    className="heroButton"
-                  >
+                  <AppButton intent="secondary" appearance="outline" disabled={isSubmitting} onClick={() => setCheckoutPage(1)}>
                     Go Back
-                    <Undo2 className="iconStyle" style={{ marginLeft: "5%"}}/>
-                  </Button>
+                    <Undo2 className="iconStyle"/>
+                  </AppButton>
 
-                  <Button className="primaryButton" type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting…" : "Submit booking"} <Send className="iconStyle"/></Button>
+                  <AppButton intent="primary" appearance="fill" type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting…" : "Submit booking"} <Send className="iconStyle"/></AppButton>
                 </div>
               </form>
 
@@ -261,13 +256,9 @@ function Checkout() {
                 Thank you, {firstName}! Your booking was saved. Reference: <strong>{booking?._id}</strong>. Total: R{booking?.totalPrice}. No payment has been taken and no confirmation email has been sent.
               </p>
 
-              <Button
-                className="primaryButton"
-
-                onClick={() => window.location.href = '/'}
-              >
-                Return Home <House className="iconStyle" style={{ marginLeft: "5%"}}/>
-              </Button>
+              <AppButton intent="primary" appearance="fill" onClick={() => window.location.href = '/'}>
+                Return Home <House className="iconStyle"/>
+              </AppButton>
             </div>
           </div>
         )}

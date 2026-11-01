@@ -146,22 +146,3 @@
   resize: none;
   min-height: 140px;
 }
-
-
-.submit-btn {
-  padding: 18px;
-  border: none;
-  border-radius: 15px;
-  background: var(--dark);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover {
-  background: var(--brown);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(123, 89, 63, 0.25);
-}

@@ -220,25 +220,5 @@
 }
 
 /* NEW, Bootstrap-compatible card action button helpers */
-.listing-card-action-primary.btn,
-.listing-card-action-primary {
-  border-color: var(--color-brand) !important;
-  background: var(--color-brand) !important;
-  color: var(--color-fill) !important;
-}
-
-.listing-card-action-secondary.btn,
-.listing-card-action-secondary {
-  border-color: var(--color-stroke-weak) !important;
-  background: var(--color-background) !important;
-  color: var(--color-text-strong) !important;
-}
-
-.listing-card-action-danger.btn,
-.listing-card-action-danger {
-  border-color: #b24747 !important;
-  background: var(--color-fill) !important;
-  color: #b24747 !important;
-}
 
 /* SALVAGED responsive behaviour from SellerListingCard.css */
