@@ -1,3 +1,5 @@
+import ContentState from "../components/common/ContentState.jsx";
+import { ShieldAlert } from "lucide-react";
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 
@@ -10,7 +12,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
  
   if (allowedRoles && !allowedRoles.includes(user.userRole)) {
-    return <p role="alert" className="container py-4">You do not have access to this workspace. <a href="/account">Go to your account</a>.</p>;
+    return <main className="container py-4"><ContentState error framed icon={ShieldAlert} heading="This workspace isn’t available to your account" description="Your account does not have access to this area. You can view your profile and activity from Account." actionLabel="View my profile" to="/account/profile" /></main>;
   }
 
   return children;

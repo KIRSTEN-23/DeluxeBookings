@@ -1,7 +1,10 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { HousePlus, SearchX, TriangleAlert } from "lucide-react";
+import AppButton from "../../components/common/AppButton.jsx";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { getListingDraft } from "../../utils/listingStorage";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Alert, Dropdown, Spinner } from "react-bootstrap";
+import { Alert, Dropdown } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
 import SellerListingCard from "../../components/listings/SellerListingCard.jsx";
@@ -36,6 +39,7 @@ export default function SellerManageMyListingsSection() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [pending, setPending] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [actionMessage, setActionMessage] = useState("");
   const [actionError, setActionError] = useState("");
   const actionPending = useRef(false);
@@ -84,7 +88,7 @@ export default function SellerManageMyListingsSection() {
     };
 
     loadListings();
-  }, []);
+  }, [attempt]);
 
   const filteredListings = useMemo(() => {
     if (activeFilter === "all") {
@@ -97,11 +101,13 @@ export default function SellerManageMyListingsSection() {
   const hasDetailPane = Boolean(selectedListing);
 
   return (
-    <section className="my-listings-section">
+    <section className="my-listings-section" id="my-listings" aria-labelledby="my-listings-heading">
+      <h5 id="my-listings-heading">My listings</h5>
+      <div className="seller-listings-container">
       {pending && <Alert role="status">Saving listing change…</Alert>}
       {actionMessage && <Alert variant="success" role="status">{actionMessage}</Alert>}
       {actionError && <Alert variant="danger" role="alert">{actionError}</Alert>}
-      {draft && <Alert variant="info">You have an unfinished draft saved on this device. <Link to="/seller/new">Resume draft</Link></Alert>}
+      {draft && listings.length > 0 && <Alert variant="info">You have an unfinished draft saved on this device. <Link to="/seller/new">Resume draft</Link></Alert>}
       {location.state?.message && <Alert variant="success" role="status">{location.state.message}</Alert>}
       <div
         className={`my-listings-layout ${
@@ -109,7 +115,7 @@ export default function SellerManageMyListingsSection() {
         }`}
       >
         <div className="my-listings-primary">
-          <div className="row my-listings-toolbar g-3 mb-3">
+          {listings.length > 0 && <div className="row my-listings-toolbar g-3 mb-3">
             <div className="col-12 col-lg-8 my-listings-filter-column">
               <div className="my-listings-filters">
                 {FILTERS.map((filter) => (
@@ -146,37 +152,25 @@ export default function SellerManageMyListingsSection() {
             </div>
 
             <div className="col-12 col-lg-4 my-listings-action-column">
-              <Link
-                to="/seller/new"
-                className="btn btn-primary my-listings-add-button"
-              >
+              <AppButton intent="primary" appearance="fill" as={Link} to="/seller/new" className="my-listings-add-button">
                 Create Listing
-              </Link>
+              </AppButton>
             </div>
-          </div>
+          </div>}
 
-          {isLoading && (
-            <Alert
-              variant="light"
-              className="border d-flex align-items-center gap-2"
-            >
-              <Spinner animation="border" size="sm" />
-              Loading your listings...
-            </Alert>
-          )}
-
-          {!isLoading && errorMessage && (
-            <Alert variant="danger">{errorMessage}</Alert>
-          )}
-
+          {isLoading && <ContentState busy heading="Loading your properties" description="We’re checking your saved listings and their latest statuses." actionLabel="Loading listings…" />}
+          {!isLoading && errorMessage && <ContentState error icon={TriangleAlert} heading="Your listings couldn’t load" description={errorMessage} actionLabel="Try again" onAction={() => setAttempt((value) => value + 1)} />}
           {!isLoading && !errorMessage && filteredListings.length === 0 && (
-            <Alert variant="light" className="border">
-              No listings found.
-            </Alert>
+            activeFilter !== "all" && !(activeFilter === "draft" && draft) ? (
+              <ContentState icon={SearchX} heading="Nothing in this status" description="Try another status to see your properties, or return to all listings." actionLabel="Show all listings" onAction={() => setActiveFilter("all")} />
+            ) : (
+              <ContentState icon={HousePlus} heading={draft ? "Your property is taking shape" : "Make room for your first guests"} description={draft ? "You have a draft saved on this device. Finish its details and submit it for review." : "Create your first property listing. Once it is reviewed and published, guests can discover it here."} actionLabel={draft ? "Resume your draft" : "Create a listing"} to="/seller/new" />
+            )
           )}
 
           {!isLoading && !errorMessage && filteredListings.length > 0 && (
             <div className="my-listings-list">
+              <h6>Your property portfolio</h6>
               <div className="my-listings-card-panel">
                 <div className="my-listings-card-scroll">
                   {filteredListings.map((listing) => (
@@ -217,6 +211,7 @@ export default function SellerManageMyListingsSection() {
             />
           </>
         )}
+      </div>
       </div>
     </section>
   );

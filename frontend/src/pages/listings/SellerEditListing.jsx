@@ -1,7 +1,9 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { TriangleAlert } from "lucide-react";
 import { validateListing, propertyTypeValue } from "../../utils/listingValidation";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { useEffect, useRef, useState } from "react";
-import { Alert, Container, Spinner } from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ListingForm, {
@@ -134,23 +136,15 @@ export default function SellerEditListing() {
       const payload = buildListingPayload(formData);
       await updateSellerListing(id, payload);
       if (listingStatus === "rejected") await resubmitSellerListing(id);
-      navigate("/seller/account", { state: { message: listingStatus === "rejected" ? "Listing resubmitted for review." : "Listing changes saved and submitted for review." } });
+      navigate("/account/activity", { state: { message: listingStatus === "rejected" ? "Listing resubmitted for review." : "Listing changes saved and submitted for review." } });
     } catch (error) {
       console.error(error);
       setErrorMessage(getErrorMessage(error, "Could not save this listing. Your changes are still here; please try again."));
     } finally { submitting.current = false; setIsSubmitting(false); }
   };
 
-  if (isLoading) {
-    return (
-      <main className="create-listing-page">
-        <Container fluid="lg" className="d-flex gap-2 align-items-center py-5">
-          <Spinner animation="border" size="sm" />
-          Loading listing...
-        </Container>
-      </main>
-    );
-  }
+  if (isLoading) return <main className="create-listing-page"><ContentState busy framed heading="Preparing the edit form" description="We’re loading your saved property details." actionLabel="Loading listing…" /></main>;
+  if (loadFailed) return <main className="create-listing-page"><ContentState error framed icon={TriangleAlert} heading="Your listing couldn’t open" description={errorMessage} actionLabel="Return to your listings" to="/account/activity" /></main>;
 
   return (
     <main className="create-listing-page">
@@ -162,7 +156,7 @@ export default function SellerEditListing() {
         )}
 
         {listingStatus === "rejected" && <Alert variant="warning">Changes requested: {reviewNotes || "Review and correct your listing before resubmitting."}</Alert>}
-        {loadFailed && <Link to="/seller/account">Return to your listings</Link>}
+        {loadFailed && <Link to="/account/activity">Return to your listings</Link>}
         <ListingForm
           formData={formData}
           onChange={handleChange}

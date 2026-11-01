@@ -88,7 +88,7 @@
   padding: 0 var(--space-4) var(--space-5);
 }
 
-.seller-account-workspace-shell .seller-bookings-section {
+.seller-account-workspace-shell :is(.seller-bookings-section, .seller-listings-container) {
   padding: var(--space-3);
   border: 1px solid var(--color-stroke-weak);
   border-radius: var(--radius-card);
@@ -110,3 +110,5 @@
 .account-activity-intro {
   padding-block: var(--space-4);
 }
+
+.seller-bookings-workspace { display: grid; gap: var(--space-2); }

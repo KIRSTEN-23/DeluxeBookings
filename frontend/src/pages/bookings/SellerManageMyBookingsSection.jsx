@@ -1,3 +1,5 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { CalendarDays, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { getSellerBookings } from "../../api/sellerApi";
@@ -25,25 +27,19 @@ function SellerManageMyBookingsSection() {
     }
   };
 
-  if (isLoading) {
-    return <p>Loading bookings...</p>;
-  }
-
-  if (errorMessage) {
-    return <p>{errorMessage}</p>;
-  }
-
   return (
-    <section className="seller-bookings-section">
-      <div className="seller-bookings-header">
-        <h2>Booking Management</h2>
-        <p>Review upcoming guest stays, revenue, and booking status.</p>
-      </div>
-
-      {bookings.length === 0 ? (
-        <p>No bookings found.</p>
-      ) : (
+    <section aria-labelledby="seller-bookings-heading" className="seller-bookings-workspace">
+      <h5 id="seller-bookings-heading">Guest bookings</h5>
+      <div className="seller-bookings-section">
+        {isLoading ? (
+          <ContentState busy heading="Checking upcoming stays" description="We’re loading the bookings associated with your properties." actionLabel="Loading bookings…" />
+        ) : errorMessage ? (
+          <ContentState error icon={TriangleAlert} heading="Bookings couldn’t load" description={errorMessage} actionLabel="Try again" onAction={loadBookings} />
+        ) : bookings.length === 0 ? (
+          <ContentState icon={CalendarDays} heading="Your next guests will appear here" description="When a guest books one of your properties, you’ll see their stay and booking details in this section." actionLabel="View your listings" href="#my-listings" />
+        ) : (
         <div className="seller-bookings-table-wrapper">
+          <h6>Upcoming and past stays</h6>
           <table className="seller-bookings-table">
             <thead>
               <tr>
@@ -88,7 +84,8 @@ function SellerManageMyBookingsSection() {
             </tbody>
           </table>
         </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }

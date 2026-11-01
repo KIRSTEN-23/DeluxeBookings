@@ -1,3 +1,6 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { House, TriangleAlert } from "lucide-react";
+import AppButton from "../../components/common/AppButton.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewForm from "../../components/public/ReviewForm";
@@ -42,19 +45,10 @@ export default function BuyerListingDetails() {
     return () => { active = false; };
   }, [id, attempt]);
 
-  if (isLoading) return <p>Loading listing...</p>;
+  if (isLoading) return <main className="container py-4"><ContentState busy framed heading="Opening this property" description="We’re loading the property details and photos." actionLabel="Loading property…" /></main>;
 
-  if (errorMessage) return <div className="container py-4"><p role="alert">{errorMessage}</p><button onClick={() => setAttempt((value) => value + 1)}>Retry</button> <a href="/browse">Browse stays</a></div>;
-
-  if (!listing) {
-    return (
-      <main className="listing-detail-page">
-        <div className="container">
-          <div className="alert alert-light border">Listing not found.</div>
-        </div>
-      </main>
-    );
-  }
+  if (errorMessage) return <main className="container py-4"><ContentState error framed icon={TriangleAlert} heading="This stay couldn’t open" description={errorMessage} actionLabel="Browse available stays" to="/product" /></main>;
+  if (!listing) return <main className="container py-4"><ContentState framed icon={House} heading="This property is unavailable" description="It may have been removed from the catalogue. Explore the stays currently available." actionLabel="Browse stays" to="/product" /></main>;
 
   return (
     <main className="listing-detail-page">
@@ -116,9 +110,9 @@ export default function BuyerListingDetails() {
 
               <hr />
 
-              <button className="btn btn-primary reserve-button w-100" onClick={() => window.location.href = `/checkout?listing=${listing._id}`}>
+              <AppButton intent="primary" appearance="fill" className="w-100" onClick={() => window.location.href = `/checkout?listing=${listing._id}`}>
                 Book Now
-              </button>
+              </AppButton>
             </section>
 
             <ListingHostInfo host={listing.host} />
