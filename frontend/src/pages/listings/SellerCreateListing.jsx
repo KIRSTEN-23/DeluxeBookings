@@ -69,7 +69,7 @@ const buildListingPayload = (formData, status = "in_review") => {
 
 export default function SellerCreateListing() {
   const navigate = useNavigate();
-  const savedDraft = getListingDraft();
+  const [savedDraft] = useState(getListingDraft);
 
   const [currentStep, setCurrentStep] = useState(savedDraft?.currentStep || 0);
   const [formData, setFormData] = useState({

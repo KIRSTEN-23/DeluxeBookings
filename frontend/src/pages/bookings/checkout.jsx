@@ -1,3 +1,5 @@
+import { addDays, format } from "date-fns";
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useEffect, useRef, useState } from "react";
 import api from "../../api/config";
@@ -47,12 +49,15 @@ function Checkout() {
       setMessage("Select an available stay and valid dates, with departure after arrival.");
       return;
     }
+    if (!Number.isInteger(guests) || guests < 1 || guests > listing.guestCapacity) {
+      setMessage(`Choose between 1 and ${listing.guestCapacity} guests.`); return;
+    }
     setMessage(""); // resets message
     setCheckoutPage(2); 
   };
 
-  // finalises the payment
-  const handlePaymentSubmit = async (e) => {
+  // Submit the booking request
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
     if (submitting.current) return;
     submitting.current = true;
@@ -68,22 +73,18 @@ function Checkout() {
         email,
         phone,
         addons,
-        arrivalDate,    
-        departureDate   
+        arrivalDate: format(arrivalDate, "yyyy-MM-dd"),
+        departureDate: format(departureDate, "yyyy-MM-dd")
       });
       
       if (res.data.success) {
         setBooking(res.data.booking);
         setMessage("");
-        setCheckoutPage(3); // Moves to success payment display
-      }
+        setCheckoutPage(3); // Show the persisted booking reference
+      } else { setMessage("The server could not confirm that your booking was saved. Please try again."); }
     } catch (err) {
       console.error(err);
-      if (err.response && err.response.data) {
-        setMessage(`Error: ${err.response.data.error}`);
-      } else {
-        setMessage("Error finalizing your booking. Please check your connection.");
-      }
+      setMessage(getErrorMessage(err, "Could not submit your booking. Your details are still here; please try again."));
     } finally {
       submitting.current = false;
       setIsSubmitting(false);
@@ -93,7 +94,7 @@ function Checkout() {
   return (
     <div className='checkoutbg'>
       {!listingId && <p role="alert">Choose a stay from <a href="/browse">Browse listings</a> before booking.</p>}
-      {listing && <div className="container py-3"><h2>{listing.title}</h2><p>R{listing.pricePerNight} per night. Add-ons are complimentary.</p><label>Guests <input type="number" min="1" max={listing.guestCapacity} value={guests} onChange={(e) => setGuests(Number(e.target.value))} /></label>{arrivalDate && departureDate > arrivalDate && <p>Stay total: R{Math.ceil((departureDate - arrivalDate) / 86400000) * listing.pricePerNight}</p>}</div>}
+      {listing && <div className="container py-3"><h2>{listing.title}</h2><p>R{listing.pricePerNight} per night. Add-ons are requests for the host to confirm.</p><label>Guests <input disabled={checkoutPage !== 1} type="number" min="1" max={listing.guestCapacity} value={guests} onChange={(e) => setGuests(Number(e.target.value))} /></label>{arrivalDate && departureDate > arrivalDate && <p>Stay total: R{Math.ceil((departureDate - arrivalDate) / 86400000) * listing.pricePerNight}</p>}</div>}
       <div className='row'>
 
         {/* Personal details form */}
@@ -161,7 +162,7 @@ function Checkout() {
                   <DatesPicker selectedDate={arrivalDate} setSelectedDate={setArrivalDate} />
 
                   <h6 className='checkoutHeading'>Select departure day:</h6>
-                  <DatesPicker selectedDate={departureDate} setSelectedDate={setDepartureDate} />
+                  <DatesPicker selectedDate={departureDate} setSelectedDate={setDepartureDate} minDate={arrivalDate ? addDays(arrivalDate, 1) : undefined} />
 
                   <div className="col-lg">
                     <p className='checkoutSubHeading'>Select from our addons:</p>
@@ -209,7 +210,7 @@ function Checkout() {
           </div>
         )}
 
-        {/* Payment form */}
+        {/* Booking review */}
         {checkoutPage === 2 && (
           <div className="CheckoutBack col-6">
             <div className="CheckoutBox">
@@ -218,7 +219,7 @@ function Checkout() {
 
               <h3 className='checkoutHeading'>Review your booking:</h3>
 
-              <form onSubmit={handlePaymentSubmit}>
+              <form onSubmit={handleBookingSubmit}>
                 <p>{firstName} {lastName} · {email}</p>
                 <p>{listing?.title} · {guests} guest(s)</p>
                 <p>{arrivalDate && new Date(arrivalDate).toLocaleDateString()} – {departureDate && new Date(departureDate).toLocaleDateString()}</p>
@@ -243,7 +244,7 @@ function Checkout() {
           </div>
         )}
 
-        {/* Payment successful */}
+        {/* Booking saved */}
         {checkoutPage === 3 && (
           <div className="CheckoutBack col">
             <div className="CheckoutBox" style={{ textAlign: 'center', padding: '40px 20px' }}>
