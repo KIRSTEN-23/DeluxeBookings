@@ -4,6 +4,7 @@ export default function AdminListingCard({
   onView,
   onApprove,
   onReject,
+  pending,
 }) {
   return (
     <div className={`admin-queue-row ${isActive ? "is-active" : ""}`}>
@@ -37,11 +38,11 @@ export default function AdminListingCard({
           View
         </button>
 
-        <button type="button" onClick={() => onApprove(listing._id)}>
+        <button type="button" disabled={pending} onClick={() => onApprove(listing._id)}>
           Approve
         </button>
 
-        <button type="button" onClick={() => onReject(listing._id)}>
+        <button type="button" disabled={pending} onClick={() => onReject(listing._id)}>
           Reject
         </button>
       </div>

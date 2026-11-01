@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import AdminListingCard from "../../components/listings/AdminListingCard";
 import SellerAdminListingDetails from "./SellerAdminListingDetails";
 
@@ -14,6 +15,9 @@ export default function AdminListingQueueSection() {
   const [selectedListing, setSelectedListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [pendingId, setPendingId] = useState(null);
+  const actionPending = useRef(false);
 
   useEffect(() => {
     loadQueue();
@@ -34,15 +38,25 @@ export default function AdminListingQueueSection() {
     }
   };
 
-  const handleApprove = async (id) => {
-    await approveListing(id, "Approved by admin.");
-    await loadQueue();
+  const decide = async (id, approve, notes) => {
+    if (actionPending.current) return;
+    actionPending.current = true;
+    setPendingId(id);
+    setErrorMessage("");
+    setSuccessMessage("");
+    try {
+      await (approve ? approveListing : rejectListing)(id, notes);
+      await loadQueue();
+      setSuccessMessage(approve ? "Listing approved. The seller can now publish it." : "Listing rejected. Feedback is available to the seller.");
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error, "Could not save your decision. Please try again."));
+    } finally {
+      actionPending.current = false;
+      setPendingId(null);
+    }
   };
-
-  const handleReject = async (id) => {
-    await rejectListing(id, "Rejected by admin.");
-    await loadQueue();
-  };
+  const handleApprove = (id) => decide(id, true, "Approved by admin.");
+  const handleReject = (id) => decide(id, false, "Rejected by admin.");
 
   return (
     <section className="admin-queue-section">
@@ -53,9 +67,10 @@ export default function AdminListingQueueSection() {
 
       {isLoading && <p>Loading review queue...</p>}
 
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p role="alert">{errorMessage} <button disabled={Boolean(pendingId)} onClick={loadQueue}>Reload queue</button></p>}
+      {successMessage && <p role="status">{successMessage}</p>}
 
-      {!isLoading && listings.length === 0 && (
+      {!isLoading && !errorMessage && listings.length === 0 && (
         <p>No listings are currently waiting for review.</p>
       )}
 
@@ -68,6 +83,7 @@ export default function AdminListingQueueSection() {
                 listing={listing}
                 isActive={selectedListing?._id === listing._id}
                 onView={setSelectedListing}
+                pending={Boolean(pendingId)}
                 onApprove={handleApprove}
                 onReject={handleReject}
               />
