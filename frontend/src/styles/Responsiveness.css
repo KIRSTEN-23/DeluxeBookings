@@ -62,9 +62,26 @@ img { max-width: 100%; }
 .Navbar .navButton { width: auto; min-width: 110px; min-height: 44px; margin: 0; }
 
 /* Browse: full-width search, then a wrapping sidebar/results pair. */
-.browse-page { width: min(100%, var(--content-width)); margin-inline: auto; padding: 24px var(--page-gutter) 48px; }
-.browse-page > h1 { margin-bottom: var(--layout-gap); }
-.browse-layout { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--layout-gap); }
+/* Overlap the browse page with its sticky navigation, so the hero reaches
+   the top edge. The measured nav height also accommodates its expanded menu. */
+.app-shell:has(.browse-page) { display: grid; grid-template-columns: minmax(0, 1fr); }
+.app-shell:has(.browse-page) > .Navbar { grid-area: 1 / 1; align-self: start; }
+.app-shell > .browse-page { grid-area: 1 / 1; }
+.browse-page { width: 100%; margin: 0; padding: 0; }
+.browse-hero {
+  padding-block: calc(var(--site-nav-height, 88px) + clamp(40px, 5vw, 80px)) clamp(32px, 4vw, 64px);
+  background:
+    linear-gradient(rgba(51, 42, 35, 0.56), rgba(51, 42, 35, 0.62)),
+    url("../Assets/images/pexels-ben-mack-6775268.jpg") center / cover no-repeat;
+  color: #fff;
+}
+.browse-hero-inner { display: grid; justify-items: center; width: min(100%, var(--content-width)); margin-inline: auto; padding-inline: var(--page-gutter); }
+.browse-hero h1 { margin-bottom: 24px; color: #fff; font-size: clamp(25px, 2.2vw, 31px); text-align: center; }
+.browse-hero .searchBarMain { width: min(100%, 960px) !important; margin: 0; background: var(--color-brand); padding: clamp(16px, 2vw, 24px) !important; }
+.browse-hero .searchHeading { color: #fff; text-align: center; }
+.browse-hero .stay-search-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); width: 100%; }
+.browse-hero .stay-search-form .searchElements { width: 100% !important; }
+.browse-layout { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--layout-gap); width: min(100%, var(--content-width)); margin-inline: auto; padding: 32px var(--page-gutter) 48px; }
 .browse-filters { flex: 1 1 100%; min-width: 0; }
 .browse-layout:has(.browse-filter-content.is-open) .browse-filters { flex-basis: 250px; }
 .browse-filter-toggle { width: 100%; min-height: 44px; }
@@ -335,7 +352,7 @@ img { max-width: 100%; }
 
 @media (min-width: 1920px) {
   :root { --content-width: 1760px; }
-  .browse-page { padding-block: 40px 64px; }
+  .browse-page .browse-layout { padding-block: 40px 64px; }
 }
 
 /* Section and page states keep the same reading order at every width. */

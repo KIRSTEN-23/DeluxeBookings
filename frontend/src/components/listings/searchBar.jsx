@@ -1,6 +1,6 @@
+import AppButton from "../common/AppButton.jsx";
 import Form from 'react-bootstrap/Form';
 import { Search } from 'lucide-react';
-import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { propertyTypeOptions } from "./ListingForm";
 import { propertyTypeValue } from "../../utils/listingValidation";
@@ -84,9 +84,9 @@ function SearchBar({ onSearch, isSearching }) {
                 <option value="Gqeberha">Port Elizabeth (Gqeberha)</option>
             </Form.Select>
 
-            <Button disabled={isSearching} type="submit" variant="light" className="primaryButton stay-search-submit">
-              {isSearching ? "Searching…" : "Search"} <Search/>
-            </Button>
+            <AppButton intent="primary" appearance="fill" onDark disabled={isSearching} type="submit" className="stay-search-submit">
+              {isSearching ? "Applying…" : "Apply"} <Search/>
+            </AppButton>
 
       </Form>
     </section>
