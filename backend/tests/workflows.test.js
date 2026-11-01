@@ -11,10 +11,10 @@ const { registerUser } = require('../features/auth/authController');
 const { updateUserProfile } = require('../features/users/userController');
 const response = () => ({ code: 200, status(code) { this.code = code; return this; }, json(body) { this.body = body; return this; }, send(body) { this.body = body; return this; } });
 
-test('booking model exports a model accepting the persisted booking fields', () => {
+test('booking model exports a model accepting the persisted booking fields', async () => {
   assert.equal(typeof Booking.create, 'function');
   const booking = new Booking({ listing: new mongoose.Types.ObjectId(), firstName: 'Test', lastName: 'Guest', email: 'test@example.com', phone: '123', destination: 'Cape Town', suite: 'Stay', guests: 2, checkIn: '2030-01-01', checkOut: '2030-01-02' });
-  assert.equal(booking.validateSync(), undefined);
+  await booking.validate();
 });
 
 test('booking uses selected published listing and server price', async (t) => {
@@ -33,7 +33,7 @@ test('booking uses selected published listing and server price', async (t) => {
 
 test('invalid booking dates are rejected before database work', async () => {
   const res = response();
-  await createBooking({ body: { firstName: 'Test', lastName: 'Guest', email: 'a', phone: '1', arrivalDate: 'bad', departureDate: 'bad' } }, res);
+  await createBooking({ body: { firstName: 'Test', lastName: 'Guest', email: 't@example.com', phone: '1', arrivalDate: 'bad', departureDate: 'bad' } }, res);
   assert.equal(res.code, 400);
 });
 
@@ -83,4 +83,94 @@ test('seller and admin middleware reject inappropriate roles', () => {
     middleware({ user: { userRole: 'B' } }, res, () => assert.fail('must not authorize buyer'));
     assert.equal(res.code, 403);
   }
+});
+
+test('search excludes unpublished listings and combines guest, location and bedroom filters', async (t) => {
+  const search = require('../features/listings/searchListingController').searchListings;
+  t.mock.method(Listing, 'find', (filter) => {
+    assert.equal(filter.status, 'published');
+    assert.equal(filter.isPaused, false);
+    assert.equal(filter.propertyType, 'apartment');
+    assert.equal(filter['location.city'], 'Cape Town');
+    assert.deepEqual(filter.guestCapacity, { $gte: 5 });
+    assert.deepEqual(filter.$or, [{ bedrooms: 2 }, { bedrooms: { $gte: 4 } }]);
+    assert.deepEqual(filter.amenities, { $all: ['WiFi', 'Pool'] });
+    return { sort: async () => [] };
+  });
+  const res = response();
+  await search({ query: { guestCapacity: '5', propertyType: 'apartment', city: 'Cape Town', bedrooms: '2,4', amenities: 'WiFi,Pool' } }, res);
+  assert.deepEqual(res.body, []);
+});
+
+test('search rejects invalid query values rather than querying the database', async (t) => {
+  t.mock.method(Listing, 'find', () => assert.fail('must not query with invalid input'));
+  const search = require('../features/listings/searchListingController').searchListings;
+  for (const query of [{ guestCapacity: '-1' }, { propertyType: { $ne: 'hotel' } }, { bedrooms: '4,bad' }, { city: { $ne: '' } }]) {
+    const res = response();
+    await search({ query }, res);
+    assert.equal(res.code, 400);
+  }
+});
+
+test('rejection requires actionable notes', async (t) => {
+  t.mock.method(Listing, 'findOneAndUpdate', () => assert.fail('must not reject without notes'));
+  const res = response();
+  await admin.rejectListing({ body: { notes: '   ' } }, res);
+  assert.equal(res.code, 400);
+});
+
+test('only the owner of a rejected listing can resubmit it', async (t) => {
+  t.mock.method(Listing, 'findOneAndUpdate', async (filter, update) => {
+    assert.deepEqual(filter, { _id: 'listing', seller: 'seller', status: 'rejected' });
+    assert.equal(update.$set.status, 'in_review');
+    return null;
+  });
+  const res = response();
+  await seller.resubmitSellerListing({ user: { id: 'seller' }, params: { id: 'listing' } }, res);
+  assert.equal(res.code, 409);
+});
+
+test('token verification uses current database roles and rejects deleted accounts', async (t) => {
+  const jwt = require('jsonwebtoken');
+  const verify = require('../middleware/verifyToken');
+  const previousSecret = process.env.JWT_SECRET;
+  process.env.JWT_SECRET = 'workflow-test-secret';
+  t.after(() => { if (previousSecret === undefined) delete process.env.JWT_SECRET; else process.env.JWT_SECRET = previousSecret; });
+  const id = new mongoose.Types.ObjectId();
+  const token = jwt.sign({ id: id.toString(), userRole: 'A' }, process.env.JWT_SECRET);
+  t.mock.method(User, 'findById', () => ({ select: async () => ({ _id: id, userRole: 'B' }) }));
+  const req = { headers: { authorization: `Bearer ${token}` } };
+  let nextCalled = false;
+  await verify(req, response(), () => { nextCalled = true; });
+  assert.equal(nextCalled, true);
+  assert.equal(req.user.userRole, 'B');
+  User.findById.mock.mockImplementation(() => ({ select: async () => null }));
+  const res = response();
+  await verify(req, res, () => assert.fail('deleted account must not authenticate'));
+  assert.equal(res.code, 401);
+});
+
+test('missing and invalid tokens are rejected without database access', async (t) => {
+  const verify = require('../middleware/verifyToken');
+  t.mock.method(User, 'findById', () => assert.fail('must not query for invalid token'));
+  for (const headers of [{}, { authorization: 'Bearer invalid' }]) {
+    const res = response();
+    await verify({ headers }, res, () => assert.fail('must not authenticate'));
+    assert.equal(res.code, 401);
+  }
+});
+
+test('seller booking results are scoped to owned listings', async (t) => {
+  const id = new mongoose.Types.ObjectId();
+  t.mock.method(Listing, 'find', (filter) => {
+    assert.deepEqual(filter, { seller: 'seller' });
+    return { select: async () => [{ _id: id }] };
+  });
+  t.mock.method(Booking, 'find', (filter) => {
+    assert.deepEqual(filter, { listing: { $in: [id] } });
+    return { sort: async () => [] };
+  });
+  const res = response();
+  await require('../features/bookings/sellerBookingController').getSellerBookings({ user: { id: 'seller' } }, res);
+  assert.deepEqual(res.body, []);
 });
