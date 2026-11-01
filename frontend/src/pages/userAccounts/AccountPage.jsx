@@ -1,46 +1,39 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { Compass } from "lucide-react";
 import { useAuth } from "../../context/authContext";
-
-// import AccountRoleTabs from "../../components/common/AccountRoleTabs.jsx";
-
-import BuyerSavedListingsSection from "../../pages/listings/BuyerSavedListingsSection.jsx";
-import SellerAccountWorkspace from "../../pages/userAccounts/SellerAccountWorkspace.jsx";
-import AdminListingQueueSection from "../../pages/listings/AdminListingQueueSection.jsx";
-
+import AccountProfile from "../listings/BuyerSavedListingsSection.jsx";
+import SellerAccountWorkspace from "./SellerAccountWorkspace.jsx";
+import AdminListingQueueSection from "../listings/AdminListingQueueSection.jsx";
 import "../../styles/AccountPage.css";
 
-export default function AccountPage({ workspace }) {
+export default function AccountPage({ view = "profile" }) {
   const { user, isSeller, isAdmin } = useAuth();
-  const activeRole = workspace || (isAdmin ? "admin" : isSeller ? "seller" : "buyer");
+  const isActivity = view === "activity";
+  const intro = isActivity
+    ? isAdmin ? "Review submitted property listings." : isSeller ? "Manage your property listings and bookings." : "Find your next stay."
+    : "View and update your account details.";
 
   return (
     <main className="account-page">
       <header className="account-page__hero">
         <div className="account-page__hero-content">
-          <p className="account-page__eyebrow">Deluxe workspace</p>
-          <h1 className="account-page__title">Account</h1>
-          <p className="account-page__intro">
-            Manage your listings, bookings, saved stays, and review workflows.
-          </p>
-            <BuyerSavedListingsSection/>
-          {/* <AccountRoleTabs
-            activeRole={activeRole}
-            onRoleChange={setActiveRole}
-          /> */}
-
+          <p className="account-page__eyebrow">Your account</p>
+          <h1 className="account-page__title">{isActivity ? "My Activity" : "My Profile"}</h1>
+          <p className="account-page__intro">{intro}</p>
         </div>
       </header>
 
-      {user && <div className="account-workspace">
-        {activeRole === "seller" && (
-          <SellerAccountWorkspace />
-        )}
-
-        {activeRole === "admin" && (
-          <>
-            <AdminListingQueueSection />
-          </>
-        )}
-      </div>}
+      {isActivity ? (
+        user && <div className="account-workspace">
+          {isAdmin ? <AdminListingQueueSection /> : isSeller ? <SellerAccountWorkspace /> : (
+            <section className="account-activity-intro">
+              <ContentState framed icon={Compass} heading="Find your next escape" description="Explore properties and discover a stay for your next trip." actionLabel="Browse stays" to="/product" />
+            </section>
+          )}
+        </div>
+      ) : (
+        <div className="account-profile"><AccountProfile /></div>
+      )}
     </main>
   );
 }

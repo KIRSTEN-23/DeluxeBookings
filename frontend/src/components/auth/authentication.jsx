@@ -1,3 +1,4 @@
+import AppButton from "../common/AppButton.jsx";
 import { useRef, useState } from "react";
 import api from "../../api/config";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
@@ -6,7 +7,6 @@ import { useAuth } from "../../context/authContext"; // 2. Imported useAuth glob
 
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -155,7 +155,7 @@ const login = async () => {
         if (user?.userRole === 'A') {
           navigate("/admin"); 
         } else if (user?.userRole === 'S') {
-          navigate("/seller/account"); 
+          navigate("/account/activity");
         } else {
           navigate("/"); 
         }
@@ -302,7 +302,7 @@ const login = async () => {
 
             <h5 className="LogInText">{messagePass13}</h5>
 
-            <Button variant="light" className="primaryButton" disabled={isSubmitting} onClick={register}>{isSubmitting ? "Creating account…" : "Sign Up"} <ArrowRight className="iconStyle"/></Button>
+            <AppButton intent="primary" appearance="fill" disabled={isSubmitting} onClick={register}>{isSubmitting ? "Creating account…" : "Sign Up"} <ArrowRight className="iconStyle"/></AppButton>
 
             <br /><br />
 
@@ -429,7 +429,7 @@ const login = async () => {
 
             <h5 className="LogInText">{messagePass3}</h5>
 
-            <Button variant="light" className="primaryButton" disabled={isSubmitting} onClick={login}>{isSubmitting ? "Signing in…" : "Log In"} <ArrowRight className="iconStyle"/></Button>
+            <AppButton intent="primary" appearance="fill" disabled={isSubmitting} onClick={login}>{isSubmitting ? "Signing in…" : "Log In"} <ArrowRight className="iconStyle"/></AppButton>
 
             <br /><br />
 

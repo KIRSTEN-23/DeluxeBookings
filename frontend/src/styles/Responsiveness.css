@@ -42,6 +42,23 @@ img { max-width: 100%; }
 .Navbar .navItemsSpacing { width: auto; min-width: 0; margin: 0; padding: 0; }
 .Navbar .pagelinks { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; }
 .Navbar .pagelinks h5 { font-size: clamp(18px, 1.75vw, 25px); }
+.Navbar .account-nav > .dropdown-toggle {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; color: white;
+}
+.Navbar .account-nav > .dropdown-toggle::after { display: none; }
+.Navbar .account-nav__label {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0;
+  color: white; font-size: clamp(18px, 1.75vw, 25px); font-weight: 400;
+}
+.Navbar .account-nav .dropdown-menu {
+  min-width: min(12rem, calc(100vw - 32px)); max-width: calc(100vw - 32px);
+  --bs-dropdown-bg: var(--color-brand);
+  --bs-dropdown-link-color: var(--color-fill);
+  --bs-dropdown-link-hover-color: var(--color-fill);
+  --bs-dropdown-link-hover-bg: var(--color-text-strong);
+  --bs-dropdown-link-active-bg: var(--color-text-strong);
+}
+.Navbar .account-nav .dropdown-item { min-height: 44px; display: flex; align-items: center; white-space: normal; }
 .Navbar .navButton { width: auto; min-width: 110px; min-height: 44px; margin: 0; }
 
 /* Browse: full-width search, then a wrapping sidebar/results pair. */
@@ -119,7 +136,8 @@ img { max-width: 100%; }
 .listing-detail-pane .listing-detail-content-grid { display: flex; }
 
 /* Account, review queue and booking table keep scrolling local to the table. */
-.account-page__hero-content, .seller-account-workspace-shell { padding-inline: var(--page-gutter); }
+.account-page__hero-content, .seller-account-workspace-shell, .account-activity-intro { padding-inline: var(--page-gutter); }
+.account-activity-intro { width: min(100%, 1320px); margin-inline: auto; }
 .account-workspace, .seller-account-workspace-shell, .my-listings-primary, .my-listings-list { min-width: 0; }
 .Accountpage { width: min(100%, 960px); padding: clamp(16px, 3vw, 32px); margin: 24px auto; }
 .Accountbox, .Accountbox > div { width: 100%; min-width: 0; }
@@ -128,6 +146,14 @@ img { max-width: 100%; }
 .Accountbox .custom-toggle-group { display: flex; flex-wrap: wrap; }
 .Accountbox .custom-toggle-group .btn { flex: 1 1 160px; min-width: 0; }
 .Accountbox .row > .btn { flex: 1 1 200px; width: auto; }
+.account-profile { padding-inline: var(--page-gutter); }
+.profile-content, .profile-form, .profile-details { display: grid; gap: 24px; }
+.profile-content > h3 { font-size: var(--fs-h3); }
+.profile-content p { margin: 0; overflow-wrap: anywhere; }
+.profile-form label { display: block; margin-bottom: 8px; }
+.profile-form input { min-height: 44px; max-width: 100%; }
+.profile-form .custom-toggle-group { margin: 8px auto 0; }
+.profile-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 12px; }
 .my-listings-toolbar { margin-inline: 0; gap: 12px; }
 .my-listings-filter-column, .my-listings-action-column { width: auto; min-width: 0; padding: 0; flex: 1 1 220px; }
 .my-listings-action-column { justify-content: flex-start; }
@@ -301,6 +327,7 @@ img { max-width: 100%; }
   .Navbar .navbar-toggler { display: none; }
   .Navbar .navbar-collapse { display: flex !important; flex: 1 1 0; }
   .Navbar .site-nav-links { flex: 1; flex-direction: row; align-items: center; justify-content: space-evenly; gap: 24px; }
+  .Navbar .account-nav .dropdown-menu { position: absolute; top: 100%; right: 0; left: auto; }
   .listing-card-sidebar { align-items: flex-end; }
   .listing-card-sidebar .listing-price { align-items: flex-end; text-align: right; }
   .my-listings-layout.has-detail-pane .seller-listing-detail-pane { width: min(760px, 48vw); }

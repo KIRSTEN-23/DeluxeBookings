@@ -7,7 +7,7 @@
 .account-page__hero {
   position: relative;
   display: flex;
-  min-height: 220px;
+  min-height: 144px;
   align-items: flex-end;
   overflow: hidden;
   background:
@@ -25,7 +25,7 @@
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-  padding: var(--space-4) var(--space-4) var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-2);
 }
 
 .account-page__eyebrow {
@@ -46,7 +46,7 @@
 
 .account-page__intro {
   max-width: 620px;
-  margin: var(--space-1) 0 var(--space-2);
+  margin: var(--space-1) 0 0;
   color: rgba(255, 255, 255, 0.82);
   font-size: var(--fs-base);
 }
@@ -94,4 +94,19 @@
   border-radius: var(--radius-card);
   background: var(--color-fill);
   box-shadow: 0 12px 30px rgba(51, 42, 35, 0.12);
+}
+
+.account-profile .Accountbox {
+  background-image: none;
+}
+
+.account-profile .Accountpage {
+  background: var(--color-fill);
+  filter: none;
+  border: 1px solid var(--color-stroke-weak);
+  box-shadow: var(--shadow-raised);
+}
+
+.account-activity-intro {
+  padding-block: var(--space-4);
 }

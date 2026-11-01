@@ -1,3 +1,4 @@
+import AppButton from "../../components/common/AppButton.jsx";
 import { validateListing, propertyTypeValue } from "../../utils/listingValidation";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { useRef, useState } from "react";
@@ -92,7 +93,7 @@ export default function SellerCreateListing() {
   const handleSaveDraft = () => {
     try {
       saveListingDraft({ formData, currentStep });
-      navigate("/seller/account", { state: { message: "Draft saved on this device. Use Resume draft to continue." } });
+      navigate("/account/activity", { state: { message: "Draft saved on this device. Use Resume draft to continue." } });
     } catch {
       setErrorMessage("Could not save the draft on this device. Browser storage may be full. Your details are still in this form.");
     }
@@ -109,7 +110,7 @@ export default function SellerCreateListing() {
       const payload = buildListingPayload(formData, "in_review");
       await createSellerListing(payload);
       try { clearListingDraft(); } catch { /* Submission succeeded even if browser storage cannot be cleared. */ }
-      navigate("/seller/account", { state: { message: "Listing submitted for review. You can check its status here." } });
+      navigate("/account/activity", { state: { message: "Listing submitted for review. You can check its status here." } });
     } catch (error) {
       console.error(error);
       setErrorMessage(getErrorMessage(error, "Could not submit listing. Your details are still here; please try again."));
@@ -164,41 +165,25 @@ export default function SellerCreateListing() {
           />
 
           <div className="form-actions">
-            <Button
-              type="button"
-              className="secondary-button"
-              onClick={handleSaveDraft}
-            >
+            <AppButton intent="secondary" appearance="fill" type="button" onClick={handleSaveDraft}>
               Save draft
-            </Button>
+            </AppButton>
 
             <div className="action-group">
               {currentStep > 0 && (
-                <Button
-                  type="button"
-                  className="back-button"
-                  onClick={goBack}
-                >
+                <AppButton intent="secondary" appearance="outline" type="button" onClick={goBack}>
                   Back
-                </Button>
+                </AppButton>
               )}
 
               {currentStep < totalSteps - 1 ? (
-                <Button
-                  type="button"
-                  className="continue-button"
-                  onClick={goNext}
-                >
+                <AppButton intent="primary" appearance="fill" type="button" onClick={goNext}>
                   Continue
-                </Button>
+                </AppButton>
               ) : (
-                <Button
-                  type="button"
-                  className="publish-button"
-                  onClick={handleSubmit}
-                >
+                <AppButton intent="primary" appearance="fill" type="button" onClick={handleSubmit}>
                   {isSubmitting ? "Submitting…" : "Submit for review"}
-                </Button>
+                </AppButton>
               )}
             </div>
           </div>

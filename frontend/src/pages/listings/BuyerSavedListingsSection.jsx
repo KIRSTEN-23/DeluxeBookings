@@ -1,13 +1,13 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { UserRound } from "lucide-react";
+import AppButton from "../../components/common/AppButton.jsx";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from "../../api/config";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import Footer from '../../components/common/footer';
 import { useAuth } from '../../context/authContext';
-import { ArrowRight } from 'lucide-react';
-import Button from 'react-bootstrap/Button';
 import { Trash2 } from 'lucide-react';
 import { LogOut } from 'lucide-react';
 import { Pencil } from 'lucide-react';
@@ -24,7 +24,6 @@ function BuyerSavedListingsSection() {
   const [userRole, setUserRole] = useState('B'); 
   const [updateMessage, setUpdateMessage] = useState('');
   const [pending, setPending] = useState(false);
-  const [syncAttempt, setSyncAttempt] = useState(0);
   const actionPending = useRef(false);
 
   useEffect(() => {
@@ -39,14 +38,14 @@ function BuyerSavedListingsSection() {
         setEmail(res.data.email || '');
         setUserRole(res.data.userRole || 'B');
       } catch (err) {
-        setUpdateMessage("Could not refresh your profile. Displaying your last saved details.");
+        setUpdateMessage("Could not load your latest profile. Displaying your last saved details.");
       }
     };
 
     if (token && user) {
       syncProfile();
     }
-  }, [token, syncAttempt]);
+  }, [token]);
 
   // Set default form values
   useEffect(() => {
@@ -108,135 +107,58 @@ function BuyerSavedListingsSection() {
     }
   };
 
-  if (!user) {
-    return (
-      <section>
-      <div className='Accountpage'>
-        <div className='Accountbox'>
-          <div>
-            <h3 className="LogInText">You are not logged in</h3>
-            <p className="LogInText">Please log in to view your account details.</p>
-
-            <Button variant="light" className="primaryButton" onClick={() => navigate("/login")}>Go to Login <ArrowRight className="iconStyle"/></Button>
-
-          </div>
-        </div>
-      </div>
-      <Footer></Footer>
-      </section>
-    );
-  }
+  if (!user) return <ContentState framed icon={UserRound} heading="Your profile is waiting" description="Sign in to view and update your account details." actionLabel="Sign in" to="/login" />;
 
   return (
     <section>
-    <div className='Accountpage'>
-      <div className='Accountbox'>
-        <div>
-          <h1 className="LogInText">Account Details:</h1>
-          
-          {/* Show edit form or standard user info */}
-          {isEditing ? (
-            <form onSubmit={handleUpdateProfile} className="LogInText">
-              <div>
-                <label><strong>Username:</strong></label>
-                <br></br>
-                <input 
-                  type="text" 
-                  value={name} 
-                  onChange={(e) => setName(e.target.value)} 
-                  required 
-                />
-              </div>
-              <br />
-              <div>
-                <label><strong>Email:</strong></label>
-                <br></br>
-                <input 
-                  type="email" 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                />
-              </div>
-              <br />
-              
-              {/* Only allow user to change role if they aren't an admin */}
-              {!isAdmin && (
+      <div className="Accountpage">
+        <div className="Accountbox">
+          <div className="profile-content">
+            <h3 className="LogInText">Account Details</h3>
+
+            {isEditing ? (
+              <form onSubmit={handleUpdateProfile} className="LogInText profile-form">
                 <div>
-                  <label><strong>Account Type:</strong></label>
-                  <br />
-                  <br />
-                  <ToggleButtonGroup 
-                    type="radio" 
-                    name="editOptions" 
-                    value={userRole === 'S' ? 2 : 1} 
-                    className="custom-toggle-group"
-                  >
-                    <ToggleButton id="edit-tbg-radio-1" value={1} onClick={() => setUserRole("B")} className="ToggleButton">
-                      I am a customer
-                    </ToggleButton>
-                    <ToggleButton id="edit-tbg-radio-2" value={2} onClick={() => setUserRole("S")} className="ToggleButton">
-                      I am a seller
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                  <br /><br />
+                  <label htmlFor="profile-name"><strong>Username:</strong></label>
+                  <input id="profile-name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
-              )}
+                <div>
+                  <label htmlFor="profile-email"><strong>Email:</strong></label>
+                  <input id="profile-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                {!isAdmin && (
+                  <div>
+                    <p><strong>Account Type:</strong></p>
+                    <ToggleButtonGroup type="radio" name="editOptions" value={userRole === 'S' ? 2 : 1} className="custom-toggle-group">
+                      <ToggleButton id="edit-tbg-radio-1" value={1} onClick={() => setUserRole("B")} className="ToggleButton">I am a customer</ToggleButton>
+                      <ToggleButton id="edit-tbg-radio-2" value={2} onClick={() => setUserRole("S")} className="ToggleButton">I am a seller</ToggleButton>
+                    </ToggleButtonGroup>
+                  </div>
+                )}
+                <div className="profile-actions">
+                  <AppButton intent="primary" appearance="fill" disabled={pending} type="submit">Save Changes <Save /></AppButton>
+                  <AppButton intent="secondary" appearance="outline" type="button" disabled={pending} onClick={() => setIsEditing(false)}>Cancel</AppButton>
+                </div>
+              </form>
+            ) : (
+              <div className="LogInText profile-details">
+                <p><strong>Username:</strong> {user.name}</p>
+                <p><strong>Email:</strong> {user.email || "No email stored"}</p>
+                <p><strong>Account Type:</strong> {isAdmin ? "Admin" : isSeller ? "Seller" : "Customer"}</p>
+              </div>
+            )}
 
-              <Button disabled={pending} type="submit" variant="light" className="heroButton" style={{ marginRight: "2%"}}>Save Changes<Save style={{ marginLeft: "2%"}}/></Button>
-              <Button type="button" className="primaryButton buttontext" disabled={pending} onClick={() => setIsEditing(false)}>Cancel</Button>
-            </form>
-          ) : (
-            <div className="LogInText">
-              <p><strong>Username:</strong> {user.name}</p>
-              <p><strong>Email:</strong> {user.email || "No email stored"}</p>
-              <p>
-                <strong>Account Type:</strong> {isAdmin ? "Admin" : isSeller ? "Seller" : "Customer"}
-              </p>
+            {pending && <p role="status">Saving account change…</p>}
+            {updateMessage && <p role="status" className="LogInText">{updateMessage}</p>}
 
-              <Button variant="light" className="heroButton" disabled={pending} onClick={() => setIsEditing(true)}>Edit profile <Pencil/></Button>
+            <div className="profile-actions">
+              {!isEditing && <AppButton intent="primary" appearance="fill" disabled={pending} onClick={() => setIsEditing(true)}>Edit profile <Pencil /></AppButton>}
+              <AppButton intent="secondary" appearance="outline" disabled={pending} onClick={handleLogout}>Log Out <LogOut /></AppButton>
+              <AppButton intent="danger" appearance="fill" disabled={pending} onClick={handleDeleteAccount}>Delete Account <Trash2 /></AppButton>
             </div>
-          )}
-
-          {pending && <p role="status">Saving account change…</p>}
-          {updateMessage && <p role="status" className="LogInText">{updateMessage}</p>}
-          <Button disabled={pending} variant="light" onClick={() => { setUpdateMessage(""); setSyncAttempt((n) => n + 1); }}>Refresh profile</Button>
-
-          <br />
-
-          <div className='row'>
-            {(isSeller || isAdmin) && (
-              <h3 className="LogInText" >Go to:</h3>
-            )}
-            
-            {isAdmin && (
-              <Button 
-                className="primaryButton buttontext MarginBtn" 
-                onClick={() => navigate("/admin")}
-              >
-                Admin Dashboard
-              </Button>
-            )}
-            
-            {(isSeller || isAdmin) && (
-              <Button 
-                className="primaryButton buttontext" 
-                onClick={() => navigate("/seller/account")}
-              >
-                Seller Dashboard
-              </Button>
-            )}
           </div>
-
-          <br />
-
-          <Button variant="light" className="primaryButton" onClick={handleLogout} style={{ marginRight: "2%"}}>Log Out <LogOut/></Button>
-
-          <Button variant="light" className="primaryButton deleteButton" disabled={pending} onClick={handleDeleteAccount}>Delete Account <Trash2/></Button>
-
         </div>
       </div>
-      
-    </div>
     </section>
   );
 }
