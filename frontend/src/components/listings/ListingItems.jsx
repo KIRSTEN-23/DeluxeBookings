@@ -14,6 +14,8 @@ import {
 
 import "../../styles/ListingItems.css";
 
+const badgeLabel = (value) => String(value ?? "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
+
 export function ListingGallery({ images = [], title }) {
   if (!images.length) return null;
 
@@ -57,7 +59,7 @@ export function ListingTags({ tags = [] }) {
     <div className="listing-tags">
       {tags.map((tag) => (
         <span key={tag} className="listing-tag">
-          {tag}
+          {badgeLabel(tag)}
         </span>
       ))}
     </div>
@@ -90,7 +92,7 @@ export function ListingPrice({ price, oldPrice }) {
 
 export function ListingStatus({ status }) {
   const labels = { draft: "Draft", in_review: "Awaiting review", unpublished: "Approved · Not published", published: "Published", rejected: "Changes requested" };
-  return <span className={`listing-status ${status}`}>{labels[status] || status}</span>;
+  return <span className={`listing-status ${String(status || "").replace(/_/g, "-")}`}>{labels[status] || badgeLabel(status)}</span>;
 }
 
 export function ListingLocation({ location }) {
@@ -169,7 +171,7 @@ export function ListingHostInfo({
 export function ListingPropertyType({ propertyType }) {
   if (!propertyType) return null;
 
-  return <span className="listing-property-type">{propertyType}</span>;
+  return <span className="listing-property-type">{badgeLabel(propertyType)}</span>;
 }
 
 export function ListingFacts({ guests, bedrooms, bathrooms, size }) {
@@ -221,7 +223,7 @@ export function ListingAmenities({ amenities = [] }) {
     <div className="listing-amenity-row">
       {amenities.map((amenity) => (
         <span key={amenity} className="listing-chip">
-          {amenity}
+          {badgeLabel(amenity)}
         </span>
       ))}
     </div>

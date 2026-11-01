@@ -1,3 +1,6 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { House, TriangleAlert } from "lucide-react";
+import AppButton from "../../components/common/AppButton.jsx";
 import { useEffect, useRef, useState } from "react";
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
 import { getSellerListingById, publishSellerListing, unpublishSellerListing, deleteSellerListing } from "../../api/sellerApi";
@@ -67,7 +70,7 @@ export default function SellerAdminListingDetails({
     try {
       if (action === "delete") {
         await deleteSellerListing(listingId);
-        navigate("/seller/account", { state: { message: "Listing permanently deleted." } });
+        navigate("/account/activity", { state: { message: "Listing permanently deleted." } });
       } else {
         const updated = await (action === "publish" ? publishSellerListing : unpublishSellerListing)(listingId);
         setLoadedListing(updated);
@@ -76,20 +79,9 @@ export default function SellerAdminListingDetails({
     } catch (err) { setActionError(getErrorMessage(err, "Could not change listing. Please try again.")); }
     finally { actionPending.current = false; setSaving(false); }
   };
-  if (loading) return <p role="status">Loading listing…</p>;
-  if (error) return <div><p role="alert">{error}</p><button onClick={() => setAttempt((n) => n + 1)}>Retry</button></div>;
-
-  if (!selectedListing) {
-    return (
-      <main className="listing-detail-page">
-        <div className="container py-4">
-          <div className="alert alert-light border mb-0">
-            Listing not found.
-          </div>
-        </div>
-      </main>
-    );
-  }
+  if (loading) return <ContentState busy framed heading="Opening your listing" description="We’re loading the property details and review status." actionLabel="Loading listing…" />;
+  if (error) return <ContentState error framed icon={TriangleAlert} heading="The listing couldn’t open" description={error} actionLabel="Try again" onAction={() => setAttempt((n) => n + 1)} />;
+  if (!selectedListing) return <ContentState framed icon={House} heading="This listing is unavailable" description="Return to your activity to choose a property that is still available." actionLabel="View my activity" to="/account/activity" />;
 
   const Wrapper = isPane ? "aside" : "main";
 
@@ -109,13 +101,9 @@ export default function SellerAdminListingDetails({
           <div className="d-flex justify-content-between align-items-center mb-3">
             <span className="badge bg-light text-dark border">{role} view</span>
 
-            <button
-              type="button"
-              className="btn btn-outline-dark btn-sm"
-              onClick={onClose}
-            >
+            <AppButton intent="secondary" appearance="outline" type="button" onClick={onClose}>
               Close
-            </button>
+            </AppButton>
           </div>
         )}
 
@@ -136,135 +124,97 @@ export default function SellerAdminListingDetails({
           </div>
         </div>
 
-        {selectedListing.adminReview?.notes && <div className="alert alert-info"><strong>Admin feedback:</strong> {selectedListing.adminReview.notes}</div>}
-        {selectedListing.status === "in_review" && <p role="status">Awaiting admin review. No action is needed yet.</p>}
-        {selectedListing.status === "unpublished" && <p>Approved and ready to publish. This listing is not visible to guests yet.</p>}
-        <hr />
+        <div className="listing-detail-sections">
+          <section className="listing-detail-section">
+            {selectedListing.status === "in_review" && <p role="status">Awaiting admin review. No action is needed yet.</p>}
+            {selectedListing.status === "unpublished" && <p>Approved and ready to publish. This listing is not visible to guests yet.</p>}
+            <ListingFacts
+              guests={selectedListing.guestCapacity}
+              bedrooms={selectedListing.bedrooms}
+              bathrooms={selectedListing.bathrooms}
+              size={selectedListing.area}
+            />
+            <div className="my-3">
+              <ListingPrice price={selectedListing.pricePerNight} oldPrice={selectedListing.oldPrice} />
+            </div>
+            <ListingDescription description={selectedListing.description} />
+          </section>
 
-        <ListingFacts
-          guests={selectedListing.guestCapacity}
-          bedrooms={selectedListing.bedrooms}
-          bathrooms={selectedListing.bathrooms}
-          size={selectedListing.area}
-        />
+          {selectedListing.amenities?.length > 0 && (
+            <section className="listing-detail-section"><ListingAmenities amenities={selectedListing.amenities} /></section>
+          )}
+          {selectedListing.tags?.length > 0 && (
+            <section className="listing-detail-section"><ListingTags tags={selectedListing.tags} /></section>
+          )}
+          {(selectedListing.host?.name || selectedListing.seller?.name) && (
+            <section className="listing-detail-section">
+              <ListingHostInfo hostName={selectedListing.host?.name || selectedListing.seller?.name} />
+            </section>
+          )}
+          {selectedListing.houseRules?.length > 0 && (
+            <section className="listing-detail-section"><ListingHouseRules rules={selectedListing.houseRules} /></section>
+          )}
 
-        <div className="my-3">
-          <ListingPrice
-            price={selectedListing.pricePerNight}
-            oldPrice={selectedListing.oldPrice}
-          />
-        </div>
-
-        <ListingDescription description={selectedListing.description} />
-
-        <hr />
-
-        <ListingAmenities amenities={selectedListing.amenities} />
-
-        <hr />
-
-        <ListingTags tags={selectedListing.tags} />
-
-        <hr />
-
-        <ListingHostInfo
-          host={selectedListing.host}
-          seller={selectedListing.seller}
-        />
-
-        <hr />
-
-        <ListingHouseRules rules={selectedListing.houseRules} />
-
-        {role === "seller" && (
-          <>
-            <hr />
-
+        {role === "seller" && ["published", "unpublished", "draft", "rejected"].includes(selectedListing.status) && (
+          <section className="listing-detail-section">
             <div className="d-flex gap-2 flex-wrap">
               {selectedListing.status === "published" && (
                 <>
-                  <Link
-                    to={`/seller/listings/${selectedListing._id}/edit`}
-                    className="btn btn-outline-dark"
-                  >
+                  <AppButton intent="secondary" appearance="outline" as={Link} to={`/seller/listings/${selectedListing._id}/edit`}>
                     Edit listing
-                  </Link>
+                  </AppButton>
 
-                  <button
-                    disabled={pending || saving}
-                    type="button"
-                    className="btn btn-outline-warning"
-                    onClick={() => act("unpublish", selectedListing._id, onUnpublish)}
-                  >
+                  <AppButton intent="warning" appearance="outline" disabled={pending || saving} type="button" onClick={() => act("unpublish", selectedListing._id, onUnpublish)}>
                     Unpublish
-                  </button>
+                  </AppButton>
                 </>
               )}
 
               {selectedListing.status === "unpublished" && (
                 <>
-                  <button
-                    disabled={pending || saving}
-                    type="button"
-                    className="btn btn-outline-success"
-                    onClick={() => act("publish", selectedListing._id, onPublish)}
-                  >
+                  <AppButton intent="success" appearance="outline" disabled={pending || saving} type="button" onClick={() => act("publish", selectedListing._id, onPublish)}>
                     Publish
-                  </button>
+                  </AppButton>
 
-                  <button
-                    disabled={pending || saving}
-                    type="button"
-                    className="btn btn-outline-danger"
-                    onClick={() => act("delete", selectedListing._id, onDelete)}
-                  >
+                  <AppButton intent="danger" appearance="outline" disabled={pending || saving} type="button" onClick={() => act("delete", selectedListing._id, onDelete)}>
                     Delete permanently
-                  </button>
+                  </AppButton>
                 </>
               )}
 
               {selectedListing.status === "draft" && (
                 <>
-                  <Link
-                    to={`/seller/listings/${selectedListing._id}/edit`}
-                    className="btn btn-outline-dark"
-                  >
+                  <AppButton intent="secondary" appearance="outline" as={Link} to={`/seller/listings/${selectedListing._id}/edit`}>
                     Continue editing
-                  </Link>
+                  </AppButton>
 
-                  <button
-                    disabled={pending || saving}
-                    type="button"
-                    className="btn btn-outline-danger"
-                    onClick={() => act("delete", selectedListing._id, onDelete)}
-                  >
+                  <AppButton intent="danger" appearance="outline" disabled={pending || saving} type="button" onClick={() => act("delete", selectedListing._id, onDelete)}>
                     Delete permanently
-                  </button>
+                  </AppButton>
                 </>
               )}
 
               {selectedListing.status === "rejected" && (
                 <>
-                  <Link
-                    to={`/seller/listings/${selectedListing._id}/edit`}
-                    className="btn btn-outline-dark"
-                  >
+                  <AppButton intent="secondary" appearance="outline" as={Link} to={`/seller/listings/${selectedListing._id}/edit`}>
                     Edit listing
-                  </Link>
+                  </AppButton>
 
-                  <button
-                    disabled={pending || saving}
-                    type="button"
-                    className="btn btn-outline-danger"
-                    onClick={() => act("delete", selectedListing._id, onDelete)}
-                  >
+                  <AppButton intent="danger" appearance="outline" disabled={pending || saving} type="button" onClick={() => act("delete", selectedListing._id, onDelete)}>
                     Delete permanently
-                  </button>
+                  </AppButton>
                 </>
               )}
             </div>
-          </>
+          </section>
         )}
+          {selectedListing.adminReview?.notes && (
+            <section className="listing-detail-section listing-admin-feedback">
+              <h6>Admin feedback</h6>
+              <p>{selectedListing.adminReview.notes}</p>
+            </section>
+          )}
+        </div>
       </div>
     </Wrapper>
   );

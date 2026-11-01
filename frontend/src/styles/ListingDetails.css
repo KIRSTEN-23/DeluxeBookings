@@ -234,15 +234,6 @@
   background: var(--color-background);
 }
 
-.reserve-button {
-  min-height: var(--button-min-height);
-  border: 1px solid var(--color-brand) !important;
-  border-radius: var(--radius-control) !important;
-  background: var(--color-brand) !important;
-  color: var(--color-fill) !important;
-  font-weight: var(--button-font-weight);
-}
-
 .booking-total {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -320,3 +311,13 @@
 }
 
 /* SALVAGED responsive rules from IndividualListing.css */
+
+/* Dividers belong to populated sections, so optional content cannot double them. */
+.listing-detail-sections { margin-top: 16px; border-top: 1px solid var(--color-stroke-weak); }
+.listing-detail-section { padding-block: 16px; }
+.listing-detail-section + .listing-detail-section { border-top: 1px solid var(--color-stroke-weak); }
+.listing-detail-section .listing-facts-row { border-top: 0; padding-top: 0; }
+.listing-detail-section .listing-host-card { padding: 0; border: 0; box-shadow: none; }
+.listing-admin-feedback { padding: 16px; background: var(--color-background); border-radius: var(--radius-card); }
+.listing-admin-feedback h6 { margin-bottom: 8px; }
+.listing-admin-feedback p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }

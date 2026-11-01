@@ -1,3 +1,6 @@
+import ContentState from "../../components/common/ContentState.jsx";
+import { ClipboardCheck, TriangleAlert } from "lucide-react";
+import AppButton from "../../components/common/AppButton.jsx";
 import { useEffect, useRef, useState } from "react";
 
 import { errorMessage as getErrorMessage } from "../../utils/feedback";
@@ -65,26 +68,26 @@ export default function AdminListingQueueSection() {
   return (
     <section className="admin-queue-section">
       <div className="admin-queue-header">
-        <h1>Listing Review Queue</h1>
+        <h5>Listing Review Queue</h5>
         <p>Review submitted listings before they become available to publish.</p>
       </div>
 
       {rejectId && <form className="alert alert-warning" onSubmit={(event) => { event.preventDefault(); if (rejectionNotes.trim()) decide(rejectId, false, rejectionNotes.trim()); }}>
         <label htmlFor="rejection-notes">Explain what the seller needs to fix</label>
         <textarea id="rejection-notes" required maxLength={1000} value={rejectionNotes} onChange={(event) => setRejectionNotes(event.target.value)} />
-        <button type="submit" disabled={Boolean(pendingId) || !rejectionNotes.trim()}>Confirm rejection</button>
-        <button type="button" disabled={Boolean(pendingId)} onClick={() => setRejectId(null)}>Cancel</button>
+        <AppButton intent="danger" appearance="fill" type="submit" disabled={Boolean(pendingId) || !rejectionNotes.trim()}>Confirm rejection</AppButton>
+        <AppButton intent="secondary" appearance="outline" type="button" disabled={Boolean(pendingId)} onClick={() => setRejectId(null)}>Cancel</AppButton>
       </form>}
-      {isLoading && <p>Loading review queue...</p>}
+      {isLoading && <ContentState busy framed heading="Checking submissions" description="We’re loading the properties awaiting your decision." actionLabel="Loading queue…" />}
 
-      {errorMessage && <p role="alert">{errorMessage} <button disabled={Boolean(pendingId)} onClick={loadQueue}>Reload queue</button></p>}
+      {!isLoading && errorMessage && <ContentState error framed icon={TriangleAlert} heading="The queue couldn’t load" description={errorMessage} actionLabel="Try again" onAction={loadQueue} />}
       {successMessage && <p role="status">{successMessage}</p>}
 
       {!isLoading && !errorMessage && listings.length === 0 && (
-        <p>No listings are currently waiting for review.</p>
+        <ContentState framed icon={ClipboardCheck} heading="You’re all caught up" description="There are no property submissions awaiting review. New submissions will appear here." actionLabel="Check for submissions" onAction={loadQueue} />
       )}
 
-      {!isLoading && listings.length > 0 && (
+      {!isLoading && !errorMessage && listings.length > 0 && (
         <div className="admin-queue-layout">
           <div className="admin-queue-list" aria-label="Listings awaiting review">
             {listings.map((listing) => (
@@ -100,12 +103,12 @@ export default function AdminListingQueueSection() {
             ))}
           </div>
 
-          <SellerAdminListingDetails
+          {selectedListing && <SellerAdminListingDetails
             listing={selectedListing}
             role="admin"
             isPane
             onClose={() => setSelectedListing(null)}
-          />
+          />}
         </div>
       )}
     </section>
