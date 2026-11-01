@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ReviewForm from "../../Components/public/ReviewForm";
+import ReviewForm from "../../components/public/ReviewForm";
 
 import { getPublicListingById } from "../../api/publicApi";
 
@@ -28,21 +28,23 @@ export default function BuyerListingDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
-    const loadListing = async () => {
-      const data = await getPublicListingById(id);
-
-      setListing(data);
-
-      setIsLoading(false);
-    };
-
-    loadListing();
-  }, [id]);
+    let active = true;
+    setIsLoading(true);
+    setErrorMessage("");
+    setListing(null);
+    getPublicListingById(id).then((data) => {
+      if (active) setListing(data);
+    }).catch((error) => {
+      if (active) setErrorMessage(error.response?.status === 404 ? "This listing is no longer available." : "Could not load this listing. Please try again.");
+    }).finally(() => { if (active) setIsLoading(false); });
+    return () => { active = false; };
+  }, [id, attempt]);
 
   if (isLoading) return <p>Loading listing...</p>;
 
-  if (errorMessage) return <p>{errorMessage}</p>;
+  if (errorMessage) return <div className="container py-4"><p role="alert">{errorMessage}</p><button onClick={() => setAttempt((value) => value + 1)}>Retry</button> <a href="/browse">Browse stays</a></div>;
 
   if (!listing) {
     return (

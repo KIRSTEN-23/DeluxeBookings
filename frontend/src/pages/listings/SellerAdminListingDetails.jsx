@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { getSellerListingById } from "../../api/sellerApi";
+import { getAdminListingById } from "../../api/adminApi";
 import { Link, useParams } from "react-router-dom";
 
 import {
@@ -29,8 +32,24 @@ export default function SellerAdminListingDetails({
 }) {
   const { id } = useParams();
 
-  const selectedListing =
-    listing || listings.find((item) => item._id === id) || listings[0];
+  const [loadedListing, setLoadedListing] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(!listing && Boolean(id));
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    if (listing || !id) return;
+    let active = true;
+    setLoading(true);
+    setError("");
+    const load = role === "admin" ? getAdminListingById : getSellerListingById;
+    load(id).then((data) => { if (active) setLoadedListing(data); })
+      .catch((err) => { if (active) setError(err.response?.status === 404 ? "Listing not found." : "Could not load listing. Please try again."); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [id, listing, role, attempt]);
+  const selectedListing = listing || listings.find((item) => item._id === id) || loadedListing;
+  if (loading) return <p role="status">Loading listing…</p>;
+  if (error) return <div><p role="alert">{error}</p><button onClick={() => setAttempt((n) => n + 1)}>Retry</button></div>;
 
   if (!selectedListing) {
     return (
