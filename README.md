@@ -8,14 +8,14 @@ A MERN application for discovering luxury accommodation and managing property li
 
 **DV200 · Term 2 · Group project · Local academic prototype**
 
-Built by [Kirsten Venter](https://github.com/KIRSTEN-23), [Khanyisile Manana](https://github.com/Khanyi20) and [Joelene du Toit](https://github.com/Joelene241161).
+Developed as a collaborative DV200 MERN application.
 
-This portfolio focuses on **Kirsten's listings entity**: property data, listing CRUD, buyer/seller/admin listing views and the review-to-publication workflow. Authentication, bookings and reviews provide the wider team application context. The current portfolio iteration also includes later fixes to validation, feedback, routing and fluid layouts.
+The application centres on **the listing entity**: property data, listing CRUD, buyer/seller/admin listing views and the review-to-publication workflow. Authentication, bookings and reviews connect the listing journeys to the wider application. Current refinements improve validation, system feedback, navigation and fluid layouts.
 
 ## Contents
 
 - [About the Project](#about-the-project)
-- [My Contribution and Collaboration](#my-contribution-and-collaboration)
+- [Project Scope and Collaboration](#project-scope-and-collaboration)
 - [Tech Stack and Justification](#tech-stack-and-justification)
 - [Key Features](#key-features)
 - [Process and Planning](#process-and-planning)
@@ -44,15 +44,15 @@ The central listings problem is keeping the same property information consistent
 
 This is a local assessment project. No deployment was involved, and the application does not process payments or send booking confirmation emails.
 
-## My Contribution and Collaboration
+## Project Scope and Collaboration
 
-| Contributor | Scope in this portfolio |
+| Area | Implementation |
 | --- | --- |
-| [Kirsten Venter](https://github.com/KIRSTEN-23) | Listings entity: schema, listing CRUD, role-specific listing screens and approval/publication flow. |
-| [Khanyisile Manana](https://github.com/Khanyi20) | Group collaborator on the shared application. |
-| [Joelene du Toit](https://github.com/Joelene241161) | Group collaborator on the shared application. |
+| Listing entity | Property schema, CRUD API, role-specific screens and review/publication workflow. |
+| Authentication | Picture-choice registration and login, authenticated API requests and role checks. |
+| Bookings and reviews | Booking requests, seller booking views and review submissions. |
 
-The portfolio presentation centres on the listings work, with authentication, bookings and reviews credited as shared team context.
+The project combines these areas into public browsing, seller management and administrator review journeys.
 
 The original presentation records merge conflicts, file-path problems, missing dependencies and communication as development challenges. Feature-based folders and shared API/component conventions help make these integration boundaries easier to follow.
 
@@ -68,13 +68,13 @@ The original presentation records merge conflicts, file-path problems, missing d
 | **React Router** | Maps public, seller and administrator URLs to their page compositions. |
 | **Axios** | Connects the frontend to the API and provides a common place for request configuration and errors. |
 | **React Bootstrap + CSS** | Supplies common controls, with application layout rules collected in a dedicated responsive stylesheet. |
-| **bcrypt + JSON Web Tokens** | Supports the team's picture-password authentication and authenticated API access. |
+| **bcrypt + JSON Web Tokens** | Supports picture-password authentication and authenticated API access. |
 
 The graphical password is a creative authentication exercise, not a production authentication scheme. Hashing protects the stored password representation, but the current picture choices provide only 96 possible combinations.
 
 ## Key Features
 
-### Listings: the portfolio focus
+### The listing entity
 
 | Journey | Current behaviour |
 | --- | --- |
@@ -88,11 +88,62 @@ The graphical password is a creative authentication exercise, not a production a
 | Unpublish and delete | Sellers can remove a published listing from public results or permanently delete a listing after confirmation. |
 | System feedback | Listing flows display loading, validation, success, failure and relevant next-step messages. |
 
-![Original group-build listing screen](frontend/src/Assets/ReadMeimages/product-listings.png)
+### Current interface snapshots
 
-*Historical screenshot from the group project. The current portfolio version includes subsequent interface refinements.*
+These snapshots show the current local application with fictional listing, account and booking data supplied for documentation. They demonstrate the interface rather than a deployed service or live marketplace activity.
 
-### Wider team application
+**Browse, search and filters**
+
+The image header contains the search toolbar. Filters remain visible, Clear sits beside the filter heading, and Apply filter appears below the options.
+
+![Current browse page with search toolbar, filters and property results](frontend/src/Assets/ReadMeimages/current/browse.jpg)
+
+**Property details and booking entry**
+
+Property photos, capacity, amenities, house rules and nightly pricing lead into the booking request journey.
+
+![Current property details page with booking action](frontend/src/Assets/ReadMeimages/current/property-details.jpg)
+
+**Seller activity**
+
+Listings and bookings occupy separate sections, with status filters and property management actions.
+
+![Current seller activity showing listings and guest bookings](frontend/src/Assets/ReadMeimages/current/seller-activity.jpg)
+
+**Listing submission**
+
+The guided form begins with property type selection before collecting location, property details, pricing and images.
+
+![Current listing creation form with property type choices](frontend/src/Assets/ReadMeimages/current/create-listing.jpg)
+
+**Administrator review**
+
+Review cards group price and guest capacity, use shared property/status badges, and open a details panel with feedback at the bottom.
+
+![Current administrator listing review queue and details panel](frontend/src/Assets/ReadMeimages/current/admin-review.jpg)
+
+**Account profile**
+
+Profile details are separate from activity, with consistent edit, logout and delete actions.
+
+![Current account profile with white details container and aligned actions](frontend/src/Assets/ReadMeimages/current/profile.jpg)
+
+**Empty states**
+
+Sections use an icon, distinct heading, explanation and next-step button. Listings and bookings retain separate outer headings.
+
+![Current seller activity empty states for listings and bookings](frontend/src/Assets/ReadMeimages/current/empty-activity.jpg)
+
+<details>
+<summary>Mobile browse snapshot</summary>
+
+The same controls wrap into a single-column flow at a 390px viewport.
+
+<img src="frontend/src/Assets/ReadMeimages/current/browse-mobile.jpg" alt="Current mobile browse interface with wrapping search controls and visible filters" width="390">
+
+</details>
+
+### Connected application features
 
 - Picture-based account registration and login, with customer/seller account choices.
 - Account viewing, profile editing, logout and account deletion.
@@ -127,7 +178,7 @@ The repository contains original planning, user-flow and wireframe assets. These
 
 The work connects schema design to API routes and then to React page compositions. Shared listing cards and detail components reduce duplication between role views.
 
-A later portfolio audit identified integration problems such as broken route links, mismatched request fields, missing action handlers and silent failures. The refinement pass addressed these alongside status guards, account ownership, clearer feedback and fluid layouts. [Audit resolutions](docs/audit-resolution.md) and [responsive layout notes](docs/responsiveness.md) record that work and its verification limits.
+A subsequent application audit identified integration problems such as broken route links, mismatched request fields, missing action handlers and silent failures. The refinement pass addressed these alongside status guards, account ownership, clearer feedback and fluid layouts. [Audit resolutions](docs/audit-resolution.md) and [responsive layout notes](docs/responsiveness.md) record that work and its verification limits.
 
 ## Running the Project
 
@@ -162,7 +213,7 @@ npm ci
 
 ### Configuration
 
-Create `backend/.env` if it does not already exist, and supply your own values:
+Create `backend/.env` if it does not already exist, and supply the required values:
 
 ```env
 PORT=5001
@@ -170,7 +221,7 @@ MONGO_URI=mongodb://127.0.0.1:27017/deluxe_bookings
 JWT_SECRET=replace_with_a_long_random_secret
 ```
 
-For Atlas, use your own connection string and permitted network access. Do not commit connection strings, secrets or real account details.
+For Atlas, use the relevant connection string and permitted network access. Do not commit connection strings, secrets or real account details.
 
 The frontend defaults to `http://localhost:5001/api`. To override it, create or update `frontend/.env`:
 
@@ -196,7 +247,7 @@ npm run dev
 
 Open [the local frontend](http://localhost:5173). Vite may choose another port if 5173 is occupied. [The API root](http://localhost:5001/) returns a running-status message; it is not a full database-health endpoint.
 
-Register a fictional customer or seller through the application. Administrator access is assigned separately in the assessment database to an existing account with `userRole: "A"`; public registration cannot grant this role. Use your own local test database and sign in again after changing an account's role.
+Register a fictional customer or seller through the application. Administrator access is assigned separately in the assessment database to an existing account with `userRole: "A"`; public registration cannot grant this role. Use a local test database and sign in again after changing an account's role.
 
 ## Project Structure
 
@@ -224,7 +275,7 @@ frontend/
 │   ├── utils/                # Mapping, validation, feedback and local drafts
 │   └── Assets/               # Application imagery and planning evidence
 └── tests/                    # Frontend utility regression checks
-docs/                         # Controller notes, audit and portfolio material
+docs/                         # Controller notes, audit and presentation material
 ```
 
 ## Architecture and Data
@@ -249,6 +300,71 @@ The `Listing` document includes:
 - A status plus administrator review notes, reviewer and review time.
 
 Bookings can reference a listing. Reviews are currently submitted using a property name, so they do not yet provide a reliable reference for calculating per-listing ratings.
+
+### Entity relationships
+
+The crow’s-foot ERD reflects the current Mongoose schemas. `||` means exactly one, `|o` / `o|` means zero or one, and `o{` means zero or many. Dotted relationships represent ObjectId references; the solid relationship represents embedded review metadata. `FK` marks a logical document reference, not a database-enforced SQL foreign key.
+
+```mermaid
+erDiagram
+    direction LR
+    User ||..o{ Listing : submits
+    User |o..o{ Booking : places
+    Listing ||..o{ Booking : receives
+    Listing ||--o| AdminReview : embeds
+    User |o..o{ AdminReview : reviews
+
+    User {
+        ObjectId _id PK
+        string name
+        string email UK
+        string password "bcrypt hash"
+        string userRole "B, S or A"
+    }
+    Listing {
+        ObjectId _id PK
+        ObjectId seller FK "required User reference"
+        string title
+        string propertyType
+        number pricePerNight
+        number guestCapacity
+        string status
+        boolean isPaused
+        object location "embedded"
+        array images "embedded"
+    }
+    Booking {
+        ObjectId _id PK
+        ObjectId listing FK "required Listing reference"
+        ObjectId user FK "optional User reference"
+        string firstName
+        string lastName
+        string email
+        string checkIn
+        string checkOut
+        number totalPrice
+        string status
+    }
+    AdminReview {
+        ObjectId reviewedBy FK "optional User reference"
+        date reviewedAt
+        string notes
+    }
+    Review {
+        ObjectId _id PK
+        string name
+        string property "property name, not a reference"
+        number rating
+        string comment
+    }
+```
+
+- A listing requires a seller reference, and a booking requires a listing reference. A booking's account reference is optional, supporting guest bookings.
+- `AdminReview` represents the embedded `Listing.adminReview` fields rather than a separate collection. Its metadata is optional; the schema defaults to an empty object before a review decision.
+- `Review` has no relationship line because the implementation stores a property name and reviewer name as strings. It does not currently reference `Listing` or `User` by ID.
+- Location and image objects are embedded within a listing. Role values distinguish customers, sellers and administrators within the same `User` collection.
+
+Schema sources: [users](backend/features/users/userSchema.js), [listings](backend/features/listings/listingSchema.js), [bookings](backend/features/bookings/bookingSchema.js) and [reviews](backend/features/reviews/reviewSchema.js).
 
 ### Listing lifecycle
 
@@ -275,7 +391,7 @@ All paths below are relative to `http://localhost:5001` by default.
 | GET | `/api/listings/browse` | Published catalogue. |
 | GET | `/api/listings/browse/:id` | Published property details. |
 | GET | `/api/listings/search` | Combined public search filters. |
-| GET / POST | `/api/listings/seller/my-listings` | Read the owner's listings or create a submission. |
+| GET / POST | `/api/listings/seller/my-listings` | Read the authenticated seller's listings or create a submission. |
 | GET / PUT / DELETE | `/api/listings/seller/my-listings/:id` | Read, update or delete an owned listing. |
 | PATCH | `/api/listings/seller/my-listings/:id/publish` | Publish an eligible listing. |
 | PATCH | `/api/listings/seller/my-listings/:id/unpublish` | Unpublish a published listing. |
@@ -286,11 +402,11 @@ All paths below are relative to `http://localhost:5001` by default.
 
 ## Core Code: Listings CRUD API
 
-Creating our own API was a core term outcome. The examples below connect **Create, Read, Update and Delete** to the seller listing routes. Editing uses Read to load the form and Update to save its changes.
+Creating a custom API was a core term outcome. The examples below connect **Create, Read, Update and Delete** to the seller listing routes. Editing uses Read to load the form and Update to save its changes.
 
 Base URL: `http://localhost:5001/api/listings/seller/my-listings`.
 
-These excerpts come from the current portfolio version of [`sellerListingController.js`](backend/features/listings/sellerListingController.js). The surrounding handlers catch errors. [`listingRoutes.js`](backend/features/listings/listingRoutes.js) applies token and seller-role middleware before dispatching requests. `sellerId` comes from `req.user.id`.
+These excerpts come from the current application version of [`sellerListingController.js`](backend/features/listings/sellerListingController.js). The surrounding handlers catch errors. [`listingRoutes.js`](backend/features/listings/listingRoutes.js) applies token and seller-role middleware before dispatching requests. `sellerId` comes from `req.user.id`.
 
 ### Create
 
@@ -306,7 +422,7 @@ const listing = await Listing.create({
 res.status(201).json(listing);
 ```
 
-`pickListingFields` accepts only editable property fields. The server supplies the authenticated owner and initial `in_review` status, then returns the new listing with HTTP 201.
+`pickListingFields` accepts only editable property fields. The server supplies the authenticated seller and initial `in_review` status, then returns the new listing with HTTP 201.
 
 ### Read
 
@@ -426,7 +542,7 @@ The current automated suites contain **15 backend and 8 frontend tests**. Backen
 
 ### Learning aligned with the term
 
-**Creating our own API:** The listings work connects HTTP routes, controllers, schema validation, role checks and JSON responses. A button in the interface is only the beginning; the server must also enforce ownership and valid data transitions.
+**Creating a custom API:** The listings work connects HTTP routes, controllers, schema validation, role checks and JSON responses. A button in the interface is only the beginning; the server must also enforce ownership and valid data transitions.
 
 **Creative authentication:** The team explored a picture-choice password rather than a conventional text-password interaction. Integrating listings with that flow demonstrates the distinction between authenticating an account and authorising what that account may do. bcrypt and JWT support the implementation, while the small picture-choice space remains a prototype limitation.
 
@@ -446,11 +562,11 @@ The current automated suites contain **15 backend and 8 frontend tests**. Backen
 
 ## Presentation
 
-- [10-minute Canva portfolio presentation](https://canva.link/kggp8nfvz0thqff).
+- [10-minute application presentation](https://canva.link/kggp8nfvz0thqff).
 - [Original group presentation](https://docs.google.com/presentation/d/1VcBYSDnHgo7BGjqqqkDsqbiWnNSc8-G-iYqFT0hJzWM/edit).
-- [10-minute portfolio presenter guide](docs/presentation/portfolio-talk.md), centred on the listings entity, with a local demo runbook and the CRUD API explanations.
+- [10-minute presentation guide](docs/presentation/presentation-guide.md), centred on the listings entity, with a local demo runbook and the CRUD API explanations.
 
-The portfolio talk keeps the wider application introduction short and reserves three minutes for a live demonstration. A recording is not linked until one has been produced.
+The presentation keeps the wider application introduction short and reserves three minutes for a live demonstration. A recording is not linked until one has been produced.
 
 ## Contributing
 
@@ -462,10 +578,10 @@ No software licence is declared in this repository. Application branding and thi
 
 ## Acknowledgements
 
-Thank you to Khanyisile Manana and Joelene du Toit for their collaboration, and to the maintainers of the open-source tools used in the project.
+The project acknowledges the group collaboration and the open-source tools used in the implementation.
 
 The original DV200 group outline informed the presentation coverage. The README organisation loosely follows the [CLAW project reference](https://github.com/KIRSTEN-23/MERN_CLAW_NPO_Website), adapted to this local MERN project without a deployment section.
 
 ## Contact
 
-For project feedback, [open a GitHub issue](https://github.com/KIRSTEN-23/DeluxeBookings/issues) or visit [Kirsten's GitHub profile](https://github.com/KIRSTEN-23).
+For project feedback, [open a GitHub issue](https://github.com/KIRSTEN-23/DeluxeBookings/issues).
